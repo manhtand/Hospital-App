@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/labor_navigation"
+    app:startDestination="@id/labor_navigation_dashboard">
+
+    <activity
+        android:id="@+id/labor_navigation_home"
+        android:name="com.example.krankenhaus.ui.loginscreen.LogInScreenActivity"
+        android:label="activity_log_in_screen"
+        tools:layout="@layout/activity_log_in_screen" />
+
+    <fragment
+        android:id="@+id/labor_navigation_notifications"
+        android:name="com.example.krankenhaus.ui.service.labor.ui.main.LaborNotificationsFragment"
+        android:label="fragment_labor_notifications"
+        tools:layout="@layout/fragment_labor_notifications" />
+
+    <fragment
+        android:id="@+id/labor_navigation_dashboard"
+        android:name="com.example.krankenhaus.ui.service.labor.ui.main.LaborDashboardFragment"
+        android:label="fragment_labor_dashboard"
+        tools:layout="@layout/fragment_labor_dashboard" />
+</navigation>
