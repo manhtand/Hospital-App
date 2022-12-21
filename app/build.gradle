@@ -32,6 +32,7 @@ android {
 }
 
 dependencies {
+    def room_version = "2.4.3"
 
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
@@ -44,4 +45,22 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+
+    //Cardview Components
+    implementation "androidx.cardview:cardview:1.0.0"
+    //Lifecycle Extension Components
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    //Room Components
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    //Dagger Components
+    implementation 'com.google.dagger:hilt-android:2.41'
+    annotationProcessor 'com.google.dagger:hilt-compiler:2.41'
+    //Test Components
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.20'
 }
