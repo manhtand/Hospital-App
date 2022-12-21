@@ -18,8 +18,8 @@ import java.util.List;
 @Dao
 public interface VisitDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertVisit(Visit visit);
+    void insertVisit(Visit visit);
 
     @Query("SELECT * FROM visit_table ORDER BY id ASC")
-    public LiveData<List<Visit>> getAllVisits();
+    LiveData<List<Visit>> getAllVisits();
 }

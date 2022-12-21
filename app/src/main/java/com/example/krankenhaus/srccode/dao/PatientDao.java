@@ -19,18 +19,18 @@ import com.example.krankenhaus.srccode.entities.relations.PatientAndRecord;
 @Dao
 public interface PatientDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertPatient(Patient patient);
+    void insertPatient(Patient patient);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    public void updatePatient(Patient patient);
+    void updatePatient(Patient patient);
 
     @Query("SELECT * FROM patient_table ORDER BY name ASC")
-    public LiveData<List<Patient>> getAllPatients();
+    LiveData<List<Patient>> getAllPatients();
 
     @Query("SELECT * FROM patient_table WHERE patient_table.insurance_number = :insuranceNumber")
-    public LiveData<Patient> getPatientByInsuranceNumber(String insuranceNumber);
+    LiveData<Patient> getPatientByInsuranceNumber(String insuranceNumber);
 
     @Transaction
     @Query("SELECT * FROM patient_table WHERE patient_table.insurance_number = :insuranceNumber")
-    public LiveData<PatientAndRecord> getPatientAndRecordByInsuranceNumber(String insuranceNumber);
+    LiveData<PatientAndRecord> getPatientAndRecordByInsuranceNumber(String insuranceNumber);
 }

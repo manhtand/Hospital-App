@@ -19,15 +19,15 @@ import com.example.krankenhaus.srccode.entities.relations.RecordWithAll;
 @Dao
 public interface RecordDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertRecord(Record record);
+    void insertRecord(Record record);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    public void updateRecord(Record record);
+    void updateRecord(Record record);
 
     @Query("SELECT * FROM records")
-    public LiveData<List<Record>> getAllRecords();
+    LiveData<List<Record>> getAllRecords();
 
     @Transaction
     @Query("SELECT * FROM records WHERE records.id = :recordId")
-    public LiveData<RecordWithAll> getRecordWithAllByRecordId(int recordId);
+    LiveData<RecordWithAll> getRecordWithAllByRecordId(int recordId);
 }

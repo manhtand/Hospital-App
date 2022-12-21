@@ -14,11 +14,11 @@ import com.example.krankenhaus.srccode.entities.ExaminationAssignment;
 @Dao
 public interface ExaminationAssignmentDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertExaminationAssignment(ExaminationAssignment examinationAssignment);
+    void insertExaminationAssignment(ExaminationAssignment examinationAssignment);
 
     @Delete
-    public void deleteExaminationAssignment(ExaminationAssignment examinationAssignment);
+    void deleteExaminationAssignment(ExaminationAssignment examinationAssignment);
 
     @Query("SELECT * FROM examination_assignment_table")
-    public LiveData<List<ExaminationAssignment>> getAllExaminationAssignments();
+    LiveData<List<ExaminationAssignment>> getAllExaminationAssignments();
 }

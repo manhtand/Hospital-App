@@ -9,5 +9,5 @@ import com.example.krankenhaus.srccode.entities.MRT;
 @Dao
 public interface MRTDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertMRT(MRT mrt);
+    void insertMRT(MRT mrt);
 }

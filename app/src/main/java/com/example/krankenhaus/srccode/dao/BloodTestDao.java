@@ -14,8 +14,8 @@ import io.reactivex.Completable;
 @Dao
 public interface BloodTestDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertBloodTest(BloodTest bloodTest);
+    void insertBloodTest(BloodTest bloodTest);
 
     @Delete
-    public void deleteBloodTest(BloodTest bloodTest);
+    void deleteBloodTest(BloodTest bloodTest);
 }

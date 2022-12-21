@@ -11,5 +11,5 @@ import com.example.krankenhaus.srccode.entities.Medication;
 @Dao
 public interface MedicationDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertMedication(Medication medication);
+    void insertMedication(Medication medication);
 }
