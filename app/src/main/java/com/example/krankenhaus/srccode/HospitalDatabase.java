@@ -1,10 +1,13 @@
 package com.example.krankenhaus.srccode;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.krankenhaus.srccode.dao.BedDao;
 import com.example.krankenhaus.srccode.dao.BloodTestDao;
@@ -22,6 +25,8 @@ import com.example.krankenhaus.srccode.entities.MRT;
 import com.example.krankenhaus.srccode.entities.Patient;
 import com.example.krankenhaus.srccode.entities.Record;
 import com.example.krankenhaus.srccode.entities.Visit;
+
+import java.time.LocalDate;
 
 @Database(
         entities = {
@@ -55,8 +60,31 @@ public abstract class HospitalDatabase extends RoomDatabase {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     HospitalDatabase.class, "hospital_database")
                     .fallbackToDestructiveMigration()
+                    .addCallback(roomCallback)
                     .build();
         }
         return instance;
+    }
+
+    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+            new PopulateDbAsyncTask(instance).execute();
+        }
+    };
+
+    private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
+        private PatientDao patientDao;
+
+        private PopulateDbAsyncTask(HospitalDatabase hospitalDatabase) {
+            patientDao = hospitalDatabase.patientDao();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            patientDao.insertPatient(new Patient("1", "Doan", LocalDate.of(2001, 10, 02), "Hanoi", "Hanoi", "1000"));
+            return null;
+        }
     }
 }

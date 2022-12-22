@@ -5,8 +5,9 @@ import android.os.Bundle;
 
 import com.example.krankenhaus.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.NavGraph;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -16,6 +17,8 @@ import com.example.krankenhaus.databinding.ActivityDoctorBinding;
 public class DoctorActivity extends AppCompatActivity {
 
     private ActivityDoctorBinding binding;
+    DoctorDashboardViewModel doctorDashboardViewModel = new ViewModelProvider(this).get(DoctorDashboardViewModel.class);
+    DoctorNotificationsViewModel doctorNotificationsViewModel = new ViewModelProvider(this).get(DoctorNotificationsViewModel.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

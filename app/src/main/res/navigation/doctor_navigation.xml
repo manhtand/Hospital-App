@@ -15,12 +15,29 @@
         android:id="@+id/doctor_navigation_dashboard"
         android:name="com.example.krankenhaus.ui.doctor.ui.main.DoctorDashboardFragment"
         android:label="fragment_doctor_dashboard"
-        tools:layout="@layout/fragment_doctor_dashboard" />
+        tools:layout="@layout/fragment_doctor_dashboard" >
+        <action
+            android:id="@+id/action_doctor_navigation_dashboard_to_visitListFragment"
+            app:destination="@id/visitListFragment" />
+        <action
+            android:id="@+id/action_doctor_navigation_dashboard_to_patientListFragment"
+            app:destination="@id/patientListFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/doctor_navigation_notifications"
         android:name="com.example.krankenhaus.ui.doctor.ui.main.DoctorNotificationsFragment"
         android:label="fragment_doctor_notifications"
         tools:layout="@layout/fragment_doctor_notifications" />
+    <fragment
+        android:id="@+id/visitListFragment"
+        android:name="com.example.krankenhaus.ui.doctor.ui.main.VisitListFragment"
+        android:label="fragment_visit_list"
+        tools:layout="@layout/fragment_visit_list" />
+    <fragment
+        android:id="@+id/patientListFragment"
+        android:name="com.example.krankenhaus.ui.doctor.ui.main.PatientListFragment"
+        android:label="fragment_patient_list"
+        tools:layout="@layout/fragment_patient_list" />
 
 </navigation>
