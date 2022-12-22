@@ -12,11 +12,19 @@ import com.example.krankenhaus.srccode.entities.BloodTest;
 import io.reactivex.Completable;
 
 public class BloodTestRepository {
+    private volatile static BloodTestRepository INSTANCE = null;
     private final BloodTestDao bloodTestDao;
 
-    public BloodTestRepository(Application application) {
+    private BloodTestRepository(Application application) {
         HospitalDatabase hospitalDatabase = HospitalDatabase.getInstance(application);
         bloodTestDao = hospitalDatabase.bloodTestDao();
+    }
+
+    public static synchronized BloodTestRepository getInstance(Application application) {
+        if (INSTANCE == null) {
+            INSTANCE = new BloodTestRepository(application);
+        }
+        return INSTANCE;
     }
 
     public void insertBloodTest(BloodTest bloodTest){

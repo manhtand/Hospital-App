@@ -13,6 +13,7 @@ import com.example.krankenhaus.srccode.entities.relations.PatientAndRecord;
 import java.util.List;
 
 public class PatientRepository {
+    private volatile static PatientRepository INSTANCE = null;
     private final PatientDao patientDao;
     private LiveData<List<Patient>> allPatients;
 
@@ -20,6 +21,13 @@ public class PatientRepository {
         HospitalDatabase hospitalDatabase = HospitalDatabase.getInstance(application);
         patientDao = hospitalDatabase.patientDao();
         allPatients = patientDao.getAllPatients();
+    }
+
+    public static synchronized PatientRepository getInstance(Application application) {
+        if (INSTANCE == null) {
+            INSTANCE = new PatientRepository(application);
+        }
+        return INSTANCE;
     }
 
     public void insertPatient(Patient patient){

@@ -13,12 +13,20 @@ import com.example.krankenhaus.srccode.entities.relations.RecordWithAll;
 import java.util.List;
 
 public class RecordRepository {
+    private volatile static RecordRepository INSTANCE = null;
     private final RecordDao recordDao;
     private LiveData<List<Record>> allRecords;
 
     public RecordRepository(Application application) {
         HospitalDatabase hospitalDatabase = HospitalDatabase.getInstance(application);
         recordDao = hospitalDatabase.recordDao();
+    }
+
+    public static synchronized RecordRepository getInstance(Application application) {
+        if (INSTANCE == null) {
+            INSTANCE = new RecordRepository(application);
+        }
+        return INSTANCE;
     }
 
     public void insertRecord(Record record){

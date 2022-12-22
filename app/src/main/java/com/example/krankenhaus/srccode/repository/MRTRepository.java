@@ -8,11 +8,19 @@ import com.example.krankenhaus.srccode.dao.MRTDao;
 import com.example.krankenhaus.srccode.entities.MRT;
 
 public class MRTRepository {
+    private volatile static MRTRepository INSTANCE = null;
     private final MRTDao mrtDao;
 
     public MRTRepository(Application application) {
         HospitalDatabase hospitalDatabase = HospitalDatabase.getInstance(application);
         mrtDao = hospitalDatabase.mrtDao();
+    }
+
+    public static synchronized MRTRepository getInstance(Application application) {
+        if (INSTANCE == null) {
+            INSTANCE = new MRTRepository(application);
+        }
+        return INSTANCE;
     }
 
     public void insertMRT(MRT mrt){

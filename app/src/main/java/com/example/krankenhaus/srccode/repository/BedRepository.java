@@ -14,16 +14,24 @@ import io.reactivex.Flowable;
 
 public class BedRepository {
     private final BedDao bedDao;
+    private volatile static BedRepository INSTANCE = null;
     private LiveData<Integer> NumberOfOccupiedBeds;
     private LiveData<Integer> NumberOfTotalBeds;
     private LiveData<List<Bed>> BedList;
 
-    public BedRepository(Application application) {
+    private BedRepository(Application application) {
         HospitalDatabase hospitalDatabase = HospitalDatabase.getInstance(application);
         bedDao = hospitalDatabase.bedDao();
         NumberOfOccupiedBeds = bedDao.getNumberOfOccupiedBeds();
         NumberOfTotalBeds = bedDao.getNumberOfTotalBeds();
         BedList = bedDao.getAllBeds();
+    }
+
+    public static synchronized BedRepository getInstance(Application application) {
+        if (INSTANCE == null) {
+                    INSTANCE = new BedRepository(application);
+        }
+        return INSTANCE;
     }
 
     public void insertBed(Bed bed) {

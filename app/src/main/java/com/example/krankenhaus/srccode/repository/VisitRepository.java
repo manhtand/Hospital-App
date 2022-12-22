@@ -12,6 +12,7 @@ import com.example.krankenhaus.srccode.entities.Visit;
 import java.util.List;
 
 public class VisitRepository {
+    private volatile static VisitRepository INSTANCE = null;
     private final VisitDao visitDao;
     private LiveData<List<Visit>> allVisit;
 
@@ -19,6 +20,13 @@ public class VisitRepository {
         HospitalDatabase hospitalDatabase = HospitalDatabase.getInstance(application);
         visitDao = hospitalDatabase.visitDao();
         allVisit = visitDao.getAllVisits();
+    }
+
+    public static synchronized VisitRepository getInstance(Application application) {
+        if (INSTANCE == null) {
+            INSTANCE = new VisitRepository(application);
+        }
+        return INSTANCE;
     }
 
     public void insertVisit(Visit visit){
