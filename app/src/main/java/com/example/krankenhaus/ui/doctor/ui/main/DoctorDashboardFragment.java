@@ -1,7 +1,9 @@
 package com.example.krankenhaus.ui.doctor.ui.main;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -57,17 +59,17 @@ public class DoctorDashboardFragment extends Fragment {
 
     public void openFragmentPatientList() {
         PatientListFragment patientListFragment = new PatientListFragment();
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.doctor_dashboard_layout, patientListFragment)
-                .addToBackStack(null)
-                .commit();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.setReorderingAllowed(true);
+        ft.replace(R.id.nav_host_fragment_activity_doctor, patientListFragment);
+        ft.commit();
     }
 
     public void openFragmentVisitList() {
         VisitListFragment visitListFragment = new VisitListFragment();
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(((ViewGroup) getView().getParent()).getId(), visitListFragment)
-                .addToBackStack(null)
-                .commit();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.setReorderingAllowed(true);
+        ft.replace(R.id.nav_host_fragment_activity_doctor, visitListFragment);
+        ft.commit();
     }
 }

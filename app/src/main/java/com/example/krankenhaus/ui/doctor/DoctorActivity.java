@@ -8,6 +8,9 @@ import com.example.krankenhaus.R;
 import com.example.krankenhaus.ui.doctor.ui.main.DoctorViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -34,6 +37,8 @@ public class DoctorActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.doctorNavigationView, navController);
 
         getSupportActionBar().setTitle("Doctor");
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
     }
 
     public void setActionBarTitle(String title) {
