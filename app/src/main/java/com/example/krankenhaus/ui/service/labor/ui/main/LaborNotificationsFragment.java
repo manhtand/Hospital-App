@@ -22,13 +22,10 @@ public class LaborNotificationsFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        LaborNotificationsViewModel laborNotificationsViewModel = new ViewModelProvider(this).get(LaborNotificationsViewModel.class);
+        LaborViewModel laborNotificationsViewModel = new ViewModelProvider(this).get(LaborViewModel.class);
 
         binding = FragmentLaborNotificationsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        final TextView textView = binding.messageLaborNotifications;
-        laborNotificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         ((LaborActivity) getActivity()).setActionBarTitle("Notifications");
 

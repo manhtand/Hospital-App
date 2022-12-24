@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.doctor.ui.main.PatientInfoFragment"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.2"
+        android:id="@+id/patient_info_name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:gravity="center"
+        android:text="name"
+        android:background="#E3AA"/>
+
+    <TableLayout
+        android:id="@+id/patient_info_table"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:weightSum="8">
+
+        <TableRow
+            android:layout_weight="1">
+
+            <TextView
+                android:text="Date of birth"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/table_line"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/date_of_birth"
+                android:text="02/10/2001"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:background="@drawable/table_line"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1">
+
+            <TextView
+                android:text="Address"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/table_line"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/address"
+                android:text="Nieder-Ramstaedter Strasse"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:background="@drawable/table_line"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1">
+
+            <TextView
+                android:text="Zipcode"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/table_line"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/zip_code"
+                android:text="64285"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:background="@drawable/table_line"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1">
+
+            <TextView
+                android:text="Place of residence"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/table_line"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/place_of_residence"
+                android:text="Darmstadt"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:background="@drawable/table_line"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1">
+
+            <TextView
+                android:text="Insurance Number"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/table_line"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/insurance_number"
+                android:text="A1234567"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:background="@drawable/table_line"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1">
+
+            <TextView
+                android:text="Insurance Company"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/table_line"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/health_insurance_company"
+                android:text="TK"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:background="@drawable/table_line"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1">
+
+            <TextView
+                android:text="Admission Date"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/table_line"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/admission_date"
+                android:text="24/12/2022"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:background="@drawable/table_line"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1"
+            android:weightSum="5">
+
+            <TextView
+                android:text="is Discharged"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/table_line"
+                android:textStyle="bold"/>
+
+            <RadioGroup
+                android:id="@+id/radio_button_group"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <RadioButton
+                    android:id="@+id/yes_radio_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Yes"
+                    android:background="@drawable/table_line"/>
+
+                <RadioButton
+                    android:id="@+id/no_radio_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="No"
+                    android:background="@drawable/table_line"/>
+            </RadioGroup>
+
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.example.krankenhaus.ui.doctor.ui.main;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -23,9 +24,13 @@ public class DoctorDashboardFragment extends Fragment {
 
     private FragmentDoctorDashboardBinding binding;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        DoctorDashboardViewModel doctorDashboardViewModel = new ViewModelProvider(this).get(DoctorDashboardViewModel.class);
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentDoctorDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -38,14 +43,13 @@ public class DoctorDashboardFragment extends Fragment {
 
         binding.visitListButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                openFragmentVisitList();
-            }
+            public void onClick(View view) { openFragmentVisitList(); }
         });
 
         return root;
     }
 
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
@@ -54,14 +58,16 @@ public class DoctorDashboardFragment extends Fragment {
     public void openFragmentPatientList() {
         PatientListFragment patientListFragment = new PatientListFragment();
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.doctor_dashboard_layout, patientListFragment, patientListFragment.getTag())
+                .replace(R.id.doctor_dashboard_layout, patientListFragment)
+                .addToBackStack(null)
                 .commit();
     }
 
     public void openFragmentVisitList() {
         VisitListFragment visitListFragment = new VisitListFragment();
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.doctor_dashboard_layout, visitListFragment, visitListFragment.getTag())
+                .replace(((ViewGroup) getView().getParent()).getId(), visitListFragment)
+                .addToBackStack(null)
                 .commit();
     }
 }

@@ -23,13 +23,10 @@ public class LaborDashboardFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        LaborDashboardViewModel laborDashboardViewModel = new ViewModelProvider(this).get(LaborDashboardViewModel.class);
+        LaborViewModel laborDashboardViewModel = new ViewModelProvider(this).get(LaborViewModel.class);
 
         binding = FragmentLaborDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        final TextView textView = binding.messageLaborDashboard;
-        laborDashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         ((LaborActivity) getActivity()).setActionBarTitle("Dashboard");
 

@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.example.krankenhaus.R;
 import com.example.krankenhaus.databinding.FragmentAdministratorNotificationsBinding;
 import com.example.krankenhaus.ui.administrator.AdministratorActivity;
-import com.example.krankenhaus.ui.administrator.ui.main.AdministratorNotificationsViewModel;
+import com.example.krankenhaus.ui.administrator.ui.main.AdministratorViewModel;
 
 public class AdministratorNotificationsFragment extends Fragment {
 
@@ -23,13 +23,10 @@ public class AdministratorNotificationsFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        AdministratorNotificationsViewModel administratorNotificationsViewModel = new ViewModelProvider(this).get(AdministratorNotificationsViewModel.class);
+        AdministratorViewModel administratorViewModel = new ViewModelProvider(this).get(AdministratorViewModel.class);
 
         binding = FragmentAdministratorNotificationsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        final TextView textView = binding.messageAdministratorNotifications;
-        administratorNotificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         ((AdministratorActivity) getActivity()).setActionBarTitle("Notifications");
 

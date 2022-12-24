@@ -2,10 +2,13 @@ package com.example.krankenhaus.ui.doctor.ui.main;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -20,9 +23,19 @@ public class PatientListFragment extends Fragment {
     RecyclerView recyclerView;
     private FragmentPatientListBinding binding;
     private PatientAdapter patientAdapter;
-    private DoctorDashboardViewModel doctorDashboardViewModel = new ViewModelProvider(requireActivity()).get(DoctorDashboardViewModel.class);
+    private DoctorViewModel doctorViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        doctorViewModel = new ViewModelProvider(requireActivity()).get(DoctorViewModel.class);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Patient List");
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        container.removeAllViews();
 
         binding = FragmentPatientListBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -32,7 +45,7 @@ public class PatientListFragment extends Fragment {
         patientAdapter = new PatientAdapter();
         recyclerView.setAdapter(patientAdapter);
 
-        doctorDashboardViewModel.getAllPatient().observe(getViewLifecycleOwner(), new Observer<List<Patient>>() {
+        doctorViewModel.getAllPatients().observe(getViewLifecycleOwner(), new Observer<List<Patient>>() {
             @Override
             public void onChanged(List<Patient> patients) {
                 patientAdapter.setPatients(patients);
@@ -40,5 +53,16 @@ public class PatientListFragment extends Fragment {
         });
 
         return root;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

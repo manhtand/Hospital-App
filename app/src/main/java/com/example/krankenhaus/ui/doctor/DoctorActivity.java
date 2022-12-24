@@ -2,8 +2,10 @@ package com.example.krankenhaus.ui.doctor;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.example.krankenhaus.R;
+import com.example.krankenhaus.ui.doctor.ui.main.DoctorViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -15,10 +17,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.krankenhaus.databinding.ActivityDoctorBinding;
 
 public class DoctorActivity extends AppCompatActivity {
-
     private ActivityDoctorBinding binding;
-    DoctorDashboardViewModel doctorDashboardViewModel = new ViewModelProvider(this).get(DoctorDashboardViewModel.class);
-    DoctorNotificationsViewModel doctorNotificationsViewModel = new ViewModelProvider(this).get(DoctorNotificationsViewModel.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,5 +38,24 @@ public class DoctorActivity extends AppCompatActivity {
 
     public void setActionBarTitle(String title) {
         getSupportActionBar().setTitle(title);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if (menuItem.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(menuItem);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStackImmediate();
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 }

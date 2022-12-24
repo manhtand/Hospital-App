@@ -22,13 +22,10 @@ public class DoctorNotificationsFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        DoctorNotificationsViewModel doctorNotificationsViewModel = new ViewModelProvider(this).get(DoctorNotificationsViewModel.class);
+        DoctorViewModel doctorNotificationsViewModel = new ViewModelProvider(this).get(DoctorViewModel.class);
 
         binding = FragmentDoctorNotificationsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        final TextView textView = binding.messageDoctorNotifications;
-        doctorNotificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         ((DoctorActivity) getActivity()).setActionBarTitle("Notifications");
 

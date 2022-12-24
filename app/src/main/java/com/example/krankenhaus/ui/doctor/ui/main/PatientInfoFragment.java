@@ -12,10 +12,10 @@ import com.example.krankenhaus.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link VisitListFragment#newInstance} factory method to
+ * Use the {@link PatientInfoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class VisitListFragment extends Fragment {
+public class PatientInfoFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class VisitListFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public VisitListFragment() {
+    public PatientInfoFragment() {
         // Required empty public constructor
     }
 
@@ -36,11 +36,11 @@ public class VisitListFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment VisitListFragment.
+     * @return A new instance of fragment PatientInfoFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static VisitListFragment newInstance(String param1, String param2) {
-        VisitListFragment fragment = new VisitListFragment();
+    public static PatientInfoFragment newInstance(String param1, String param2) {
+        PatientInfoFragment fragment = new PatientInfoFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -60,8 +60,7 @@ public class VisitListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        container.removeAllViews();
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_visit_list, container, false);
+        return inflater.inflate(R.layout.fragment_patient_info, container, false);
     }
 }

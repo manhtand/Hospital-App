@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.krankenhaus.R;
 import com.example.krankenhaus.srccode.entities.Patient;
@@ -47,12 +49,26 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientH
         private TextView textViewName;
         private RadioButton radioButtonDischarged;
         private RadioButton radioButtonNoDischarged;
+        private Button detailsButton;
 
         public PatientHolder(View itemView) {
             super(itemView);
             textViewName = itemView.findViewById(R.id.patient_name);
             radioButtonDischarged = itemView.findViewById(R.id.yes_radio_button);
             radioButtonNoDischarged = itemView.findViewById(R.id.no_radio_button);
+            detailsButton = itemView.findViewById(R.id.details_button);
+
+            this.detailsButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    PatientInfoFragment patientInfoFragment = new PatientInfoFragment();
+                    ((AppCompatActivity) view.getContext()).getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.doctor_dashboard_layout, patientInfoFragment)
+                            .addToBackStack(null)
+                            .commit();
+                }
+            });
         }
 
         public void setRadioButtonDischarged(boolean discharged) {
