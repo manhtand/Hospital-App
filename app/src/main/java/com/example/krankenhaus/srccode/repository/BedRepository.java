@@ -19,7 +19,7 @@ public class BedRepository {
     private LiveData<Integer> NumberOfTotalBeds;
     private LiveData<List<Bed>> BedList;
 
-    private BedRepository(Application application) {
+    public BedRepository(Application application) {
         HospitalDatabase hospitalDatabase = HospitalDatabase.getInstance(application);
         bedDao = hospitalDatabase.bedDao();
         NumberOfOccupiedBeds = bedDao.getNumberOfOccupiedBeds();

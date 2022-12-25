@@ -38,12 +38,12 @@ public class DoctorDashboardFragment extends Fragment {
 
         ((DoctorActivity) getActivity()).setActionBarTitle("Dashboard");
 
-        binding.patientListButton.setOnClickListener(new View.OnClickListener() {
+        binding.doctorPatientListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { openFragmentPatientList(); }
         });
 
-        binding.visitListButton.setOnClickListener(new View.OnClickListener() {
+        binding.doctorVisitListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { openFragmentVisitList(); }
         });
@@ -61,6 +61,7 @@ public class DoctorDashboardFragment extends Fragment {
         PatientListFragment patientListFragment = new PatientListFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.setReorderingAllowed(true);
+        ft.addToBackStack(null);
         ft.replace(R.id.nav_host_fragment_activity_doctor, patientListFragment);
         ft.commit();
     }
@@ -69,6 +70,7 @@ public class DoctorDashboardFragment extends Fragment {
         VisitListFragment visitListFragment = new VisitListFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.setReorderingAllowed(true);
+        ft.addToBackStack(null);
         ft.replace(R.id.nav_host_fragment_activity_doctor, visitListFragment);
         ft.commit();
     }

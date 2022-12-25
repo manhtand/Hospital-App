@@ -2,6 +2,7 @@ package com.example.krankenhaus.ui.administrator;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.example.krankenhaus.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -36,5 +37,24 @@ public class AdministratorActivity extends AppCompatActivity {
 
     public void setActionBarTitle(String title) {
         getSupportActionBar().setTitle(title);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if (menuItem.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(menuItem);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStackImmediate();
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 }

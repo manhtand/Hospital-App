@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.krankenhaus.R;
 import com.example.krankenhaus.srccode.entities.Patient;
@@ -33,6 +34,19 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientH
         Patient currentPatient = patients.get(position);
         holder.textViewName.setText(currentPatient.getName());
         holder.setRadioButtonDischarged(currentPatient.isDischarged());
+
+        holder.detailsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PatientInfoFragment patientInfoFragment = new PatientInfoFragment();
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                activity.getSupportFragmentManager().beginTransaction()
+                        .setReorderingAllowed(true)
+                        .addToBackStack(null)
+                        .replace(R.id.nav_host_fragment_activity_doctor, patientInfoFragment)
+                        .commit();
+            }
+        });
     }
 
     @Override
@@ -57,18 +71,6 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientH
             radioButtonDischarged = itemView.findViewById(R.id.yes_radio_button);
             radioButtonNoDischarged = itemView.findViewById(R.id.no_radio_button);
             detailsButton = itemView.findViewById(R.id.details_button);
-
-            this.detailsButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    PatientInfoFragment patientInfoFragment = new PatientInfoFragment();
-                    ((AppCompatActivity) view.getContext()).getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.doctor_dashboard_layout, patientInfoFragment)
-                            .addToBackStack(null)
-                            .commit();
-                }
-            });
         }
 
         public void setRadioButtonDischarged(boolean discharged) {
