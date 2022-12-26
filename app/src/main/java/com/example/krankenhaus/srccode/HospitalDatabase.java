@@ -36,7 +36,7 @@ import java.time.LocalDate;
                 Record.class,
                 Visit.class
         },
-        version = 1,
+        version = 2,
         exportSchema = false
 )
 public abstract class HospitalDatabase extends RoomDatabase {
