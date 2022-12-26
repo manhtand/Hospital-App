@@ -15,12 +15,35 @@
         android:id="@+id/administrator_navigation_dashboard"
         android:name="com.example.krankenhaus.ui.administrator.ui.main.AdministratorDashboardFragment"
         android:label="fragment_administrator_dashboard"
-        tools:layout="@layout/fragment_administrator_dashboard" />
+        tools:layout="@layout/fragment_administrator_dashboard" >
+        <action
+            android:id="@+id/action_administrator_navigation_dashboard_to_adminPatientListFragment"
+            app:destination="@id/adminPatientListFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/administrator_navigation_notifications"
         android:name="com.example.krankenhaus.ui.administrator.ui.main.AdministratorNotificationsFragment"
         android:label="fragment_administator_notifications"
         tools:layout="@layout/fragment_administrator_notifications" />
+    <fragment
+        android:id="@+id/adminPatientListFragment"
+        android:name="com.example.krankenhaus.ui.administrator.ui.main.AdminPatientListFragment"
+        android:label="admin_fragment_patient_list"
+        tools:layout="@layout/admin_fragment_patient_list" >
+        <action
+            android:id="@+id/action_adminPatientListFragment_to_addPatientFragment"
+            app:destination="@id/addPatientFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bedListFragment"
+        android:name="com.example.krankenhaus.ui.administrator.ui.main.BedListFragment"
+        android:label="fragment_bed_list"
+        tools:layout="@layout/fragment_bed_list" />
+    <fragment
+        android:id="@+id/addPatientFragment"
+        android:name="com.example.krankenhaus.ui.administrator.ui.main.AddPatientFragment"
+        android:label="fragment_add_patient"
+        tools:layout="@layout/fragment_add_patient" />
 
 </navigation>

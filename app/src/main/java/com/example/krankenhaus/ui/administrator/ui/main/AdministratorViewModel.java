@@ -12,6 +12,7 @@ import com.example.krankenhaus.srccode.repository.BedRepository;
 import com.example.krankenhaus.srccode.repository.PatientRepository;
 import com.example.krankenhaus.ui.doctor.ui.main.DoctorViewModel;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class AdministratorViewModel extends AndroidViewModel {
@@ -24,10 +25,10 @@ public class AdministratorViewModel extends AndroidViewModel {
     public AdministratorViewModel(@NonNull Application application) {
         super(application);
 
-        patientRepository = new PatientRepository(application);
+        patientRepository = PatientRepository.getInstance(application);
         allPatients = patientRepository.getAllPatients();
 
-        bedRepository = new BedRepository(application);
+        bedRepository = BedRepository.getInstance(application);
         allBeds = bedRepository.getAllBeds();
     }
 

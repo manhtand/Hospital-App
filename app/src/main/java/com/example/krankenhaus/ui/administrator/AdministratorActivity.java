@@ -6,6 +6,8 @@ import android.view.MenuItem;
 
 import com.example.krankenhaus.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.NavGraph;
 import androidx.navigation.Navigation;
@@ -33,6 +35,8 @@ public class AdministratorActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.administratorNavigationView, navController);
 
         getSupportActionBar().setTitle("Administrator");
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
     }
 
     public void setActionBarTitle(String title) {

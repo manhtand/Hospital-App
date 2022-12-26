@@ -17,7 +17,7 @@ public class DoctorViewModel extends AndroidViewModel {
 
     public DoctorViewModel(@NonNull Application application) {
         super(application);
-        patientRepository = new PatientRepository(application);
+        patientRepository = PatientRepository.getInstance(application);
         allPatients = patientRepository.getAllPatients();
     }
 

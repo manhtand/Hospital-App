@@ -39,12 +39,12 @@ public class AdministratorDashboardFragment extends Fragment {
 
         binding.administratorBedListButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { openFragmentPatientList(); };
+            public void onClick(View view) { openFragmentBedList(); };
         });
 
         binding.administratorPatientListButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { openFragmentBedList(); };
+            public void onClick(View view) { openFragmentPatientList(); };
         });
 
         return root;
