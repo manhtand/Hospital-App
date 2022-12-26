@@ -10,10 +10,8 @@ import androidx.room.Update;
 
 import java.util.List;
 
-import io.reactivex.Completable;
-import io.reactivex.Flowable;
-
 import com.example.krankenhaus.srccode.entities.Patient;
+import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndRecord;
 
 @Dao
@@ -29,6 +27,10 @@ public interface PatientDao {
 
     @Query("SELECT * FROM patient_table WHERE patient_table.insurance_number = :insuranceNumber")
     LiveData<Patient> getPatientByInsuranceNumber(String insuranceNumber);
+
+    @Transaction
+    @Query("SELECT * FROM patient_table p WHERE p.insurance_number = :insuranceNumber")
+    LiveData<PatientAndBed> getPatientAndBed(String insuranceNumber);
 
     @Transaction
     @Query("SELECT * FROM patient_table WHERE patient_table.insurance_number = :insuranceNumber")

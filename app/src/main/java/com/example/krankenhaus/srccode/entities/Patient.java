@@ -10,24 +10,27 @@ import androidx.room.TypeConverters;
 import java.time.LocalDate;
 
 import com.example.krankenhaus.srccode.converter.LocalDateConverter;
+import com.example.krankenhaus.srccode.converter.HealthStateConverter;
 
-@Entity(tableName = "patient_table")
-/*@Entity(
+@Entity(
         tableName = "patient_table",
         foreignKeys = {
                 @ForeignKey(
-                        entity = Patient.class,
-                        parentColumns = {"id"},
-                        childColumns = {"record_id"},
+                        entity = Bed.class,
+                        parentColumns = {"number"},
+                        childColumns = {"bed_number"},
                         onDelete = ForeignKey.CASCADE
                 )
         }
-)*/
+)
 public class Patient {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "insurance_number")
     private String insuranceNumber;
+
+    @ColumnInfo(name = "bed_number", index = true)
+    private int bedNumber;
 
     @ColumnInfo(name = "name")
     private String name;
@@ -45,6 +48,10 @@ public class Patient {
     @ColumnInfo(name = "zip_code")
     private String zipCode;
 
+    @ColumnInfo(name = "health_state")
+    @TypeConverters(HealthStateConverter.class)
+    private HealthState healthState;
+
     @ColumnInfo(name = "health_insurance_company")
     private String healthInsuranceCompany;
 
@@ -55,13 +62,15 @@ public class Patient {
     @ColumnInfo(name = "is_discharged")
     private boolean isDischarged;
 
-    public Patient(String insuranceNumber, String name, LocalDate dateOfBirth, String address, String placeOfResidence, String zipCode) {
+    public Patient(String insuranceNumber, int bedNumber, String name, LocalDate dateOfBirth, String address, String placeOfResidence, String zipCode) {
         this.insuranceNumber = insuranceNumber;
+        this.bedNumber = bedNumber;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.address = address;
         this.placeOfResidence = placeOfResidence;
         this.zipCode = zipCode;
+        this.healthState = HealthState.NEW;
         this.healthInsuranceCompany = "HealthInsuranceCompany";
         this.admissionDate = LocalDate.now();
         this.isDischarged = false;
@@ -73,6 +82,14 @@ public class Patient {
 
     public void setInsuranceNumber(String insuranceNumber) {
         this.insuranceNumber = insuranceNumber;
+    }
+
+    public int getBedNumber() {
+        return bedNumber;
+    }
+
+    public void setBedNumber(int bedNumber) {
+        this.bedNumber = bedNumber;
     }
 
     public String getName() {
@@ -113,6 +130,14 @@ public class Patient {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public HealthState getHealthState() {
+        return healthState;
+    }
+
+    public void setHealthState(HealthState healthState) {
+        this.healthState = healthState;
     }
 
     public String getHealthInsuranceCompany() {

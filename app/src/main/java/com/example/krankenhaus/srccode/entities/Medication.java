@@ -26,8 +26,7 @@ public class Medication {
     @ColumnInfo(name = "name")
     private String name;
 
-    public Medication(int id, int recordId, String name) {
-        this.id = id;
+    public Medication(int recordId, String name) {
         this.recordId = recordId;
         this.name = name;
     }

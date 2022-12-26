@@ -8,9 +8,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import io.reactivex.Completable;
-import io.reactivex.Flowable;
-
 import com.example.krankenhaus.srccode.entities.Visit;
 
 import java.util.List;
@@ -20,6 +17,6 @@ public interface VisitDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertVisit(Visit visit);
 
-    @Query("SELECT * FROM visit_table ORDER BY id ASC")
+    @Query("SELECT * FROM visit_table ORDER BY visit_table.id ASC")
     LiveData<List<Visit>> getAllVisits();
 }

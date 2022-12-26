@@ -4,8 +4,6 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 
-import io.reactivex.Completable;
-
 import com.example.krankenhaus.srccode.entities.Medication;
 
 @Dao

@@ -24,7 +24,7 @@ import com.example.krankenhaus.srccode.converter.LocalDataTimeConverter;
 public class Visit {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    private int VisitId;
+    private int visitId;
 
     @ColumnInfo(name = "record_id", index = true)
     private int recordId;
@@ -43,11 +43,11 @@ public class Visit {
     }
 
     public int getVisitId() {
-        return VisitId;
+        return visitId;
     }
 
     public void setVisitId(int visitId) {
-        this.VisitId = visitId;
+        this.visitId = visitId;
     }
 
     public int getRecordId() {

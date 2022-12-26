@@ -3,11 +3,17 @@ package com.example.krankenhaus.srccode.repository;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
+import androidx.room.Transaction;
+import androidx.room.Update;
+
 import android.app.Application;
 
 import com.example.krankenhaus.srccode.HospitalDatabase;
 import com.example.krankenhaus.srccode.dao.PatientDao;
 import com.example.krankenhaus.srccode.entities.Patient;
+import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndRecord;
 
 import java.util.List;
@@ -40,6 +46,15 @@ public class PatientRepository {
 
     public LiveData<List<Patient>> getAllPatients(){
         return allPatients;
+    }
+
+    public LiveData<PatientAndBed> getPatientAndBedByInsuranceNumber(String insuranceNumber){
+        try {
+            return new getPatientAndBedByInsuranceNumberAsyncTask(patientDao).execute(insuranceNumber).get();
+        }
+        finally {
+            return null;
+        }
     }
 
     public LiveData<Patient> getPatientByInsuranceNumber(String insuranceNumber){
@@ -85,6 +100,19 @@ public class PatientRepository {
         protected Void doInBackground(Patient... patients) {
             patientDao.updatePatient(patients[0]);
             return null;
+        }
+    }
+
+    private static class getPatientAndBedByInsuranceNumberAsyncTask extends AsyncTask<String,String,LiveData<PatientAndBed>> {
+        private PatientDao patientDao;
+
+        private getPatientAndBedByInsuranceNumberAsyncTask(PatientDao patientDao) {
+            this.patientDao = patientDao;
+        }
+
+        @Override
+        protected LiveData<PatientAndBed> doInBackground(String... strings) {
+            return patientDao.getPatientAndBed(strings[0]);
         }
     }
 

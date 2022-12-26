@@ -11,7 +11,6 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.krankenhaus.srccode.dao.BedDao;
 import com.example.krankenhaus.srccode.dao.BloodTestDao;
-import com.example.krankenhaus.srccode.dao.ExaminationAssignmentDao;
 import com.example.krankenhaus.srccode.dao.MRTDao;
 import com.example.krankenhaus.srccode.dao.MedicationDao;
 import com.example.krankenhaus.srccode.dao.PatientDao;
@@ -19,7 +18,6 @@ import com.example.krankenhaus.srccode.dao.RecordDao;
 import com.example.krankenhaus.srccode.dao.VisitDao;
 import com.example.krankenhaus.srccode.entities.Bed;
 import com.example.krankenhaus.srccode.entities.BloodTest;
-import com.example.krankenhaus.srccode.entities.ExaminationAssignment;
 import com.example.krankenhaus.srccode.entities.Medication;
 import com.example.krankenhaus.srccode.entities.MRT;
 import com.example.krankenhaus.srccode.entities.Patient;
@@ -32,7 +30,6 @@ import java.time.LocalDate;
         entities = {
                 Bed.class,
                 BloodTest.class,
-                ExaminationAssignment.class,
                 Medication.class,
                 MRT.class,
                 Patient.class,
@@ -48,7 +45,6 @@ public abstract class HospitalDatabase extends RoomDatabase {
 
     public abstract BedDao bedDao();
     public abstract BloodTestDao bloodTestDao();
-    public abstract ExaminationAssignmentDao examinationAssigmentDao();
     public abstract MedicationDao medicationDao();
     public abstract MRTDao mrtDao();
     public abstract PatientDao patientDao();
@@ -83,7 +79,7 @@ public abstract class HospitalDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            patientDao.insertPatient(new Patient("1", "Doan", LocalDate.of(2001, 10, 02), "Hanoi", "Hanoi", "1000"));
+            patientDao.insertPatient(new Patient("1",1 , "Doan", LocalDate.of(2001, 10, 02), "Hanoi", "Hanoi", "1000"));
             return null;
         }
     }

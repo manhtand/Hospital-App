@@ -26,8 +26,8 @@ public class BloodTest extends Examination{
     @ColumnInfo(name = "lymphocytes_leukocytes_ratio")
     private double lymphocytesLeukocytesRatio;
 
-    public BloodTest(int id, int recordId, double leukocytesPerNanoLiter, double lymphocytesInHundredPerNanoLiter, double lymphocytesLeukocytesRatio) {
-        super(id, recordId);
+    public BloodTest( int recordId, double leukocytesPerNanoLiter, double lymphocytesInHundredPerNanoLiter, double lymphocytesLeukocytesRatio) {
+        super(recordId);
         this.leukocytesPerNanoLiter = leukocytesPerNanoLiter;
         this.lymphocytesInHundredPerNanoLiter = lymphocytesInHundredPerNanoLiter;
         this.lymphocytesLeukocytesRatio = lymphocytesLeukocytesRatio;

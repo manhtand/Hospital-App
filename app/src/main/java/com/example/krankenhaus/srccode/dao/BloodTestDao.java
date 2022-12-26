@@ -9,8 +9,6 @@ import androidx.room.Update;
 
 import com.example.krankenhaus.srccode.entities.BloodTest;
 
-import io.reactivex.Completable;
-
 @Dao
 public interface BloodTestDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)

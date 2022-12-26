@@ -4,6 +4,10 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
+import androidx.room.Update;
+
 import java.util.List;
 
 import com.example.krankenhaus.srccode.HospitalDatabase;
@@ -17,13 +21,17 @@ public class BedRepository {
     private volatile static BedRepository INSTANCE = null;
     private LiveData<Integer> NumberOfOccupiedBeds;
     private LiveData<Integer> NumberOfTotalBeds;
+    private LiveData<Integer> NumberOfFreelBeds;
+    private LiveData<List<Bed>> FreeBedList;
     private LiveData<List<Bed>> BedList;
 
-    public BedRepository(Application application) {
+    private BedRepository(Application application) {
         HospitalDatabase hospitalDatabase = HospitalDatabase.getInstance(application);
         bedDao = hospitalDatabase.bedDao();
         NumberOfOccupiedBeds = bedDao.getNumberOfOccupiedBeds();
         NumberOfTotalBeds = bedDao.getNumberOfTotalBeds();
+        NumberOfFreelBeds = bedDao.getNumberOfFreeBeds();
+        FreeBedList = bedDao.getAllFreeBeds();
         BedList = bedDao.getAllBeds();
     }
 
@@ -44,6 +52,14 @@ public class BedRepository {
 
     public LiveData<List<Bed>> getAllBeds(){
         return BedList;
+    }
+
+    public LiveData<List<Bed>> getAllFreeBeds(){
+        return FreeBedList;
+    }
+
+    public LiveData<Integer> getNumberOfFreeBeds() {
+        return NumberOfFreelBeds;
     }
 
     public LiveData<Integer> getNumberOfOccupiedBeds() {

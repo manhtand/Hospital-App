@@ -10,10 +10,10 @@ import androidx.room.Update;
 
 import java.util.List;
 
-import io.reactivex.Completable;
 import io.reactivex.Flowable;
 
 import com.example.krankenhaus.srccode.entities.Record;
+import com.example.krankenhaus.srccode.entities.relations.RecordAndVisitAndPatient;
 import com.example.krankenhaus.srccode.entities.relations.RecordWithAll;
 
 @Dao
@@ -24,10 +24,18 @@ public interface RecordDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateRecord(Record record);
 
-    @Query("SELECT * FROM records")
+    @Query("SELECT * FROM record_table")
     LiveData<List<Record>> getAllRecords();
 
     @Transaction
-    @Query("SELECT * FROM records WHERE records.id = :recordId")
-    LiveData<RecordWithAll> getRecordWithAllByRecordId(int recordId);
+    @Query("SELECT * FROM record_table WHERE record_table.id = :recordId")
+    LiveData<List<RecordWithAll>> getRecordWithAllByRecordId(int recordId);
+
+    @Transaction
+    @Query("SELECT * FROM record_table WHERE record_table.patient_insurance_number = :insuranceNumber")
+    LiveData<RecordAndVisitAndPatient> getRecordAndPatientAndVisitByInsuranceNumber(String insuranceNumber);
+
+    @Transaction
+    @Query("SELECT * FROM record_table")
+    LiveData<List<RecordAndVisitAndPatient>> getAllRecordAndPatientAndVisit();
 }

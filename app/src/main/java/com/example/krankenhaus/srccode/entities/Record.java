@@ -6,7 +6,7 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 @Entity(
-        tableName = "records",
+        tableName = "record_table",
         foreignKeys = {
                 @ForeignKey(
                         entity = Patient.class,
@@ -19,7 +19,7 @@ import androidx.room.PrimaryKey;
 public class Record {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    int RecordId;
+    private int recordId;
 
     @ColumnInfo(name = "patient_insurance_number", index = true)
     private String patientInsuranceNumber;
@@ -29,11 +29,11 @@ public class Record {
     }
 
     public int getRecordId() {
-        return RecordId;
+        return recordId;
     }
 
     public void setRecordId(int recordId) {
-        this.RecordId = recordId;
+        this.recordId = recordId;
     }
 
     public String getPatientInsuranceNumber() {

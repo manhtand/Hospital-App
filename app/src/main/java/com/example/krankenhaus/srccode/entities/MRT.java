@@ -20,8 +20,8 @@ public class MRT extends Examination{
     @ColumnInfo(name = "image",typeAffinity = ColumnInfo.BLOB)
     private byte[] image;
 
-    public MRT(int id, int recordId, byte[] image) {
-        super(id, recordId);
+    public MRT(int recordId, byte[] image) {
+        super(recordId);
 
         this.image = image;
     }
