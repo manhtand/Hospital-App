@@ -2,7 +2,6 @@ package com.example.krankenhaus.ui.service.labor.ui.main;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 
@@ -12,12 +11,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.krankenhaus.R;
-import com.example.krankenhaus.databinding.FragmentLaborDashboardBinding;
-import com.example.krankenhaus.ui.doctor.DoctorActivity;
 import com.example.krankenhaus.ui.service.labor.LaborActivity;
+import com.example.krankenhaus.databinding.FragmentLaborDashboardBinding;
 
 public class LaborDashboardFragment extends Fragment {
 
@@ -40,7 +37,7 @@ public class LaborDashboardFragment extends Fragment {
             public void onClick(View view) { openFragmentBloodTestList(); }
         });
 
-        binding.laborMrtButton.setOnClickListener(new View.OnClickListener() {
+        binding.laborMriButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { openFragmentMRTList(); }
         });
@@ -64,11 +61,11 @@ public class LaborDashboardFragment extends Fragment {
     }
 
     public void openFragmentMRTList() {
-        MrtListFragment mrtListFragment = new MrtListFragment();
+        MriListFragment mriListFragment = new MriListFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.setReorderingAllowed(true);
         ft.addToBackStack(null);
-        ft.replace(R.id.nav_host_fragment_activity_labor, mrtListFragment);
+        ft.replace(R.id.nav_host_fragment_activity_labor, mriListFragment);
         ft.commit();
     }
 }

@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.service.labor.ui.main.MrtListFragment">
+    tools:context=".ui.service.labor.ui.main.MriListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/labor_mrt_list"
-        tools:listitem="@layout/mrt_item" />
+        tools:listitem="@layout/mri_item" />
 
 </FrameLayout>

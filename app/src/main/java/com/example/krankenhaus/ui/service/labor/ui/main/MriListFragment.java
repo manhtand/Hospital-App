@@ -12,13 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.krankenhaus.R;
-import com.example.krankenhaus.databinding.FragmentMrtListBinding;
+import com.example.krankenhaus.databinding.FragmentMriListBinding;
 
-public class MrtListFragment extends Fragment {
+public class MriListFragment extends Fragment {
     RecyclerView recyclerView;
-    private FragmentMrtListBinding binding;
-    private MrtAdapter mrtAdapter;
+    private FragmentMriListBinding binding;
+    private MriAdapter mriAdapter;
     private LaborViewModel laborViewModel;
 
     @Override
@@ -31,13 +30,13 @@ public class MrtListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = FragmentMrtListBinding.inflate(inflater, container, false);
+        binding = FragmentMriListBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         recyclerView = binding.laborMrtList;
 
-        mrtAdapter = new MrtAdapter();
-        recyclerView.setAdapter(mrtAdapter);
+        mriAdapter = new MriAdapter();
+        recyclerView.setAdapter(mriAdapter);
 
         return root;
     }
