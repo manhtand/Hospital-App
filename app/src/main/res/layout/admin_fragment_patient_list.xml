@@ -9,7 +9,7 @@
         android:id="@+id/admin_patient_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/patient_item" />
+        tools:listitem="@layout/admin_patient_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_patient_button"

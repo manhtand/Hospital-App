@@ -48,4 +48,10 @@ public class PatientInfoFragment extends Fragment {
     public void TextViewClicked() {
         binding.medicationViewswitcher.showNext();
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

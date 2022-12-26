@@ -16,7 +16,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Name" />
+            android:text="Name"
+            android:textStyle="bold"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -26,7 +27,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Date of Birth (year/month/date)"/>
+            android:text="Date of Birth (year/month/date)"
+            android:textStyle="bold"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,7 +64,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Address" />
+            android:text="Address"
+            android:textStyle="bold" />
 
         <EditText
             android:layout_width="match_parent"
@@ -72,7 +75,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Zipcode" />
+            android:text="Zipcode"
+            android:textStyle="bold"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -82,7 +86,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Place of Residence" />
+            android:text="Place of Residence"
+            android:textStyle="bold" />
 
         <EditText
             android:layout_width="match_parent"
@@ -93,7 +98,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Insurance Number" />
+            android:text="Insurance Number"
+            android:textStyle="bold" />
 
         <EditText
             android:layout_width="match_parent"
@@ -103,7 +109,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Insurance Company" />
+            android:text="Insurance Company"
+            android:textStyle="bold" />
 
         <EditText
             android:layout_width="match_parent"
