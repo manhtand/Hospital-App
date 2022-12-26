@@ -4,11 +4,12 @@ import androidx.room.Embedded;
 import androidx.room.Relation;
 
 import java.util.List;
+
+import com.example.krankenhaus.srccode.entities.MRI;
 import com.example.krankenhaus.srccode.entities.Record;
 import com.example.krankenhaus.srccode.entities.Visit;
 import com.example.krankenhaus.srccode.entities.BloodTest;
 import com.example.krankenhaus.srccode.entities.Patient;
-import com.example.krankenhaus.srccode.entities.MRT;
 import com.example.krankenhaus.srccode.entities.Medication;
 
 public class RecordWithAll {
@@ -30,11 +31,11 @@ public class RecordWithAll {
     public BloodTest bloodTest;
 
     @Relation(
-            entity = MRT.class,
+            entity = MRI.class,
             parentColumn = "id",
             entityColumn = "record_id"
     )
-    public MRT mri;
+    public MRI mri;
 
     @Relation(
             entity = Medication.class,

@@ -5,7 +5,7 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 
 @Entity(
-        tableName = "mrt_table",
+        tableName = "mri_table",
         foreignKeys = {
                 @ForeignKey(
                         entity = Record.class,
@@ -16,11 +16,11 @@ import androidx.room.ForeignKey;
         },
         inheritSuperIndices = true
 )
-public class MRT extends Examination{
+public class MRI extends Examination{
     @ColumnInfo(name = "image",typeAffinity = ColumnInfo.BLOB)
     private byte[] image;
 
-    public MRT(int recordId, byte[] image) {
+    public MRI(int recordId, byte[] image) {
         super(recordId);
 
         this.image = image;

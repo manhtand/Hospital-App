@@ -4,10 +4,10 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 
-import com.example.krankenhaus.srccode.entities.MRT;
+import com.example.krankenhaus.srccode.entities.MRI;
 
 @Dao
-public interface MRTDao {
+public interface MRIDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertMRT(MRT mrt);
+    void insertMRT(MRI mri);
 }

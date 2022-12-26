@@ -11,15 +11,15 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.krankenhaus.srccode.dao.BedDao;
 import com.example.krankenhaus.srccode.dao.BloodTestDao;
-import com.example.krankenhaus.srccode.dao.MRTDao;
+import com.example.krankenhaus.srccode.dao.MRIDao;
 import com.example.krankenhaus.srccode.dao.MedicationDao;
 import com.example.krankenhaus.srccode.dao.PatientDao;
 import com.example.krankenhaus.srccode.dao.RecordDao;
 import com.example.krankenhaus.srccode.dao.VisitDao;
 import com.example.krankenhaus.srccode.entities.Bed;
 import com.example.krankenhaus.srccode.entities.BloodTest;
+import com.example.krankenhaus.srccode.entities.MRI;
 import com.example.krankenhaus.srccode.entities.Medication;
-import com.example.krankenhaus.srccode.entities.MRT;
 import com.example.krankenhaus.srccode.entities.Patient;
 import com.example.krankenhaus.srccode.entities.Record;
 import com.example.krankenhaus.srccode.entities.Visit;
@@ -31,7 +31,7 @@ import java.time.LocalDate;
                 Bed.class,
                 BloodTest.class,
                 Medication.class,
-                MRT.class,
+                MRI.class,
                 Patient.class,
                 Record.class,
                 Visit.class
@@ -46,7 +46,7 @@ public abstract class HospitalDatabase extends RoomDatabase {
     public abstract BedDao bedDao();
     public abstract BloodTestDao bloodTestDao();
     public abstract MedicationDao medicationDao();
-    public abstract MRTDao mrtDao();
+    public abstract MRIDao mriDao();
     public abstract PatientDao patientDao();
     public abstract RecordDao recordDao();
     public abstract VisitDao visitDao();
