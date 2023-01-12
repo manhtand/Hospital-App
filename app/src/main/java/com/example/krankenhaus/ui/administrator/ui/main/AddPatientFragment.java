@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Toast;
+import com.example.krankenhaus.srccode.entities.Patient;
 
 import com.example.krankenhaus.R;
 import com.example.krankenhaus.databinding.FragmentAdministratorDashboardBinding;
@@ -36,7 +37,6 @@ public class AddPatientFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        administratorViewModel = new ViewModelProvider(requireActivity()).get(AdministratorViewModel.class);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Add Patient");
@@ -47,6 +47,7 @@ public class AddPatientFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentAddPatientBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        administratorViewModel = new ViewModelProvider(requireActivity()).get(AdministratorViewModel.class);
 
         binding.npYear.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
@@ -92,6 +93,7 @@ public class AddPatientFragment extends Fragment {
         else {
             binding.npDay.setMaxValue(30);
         }
+        binding.npDay.setMinValue(1);
 
         binding.createPatientButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +125,7 @@ public class AddPatientFragment extends Fragment {
             Toast.makeText(getActivity(), "Please insert all informations", Toast.LENGTH_SHORT).show();
             return;
         }
+        administratorViewModel.insertPatient(new Patient(insuranceNumber, 3, name, dob, address, placeOfResidence, zipcode));
     }
 
     public void returnToPatientList() {

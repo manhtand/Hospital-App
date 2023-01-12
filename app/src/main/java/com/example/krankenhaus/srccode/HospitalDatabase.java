@@ -36,7 +36,7 @@ import java.time.LocalDate;
                 Record.class,
                 Visit.class
         },
-        version = 2,
+        version = 3,
         exportSchema = false
 )
 public abstract class HospitalDatabase extends RoomDatabase {
@@ -72,14 +72,15 @@ public abstract class HospitalDatabase extends RoomDatabase {
 
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         private PatientDao patientDao;
+        private BedDao bedDao;
 
         private PopulateDbAsyncTask(HospitalDatabase hospitalDatabase) {
             patientDao = hospitalDatabase.patientDao();
+            bedDao = hospitalDatabase.bedDao();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            patientDao.insertPatient(new Patient("1",1 , "Doan", LocalDate.of(2001, 10, 02), "Hanoi", "Hanoi", "1000"));
             return null;
         }
     }

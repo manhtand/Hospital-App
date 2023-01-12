@@ -34,4 +34,10 @@ public interface BedDao {
 
     @Query("SELECT COUNT(*) FROM bed_table")
     LiveData<Integer> getNumberOfTotalBeds();
+
+    @Query("SELECT name FROM patient_table p, bed_table b WHERE p.bed_number = b.number")
+    LiveData<String> getPatientNameFromBed();
+
+    @Query("SELECT insurance_number FROM patient_table p, bed_table b WHERE p.bed_number = b.number")
+    LiveData<String> getPatientInsuranceNumberFromBed();
 }

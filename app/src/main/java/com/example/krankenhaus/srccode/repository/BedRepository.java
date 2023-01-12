@@ -24,6 +24,7 @@ public class BedRepository {
     private LiveData<Integer> NumberOfFreelBeds;
     private LiveData<List<Bed>> FreeBedList;
     private LiveData<List<Bed>> BedList;
+    private LiveData<String> patientName;
 
     private BedRepository(Application application) {
         HospitalDatabase hospitalDatabase = HospitalDatabase.getInstance(application);
@@ -33,6 +34,7 @@ public class BedRepository {
         NumberOfFreelBeds = bedDao.getNumberOfFreeBeds();
         FreeBedList = bedDao.getAllFreeBeds();
         BedList = bedDao.getAllBeds();
+        patientName = bedDao.getPatientNameFromBed();
     }
 
     public static synchronized BedRepository getInstance(Application application) {
