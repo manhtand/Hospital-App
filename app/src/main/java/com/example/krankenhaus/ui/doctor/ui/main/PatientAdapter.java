@@ -14,12 +14,18 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.krankenhaus.R;
 import com.example.krankenhaus.srccode.entities.Patient;
+import com.example.krankenhaus.ui.doctor.DoctorActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientHolder> {
-    private List<Patient> patients = new ArrayList<>();
+    private List<Patient> patientList;
+    private OnItemClickListener listener;
+
+    public PatientAdapter() {
+        this.patientList = new ArrayList<>();
+    }
 
     @NonNull
     @Override
@@ -31,31 +37,22 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientH
 
     @Override
     public void onBindViewHolder(@NonNull PatientHolder holder, int position) {
-        Patient currentPatient = patients.get(position);
-        holder.textViewName.setText(currentPatient.getName());
-        holder.setRadioButtonDischarged(currentPatient.isDischarged());
+        if (patientList.size() == 0) {
+            return;
+        }
 
-        holder.detailsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PatientInfoFragment patientInfoFragment = new PatientInfoFragment();
-                AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                activity.getSupportFragmentManager().beginTransaction()
-                        .setReorderingAllowed(true)
-                        .addToBackStack(null)
-                        .replace(R.id.nav_host_fragment_activity_doctor, patientInfoFragment)
-                        .commit();
-            }
-        });
+        Patient patient = patientList.get(position);
+        holder.textViewName.setText(patient.getName());
+        holder.setRadioButtonDischarged(patient.isDischarged());
     }
 
     @Override
     public int getItemCount() {
-        return patients.size();
+        return patientList.size();
     }
 
-    public void setPatients(List<Patient> patients) {
-        this.patients = patients;
+    public void setPatientList(List<Patient> patientList) {
+        this.patientList = patientList;
         notifyDataSetChanged();
     }
 
@@ -63,14 +60,22 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientH
         private TextView textViewName;
         private RadioButton radioButtonDischarged;
         private RadioButton radioButtonNoDischarged;
-        private Button detailsButton;
 
         public PatientHolder(View itemView) {
             super(itemView);
             textViewName = itemView.findViewById(R.id.patient_name);
             radioButtonDischarged = itemView.findViewById(R.id.yes_radio_button);
             radioButtonNoDischarged = itemView.findViewById(R.id.no_radio_button);
-            detailsButton = itemView.findViewById(R.id.details_button);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(patientList.get(position));
+                    }
+                }
+            });
         }
 
         public void setRadioButtonDischarged(boolean discharged) {
@@ -78,6 +83,18 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientH
                 radioButtonDischarged.setChecked(true);
                 radioButtonNoDischarged.setChecked(false);
             }
+            else {
+                radioButtonDischarged.setChecked(false);
+                radioButtonNoDischarged.setChecked(true);
+            }
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Patient patient);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 }

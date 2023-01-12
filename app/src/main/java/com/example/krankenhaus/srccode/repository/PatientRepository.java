@@ -58,12 +58,14 @@ public class PatientRepository {
     }
 
     public LiveData<Patient> getPatientByInsuranceNumber(String insuranceNumber){
-        try {
+        /*try {
             return new getPatientByInsuranceNumberAsyncTask(patientDao).execute(insuranceNumber).get();
         }
         finally {
             return null;
-        }
+        }*/
+
+        return patientDao.getPatientByInsuranceNumber(insuranceNumber);
     }
 
     public LiveData<PatientAndRecord> getPatientAndRecordByInsuranceNumber(String insuranceNumber){

@@ -5,10 +5,16 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.krankenhaus.R;
+import com.example.krankenhaus.srccode.entities.Patient;
+import com.example.krankenhaus.srccode.repository.PatientRepository;
+import com.example.krankenhaus.srccode.repository.VisitRepository;
 import com.example.krankenhaus.ui.doctor.ui.main.DoctorViewModel;
+import com.example.krankenhaus.ui.doctor.ui.main.PatientInfoFragment;
+import com.example.krankenhaus.ui.doctor.ui.main.PatientListFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -18,6 +24,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.krankenhaus.databinding.ActivityDoctorBinding;
+
+import java.time.LocalDate;
 
 public class DoctorActivity extends AppCompatActivity {
     private ActivityDoctorBinding binding;
@@ -39,10 +47,23 @@ public class DoctorActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Doctor");
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+        obtainViewModel(this);
     }
 
     public void setActionBarTitle(String title) {
         getSupportActionBar().setTitle(title);
+    }
+
+    public static DoctorViewModel obtainViewModel(FragmentActivity activity) {
+        PatientRepository patientRepository = PatientRepository.getInstance(activity.getApplication());
+        VisitRepository visitRepository = VisitRepository.getInstance(activity.getApplication());
+        DoctorViewModel doctorViewModel = new ViewModelProvider(activity).get(DoctorViewModel.class);
+        doctorViewModel.setRepository(patientRepository, visitRepository);
+
+        patientRepository.insertPatient(new Patient("123", 2, "Doan", LocalDate.of(2001, 10, 02), "Hanoi", "Hanoi", "123"));
+
+        return doctorViewModel;
     }
 
     @Override

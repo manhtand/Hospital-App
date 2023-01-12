@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -46,11 +47,12 @@ public class AdminPatientListFragment extends Fragment {
 
         patientAdapter = new PatientAdapter();
         recyclerView.setAdapter(patientAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
         administratorViewModel.getAllPatients().observe(getViewLifecycleOwner(), new Observer<List<Patient>>() {
             @Override
             public void onChanged(List<Patient> patients) {
-                patientAdapter.setPatients(patients);
+                patientAdapter.setPatientList(patients);
             }
         });
 

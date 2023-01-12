@@ -32,6 +32,11 @@ public class AdministratorViewModel extends AndroidViewModel {
         allBeds = bedRepository.getAllBeds();
     }
 
+    public void setRepository(PatientRepository patientRepository, BedRepository bedRepository) {
+        this.patientRepository = patientRepository;
+        this.bedRepository = bedRepository;
+    }
+
     public void insertPatient(Patient patient) { patientRepository.insertPatient(patient); }
 
     public void updatePatient(Patient patient) { patientRepository.updatePatient(patient); }
