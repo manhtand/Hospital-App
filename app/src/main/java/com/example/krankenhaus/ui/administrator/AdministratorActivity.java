@@ -1,6 +1,8 @@
 package com.example.krankenhaus.ui.administrator;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -29,6 +31,7 @@ public class AdministratorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 
         binding = ActivityAdministratorBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

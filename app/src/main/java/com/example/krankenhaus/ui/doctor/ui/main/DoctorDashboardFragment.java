@@ -36,7 +36,7 @@ public class DoctorDashboardFragment extends Fragment {
         binding = FragmentDoctorDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        ((DoctorActivity) getActivity()).setActionBarTitle("Dashboard");
+        ((DoctorActivity) getActivity()).setActionBarTitle("Doctor");
 
         binding.doctorPatientListButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.Navigation;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import com.example.krankenhaus.ui.administrator.AdministratorActivity;
@@ -24,6 +25,8 @@ public class LogInScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+
         binding = ActivityLogInScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
