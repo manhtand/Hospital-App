@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ui.administrator.AdministratorActivity"
-    android:paddingTop="?attr/actionBarSize"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

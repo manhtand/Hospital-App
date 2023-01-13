@@ -1,6 +1,7 @@
 package com.example.krankenhaus.ui.service;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 
@@ -15,6 +16,8 @@ public class ServiceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+
         binding = ActivityServiceBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
