@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.krankenhaus.R;
 import com.example.krankenhaus.databinding.FragmentPatientListBinding;
 import com.example.krankenhaus.srccode.entities.Patient;
+import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
 import com.example.krankenhaus.ui.doctor.DoctorActivity;
 
 import java.util.List;
@@ -51,16 +52,16 @@ public class PatientListFragment extends Fragment {
         patientAdapter = new PatientAdapter();
         recyclerView.setAdapter(patientAdapter);
 
-        doctorViewModel.getAllPatients().observe(getViewLifecycleOwner(), new Observer<List<Patient>>() {
+        doctorViewModel.getAllPatientAndBeds().observe(getViewLifecycleOwner(), new Observer<List<PatientAndBed>>() {
             @Override
-            public void onChanged(List<Patient> patients) {
-                patientAdapter.setPatientList(patients);
+            public void onChanged(List<PatientAndBed> patientAndBeds) {
+                patientAdapter.setPatientAndBedList(patientAndBeds);
             }
         });
 
         patientAdapter.setOnItemClickListener(new PatientAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(Patient patient) {
+            public void onItemClick(PatientAndBed patientAndBed) {
                 PatientInfoFragment patientInfoFragment = new PatientInfoFragment();
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.setReorderingAllowed(true);
@@ -68,7 +69,7 @@ public class PatientListFragment extends Fragment {
                 ft.replace(R.id.nav_host_fragment_activity_doctor, patientInfoFragment);
                 ft.commit();
 
-                doctorViewModel.setPatient(patient);
+                doctorViewModel.setPatient(patientAndBed.patient);
             }
         });
 

@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.krankenhaus.R;
+import com.example.krankenhaus.srccode.entities.Bed;
 import com.example.krankenhaus.srccode.entities.Patient;
+import com.example.krankenhaus.srccode.repository.BedRepository;
 import com.example.krankenhaus.srccode.repository.PatientRepository;
 import com.example.krankenhaus.srccode.repository.VisitRepository;
 import com.example.krankenhaus.ui.doctor.ui.main.DoctorViewModel;
@@ -60,11 +62,14 @@ public class DoctorActivity extends AppCompatActivity {
 
     public static DoctorViewModel obtainViewModel(FragmentActivity activity) {
         PatientRepository patientRepository = PatientRepository.getInstance(activity.getApplication());
+        BedRepository bedRepository = BedRepository.getInstance(activity.getApplication());
         VisitRepository visitRepository = VisitRepository.getInstance(activity.getApplication());
         DoctorViewModel doctorViewModel = new ViewModelProvider(activity).get(DoctorViewModel.class);
         doctorViewModel.setRepository(patientRepository, visitRepository);
 
-        patientRepository.insertPatient(new Patient("123", 2, "Doan", LocalDate.of(2001, 10, 02), "Hanoi", "Hanoi", "123"));
+        Bed bed = new Bed(2);
+        bedRepository.insertBed(bed);
+        patientRepository.insertPatient(new Patient("123", bed.getNumber(), "Doan", LocalDate.of(2001, 10, 02), "Hanoi", "Hanoi", "123"));
 
         return doctorViewModel;
     }

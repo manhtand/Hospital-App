@@ -13,50 +13,19 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/patient_name"
+            android:id="@+id/patient_adapter_patient_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:text="Patient Name"
             android:ellipsize="end" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/patient_adapter_bed_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:text="Bed Number" />
 
-            <TextView
-                android:id="@+id/is_discharged"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:padding="8dp"
-                android:text="is Discharged:" />
-
-            <RadioGroup
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/radion_button_group"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/yes_radio_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Yes"
-                    android:checked="false"/>
-
-                <RadioButton
-                    android:id="@+id/no_radio_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="No"
-                    android:checked="true"/>
-            </RadioGroup>
-
-        </LinearLayout>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

@@ -22,11 +22,13 @@ public class PatientRepository {
     private volatile static PatientRepository INSTANCE = null;
     private final PatientDao patientDao;
     private LiveData<List<Patient>> allPatients;
+    private LiveData<List<PatientAndBed>> allPatientAndBeds;
 
     public PatientRepository(Application application) {
         HospitalDatabase hospitalDatabase = HospitalDatabase.getInstance(application);
         patientDao = hospitalDatabase.patientDao();
         allPatients = patientDao.getAllPatients();
+        allPatientAndBeds = patientDao.getAllPatientAndBeds();
     }
 
     public static synchronized PatientRepository getInstance(Application application) {
@@ -47,6 +49,8 @@ public class PatientRepository {
     public LiveData<List<Patient>> getAllPatients(){
         return allPatients;
     }
+
+    public LiveData<List<PatientAndBed>> getAllPatientAndBeds() { return allPatientAndBeds;}
 
     public LiveData<PatientAndBed> getPatientAndBedByInsuranceNumber(String insuranceNumber){
         try {

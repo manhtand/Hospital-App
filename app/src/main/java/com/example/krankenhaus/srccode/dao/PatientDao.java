@@ -25,6 +25,9 @@ public interface PatientDao {
     @Query("SELECT * FROM patient_table ORDER BY name ASC")
     LiveData<List<Patient>> getAllPatients();
 
+    @Query("SELECT * FROM patient_table NATURAL JOIN bed_table where patient_table.bed_number = bed_table.number ORDER BY name ASC")
+    LiveData<List<PatientAndBed>> getAllPatientAndBeds();
+
     @Query("SELECT * FROM patient_table WHERE patient_table.insurance_number = :insuranceNumber")
     LiveData<Patient> getPatientByInsuranceNumber(String insuranceNumber);
 

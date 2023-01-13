@@ -45,16 +45,16 @@ public class AdminPatientListFragment extends Fragment {
 
         recyclerView = binding.adminPatientList;
 
-        patientAdapter = new PatientAdapter();
-        recyclerView.setAdapter(patientAdapter);
+        //patientAdapter = new PatientAdapter();
+        //recyclerView.setAdapter(patientAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
-        administratorViewModel.getAllPatients().observe(getViewLifecycleOwner(), new Observer<List<Patient>>() {
+        /*administratorViewModel.getAllPatients().observe(getViewLifecycleOwner(), new Observer<List<Patient>>() {
             @Override
             public void onChanged(List<Patient> patients) {
                 patientAdapter.setPatientList(patients);
             }
-        });
+        });*/
 
         binding.addPatientButton.setOnClickListener(new View.OnClickListener() {
             @Override

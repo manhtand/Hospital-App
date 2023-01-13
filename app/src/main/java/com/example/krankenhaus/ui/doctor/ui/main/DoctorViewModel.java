@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.krankenhaus.srccode.entities.Patient;
 import com.example.krankenhaus.srccode.entities.Visit;
+import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
 import com.example.krankenhaus.srccode.repository.PatientRepository;
 import com.example.krankenhaus.srccode.repository.VisitRepository;
 
@@ -19,6 +20,7 @@ public class DoctorViewModel extends AndroidViewModel {
     private VisitRepository visitRepository;
 
     private LiveData<List<Patient>> allPatients;
+    private LiveData<List<PatientAndBed>> allPatientAndBeds;
     private LiveData<List<Visit>> allVisits;
 
     public MutableLiveData<Patient> patient = new MutableLiveData<>();
@@ -28,6 +30,7 @@ public class DoctorViewModel extends AndroidViewModel {
 
         patientRepository = PatientRepository.getInstance(application);
         allPatients = patientRepository.getAllPatients();
+        allPatientAndBeds = patientRepository.getAllPatientAndBeds();
 
         visitRepository = VisitRepository.getInstance(application);
         allVisits = visitRepository.getAllVisits();
@@ -57,6 +60,8 @@ public class DoctorViewModel extends AndroidViewModel {
     public LiveData<List<Patient>> getAllPatients() {
         return allPatients;
     }
+
+    public LiveData<List<PatientAndBed>> getAllPatientAndBeds() {return allPatientAndBeds;}
 
     public void insertVisit(Visit visit) { visitRepository.insertVisit(visit); }
 
