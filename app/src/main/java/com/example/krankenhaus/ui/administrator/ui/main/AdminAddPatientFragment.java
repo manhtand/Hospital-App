@@ -1,7 +1,5 @@
 package com.example.krankenhaus.ui.administrator.ui.main;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -13,21 +11,17 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 import com.example.krankenhaus.srccode.entities.Patient;
 
 import com.example.krankenhaus.R;
-import com.example.krankenhaus.databinding.FragmentAdministratorDashboardBinding;
-import com.example.krankenhaus.ui.administrator.AdministratorActivity;
 import com.example.krankenhaus.databinding.FragmentAddPatientBinding;
 
 import java.time.LocalDate;
 
-public class AddPatientFragment extends Fragment {
-    AdministratorViewModel administratorViewModel;
+public class AdminAddPatientFragment extends Fragment {
+    AdminViewModel administratorViewModel;
     private FragmentAddPatientBinding binding;
 
     int year;
@@ -47,7 +41,7 @@ public class AddPatientFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentAddPatientBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        administratorViewModel = new ViewModelProvider(requireActivity()).get(AdministratorViewModel.class);
+        administratorViewModel = new ViewModelProvider(requireActivity()).get(AdminViewModel.class);
 
         binding.npYear.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override

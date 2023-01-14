@@ -2,7 +2,6 @@ package com.example.krankenhaus.ui.administrator.ui.main;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 
@@ -12,16 +11,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
-import com.example.krankenhaus.databinding.FragmentAdministratorDashboardBinding;
 
 import com.example.krankenhaus.R;
+import com.example.krankenhaus.databinding.FragmentAdministratorDashboardBinding;
 import com.example.krankenhaus.ui.administrator.AdministratorActivity;
-import com.example.krankenhaus.ui.administrator.ui.main.AdministratorViewModel;
-import com.example.krankenhaus.ui.doctor.DoctorActivity;
 
-public class AdministratorDashboardFragment extends Fragment {
+public class AdminDashboardFragment extends Fragment {
 
     private FragmentAdministratorDashboardBinding binding;
 
@@ -66,7 +61,7 @@ public class AdministratorDashboardFragment extends Fragment {
     }
 
     public void openFragmentBedList() {
-        BedListFragment bedListFragment = new BedListFragment();
+        AdminBedListFragment bedListFragment = new AdminBedListFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.setReorderingAllowed(true);
         ft.addToBackStack(null);

@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/administrator_navigation_dashboard"
-        android:name="com.example.krankenhaus.ui.administrator.ui.main.AdministratorDashboardFragment"
+        android:name="com.example.krankenhaus.ui.administrator.ui.main.AdminDashboardFragment"
         android:label="fragment_administrator_dashboard"
         tools:layout="@layout/fragment_administrator_dashboard" >
         <action
@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/administrator_navigation_notifications"
-        android:name="com.example.krankenhaus.ui.administrator.ui.main.AdministratorNotificationsFragment"
+        android:name="com.example.krankenhaus.ui.administrator.ui.main.AdminNotificationsFragment"
         android:label="fragment_administator_notifications"
         tools:layout="@layout/fragment_administrator_notifications" />
     <fragment
@@ -37,12 +37,12 @@
     </fragment>
     <fragment
         android:id="@+id/bedListFragment"
-        android:name="com.example.krankenhaus.ui.administrator.ui.main.BedListFragment"
+        android:name="com.example.krankenhaus.ui.administrator.ui.main.AdminBedListFragment"
         android:label="fragment_bed_list"
         tools:layout="@layout/fragment_bed_list" />
     <fragment
         android:id="@+id/addPatientFragment"
-        android:name="com.example.krankenhaus.ui.administrator.ui.main.AddPatientFragment"
+        android:name="com.example.krankenhaus.ui.administrator.ui.main.AdminAddPatientFragment"
         android:label="fragment_add_patient"
         tools:layout="@layout/fragment_add_patient" />
 

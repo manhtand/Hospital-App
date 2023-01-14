@@ -12,17 +12,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.krankenhaus.R;
 import com.example.krankenhaus.databinding.FragmentEditPatientBinding;
 
-public class EditPatientFragment extends Fragment {
+public class AdminEditPatientFragment extends Fragment {
     private FragmentEditPatientBinding binding;
-    private AdministratorViewModel administratorViewModel;
+    private AdminViewModel administratorViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        administratorViewModel = new ViewModelProvider(requireActivity()).get(AdministratorViewModel.class);
+        administratorViewModel = new ViewModelProvider(requireActivity()).get(AdminViewModel.class);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Patient Information");

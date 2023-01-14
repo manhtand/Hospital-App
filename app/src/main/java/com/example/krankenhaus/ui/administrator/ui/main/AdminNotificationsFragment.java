@@ -10,20 +10,17 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.example.krankenhaus.R;
 import com.example.krankenhaus.databinding.FragmentAdministratorNotificationsBinding;
 import com.example.krankenhaus.ui.administrator.AdministratorActivity;
-import com.example.krankenhaus.ui.administrator.ui.main.AdministratorViewModel;
 
-public class AdministratorNotificationsFragment extends Fragment {
+public class AdminNotificationsFragment extends Fragment {
 
     private FragmentAdministratorNotificationsBinding binding;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        AdministratorViewModel administratorViewModel = new ViewModelProvider(this).get(AdministratorViewModel.class);
+        AdminViewModel administratorViewModel = new ViewModelProvider(this).get(AdminViewModel.class);
 
         binding = FragmentAdministratorNotificationsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();

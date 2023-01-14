@@ -7,7 +7,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,20 +14,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.krankenhaus.R;
 import com.example.krankenhaus.databinding.FragmentBedListBinding;
-import com.example.krankenhaus.srccode.entities.Bed;
 import com.example.krankenhaus.srccode.entities.relations.BedAndPatient;
 import com.example.krankenhaus.ui.administrator.AdministratorActivity;
-import com.example.krankenhaus.ui.administrator.ui.main.AdministratorViewModel;
 
 import java.util.List;
 
-public class BedListFragment extends Fragment {
+public class AdminBedListFragment extends Fragment {
     RecyclerView recyclerView;
     private FragmentBedListBinding binding;
-    private BedAdapter bedAdapter;
-    private AdministratorViewModel administratorViewModel;
+    private AdminBedAdapter bedAdapter;
+    private AdminViewModel administratorViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,7 +44,7 @@ public class BedListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
 
-        bedAdapter = new BedAdapter();
+        bedAdapter = new AdminBedAdapter();
         recyclerView.setAdapter(bedAdapter);
 
         administratorViewModel.getAllBedAndPatients().observe(getViewLifecycleOwner(), new Observer<List<BedAndPatient>>() {

@@ -18,9 +18,8 @@ import android.view.ViewGroup;
 
 import com.example.krankenhaus.R;
 import com.example.krankenhaus.databinding.AdminFragmentPatientListBinding;
-import com.example.krankenhaus.srccode.entities.Patient;
+
 import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
-import com.example.krankenhaus.ui.doctor.ui.main.DoctorViewModel;
 import com.example.krankenhaus.ui.doctor.ui.main.PatientAdapter;
 
 import java.util.List;
@@ -29,12 +28,12 @@ public class AdminPatientListFragment extends Fragment {
     RecyclerView recyclerView;
     private AdminFragmentPatientListBinding binding;
     private PatientAdapter patientAdapter;
-    private AdministratorViewModel administratorViewModel;
+    private AdminViewModel administratorViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        administratorViewModel = new ViewModelProvider(requireActivity()).get(AdministratorViewModel.class);
+        administratorViewModel = new ViewModelProvider(requireActivity()).get(AdminViewModel.class);
     }
 
     @Override
@@ -61,7 +60,7 @@ public class AdminPatientListFragment extends Fragment {
         binding.addPatientButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AddPatientFragment addPatientFragment = new AddPatientFragment();
+                AdminAddPatientFragment addPatientFragment = new AdminAddPatientFragment();
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.setReorderingAllowed(true);
                 ft.addToBackStack(null);

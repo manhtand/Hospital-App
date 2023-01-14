@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/administrator_dashboard_layout"
-    tools:context=".ui.administrator.ui.main.AdministratorDashboardFragment">
+    tools:context=".ui.administrator.ui.main.AdminDashboardFragment">
 
     <Button
         android:id="@+id/administrator_bed_list_button"

@@ -15,7 +15,7 @@ import com.example.krankenhaus.srccode.repository.PatientRepository;
 
 import java.util.List;
 
-public class AdministratorViewModel extends AndroidViewModel {
+public class AdminViewModel extends AndroidViewModel {
     private PatientRepository patientRepository;
     private LiveData<List<Patient>> allPatients;
     private LiveData<List<PatientAndBed>> allPatientAndBeds;
@@ -24,7 +24,7 @@ public class AdministratorViewModel extends AndroidViewModel {
     private LiveData<List<Bed>> allBeds;
     private LiveData<List<BedAndPatient>> allBedAndPatients;
 
-    public AdministratorViewModel(@NonNull Application application) {
+    public AdminViewModel(@NonNull Application application) {
         super(application);
 
         patientRepository = PatientRepository.getInstance(application);

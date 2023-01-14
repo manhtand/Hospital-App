@@ -10,17 +10,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.krankenhaus.R;
 import com.example.krankenhaus.srccode.entities.relations.BedAndPatient;
-import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
-import com.example.krankenhaus.ui.doctor.ui.main.PatientAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BedAdapter extends RecyclerView.Adapter<BedAdapter.BedAndPatientHolder> {
+public class AdminBedAdapter extends RecyclerView.Adapter<AdminBedAdapter.BedAndPatientHolder> {
     private List<BedAndPatient> bedAndPatientList;
     private OnItemClickListener listener;
 
-    BedAdapter() {
+    AdminBedAdapter() {
         this.bedAndPatientList = new ArrayList<>();
     }
 
