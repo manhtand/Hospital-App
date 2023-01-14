@@ -35,7 +35,7 @@ public class AdministratorDashboardFragment extends Fragment {
         binding = FragmentAdministratorDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        ((AdministratorActivity) getActivity()).setActionBarTitle("Dashboard");
+        ((AdministratorActivity) getActivity()).setActionBarTitle("Administrator");
 
         binding.administratorBedListButton.setOnClickListener(new View.OnClickListener() {
             @Override

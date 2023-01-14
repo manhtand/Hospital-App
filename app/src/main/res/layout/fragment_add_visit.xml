@@ -17,13 +17,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Patient Name"
+            android:text="Record ID"
             android:textStyle="bold" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/et_visit_name" />
+            android:id="@+id/et_visit_record_id" />
 
     </LinearLayout>
 
@@ -37,13 +37,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Insurance Number"
+            android:text="Description"
             android:textStyle="bold" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/et_visit_insurancenumber" />
+            android:id="@+id/et_visit_description" />
 
     </LinearLayout>
 

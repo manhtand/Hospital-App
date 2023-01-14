@@ -99,6 +99,18 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="addVisitFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="861" />
+                            <option name="y" value="-168" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="doctor_navigation_dashboard">
                     <value>
                       <LayoutPositions>
@@ -107,6 +119,20 @@
                             <option name="x" value="256" />
                             <option name="y" value="12" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_doctor_navigation_dashboard_to_patientListFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_doctor_navigation_dashboard_to_visitListFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>

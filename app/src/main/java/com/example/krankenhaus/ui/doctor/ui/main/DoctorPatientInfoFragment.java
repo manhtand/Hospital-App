@@ -1,6 +1,5 @@
 package com.example.krankenhaus.ui.doctor.ui.main;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,19 +12,15 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ViewSwitcher;
 
-import com.example.krankenhaus.databinding.FragmentPatientInfoBinding;
-
-import com.example.krankenhaus.R;
-import com.example.krankenhaus.srccode.dao.PatientDao;
+import com.example.krankenhaus.databinding.DoctorFragmentPatientInfoBinding;
 import com.example.krankenhaus.srccode.entities.Patient;
 
 import java.time.format.DateTimeFormatter;
 
-public class PatientInfoFragment extends Fragment {
+public class DoctorPatientInfoFragment extends Fragment {
     private Patient patient;
-    private FragmentPatientInfoBinding binding;
+    private DoctorFragmentPatientInfoBinding binding;
     private DoctorViewModel doctorViewModel;
 
     @Override
@@ -47,7 +42,7 @@ public class PatientInfoFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = FragmentPatientInfoBinding.inflate(inflater, container, false);
+        binding = DoctorFragmentPatientInfoBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         binding.medicationEditButton.setOnClickListener(new View.OnClickListener() {

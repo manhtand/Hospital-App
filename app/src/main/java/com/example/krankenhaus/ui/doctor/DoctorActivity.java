@@ -7,19 +7,14 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.krankenhaus.R;
-import com.example.krankenhaus.srccode.entities.Bed;
 import com.example.krankenhaus.srccode.entities.Patient;
 import com.example.krankenhaus.srccode.repository.BedRepository;
 import com.example.krankenhaus.srccode.repository.PatientRepository;
 import com.example.krankenhaus.srccode.repository.VisitRepository;
 import com.example.krankenhaus.ui.doctor.ui.main.DoctorViewModel;
-import com.example.krankenhaus.ui.doctor.ui.main.PatientInfoFragment;
-import com.example.krankenhaus.ui.doctor.ui.main.PatientListFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;

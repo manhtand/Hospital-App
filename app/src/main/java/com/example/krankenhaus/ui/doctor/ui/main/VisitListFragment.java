@@ -32,15 +32,16 @@ public class VisitListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        doctorViewModel = new ViewModelProvider(requireActivity()).get(DoctorViewModel.class);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Visit List");
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Visit List");
+
         binding = FragmentVisitListBinding.inflate(inflater, container, false);
+        doctorViewModel = new ViewModelProvider(requireActivity()).get(DoctorViewModel.class);
         View root = binding.getRoot();
 
         recyclerView = binding.visitList;
@@ -53,9 +54,6 @@ public class VisitListFragment extends Fragment {
         doctorViewModel.getAllVisits().observe(getViewLifecycleOwner(), new Observer<List<Visit>>() {
             @Override
             public void onChanged(List<Visit> visits) {
-                if (visits == null) {
-                    return;
-                }
                 visitAdapter.setVisitList(visits);
             }
         });
