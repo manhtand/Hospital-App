@@ -30,7 +30,7 @@ public class LaborDashboardFragment extends Fragment {
         binding = FragmentLaborDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        ((LaborActivity) getActivity()).setActionBarTitle("Dashboard");
+        ((LaborActivity) getActivity()).setActionBarTitle("Labor");
 
         binding.laborBloodTestButton.setOnClickListener(new View.OnClickListener() {
             @Override

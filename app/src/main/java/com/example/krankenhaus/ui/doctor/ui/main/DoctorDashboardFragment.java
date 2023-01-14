@@ -1,12 +1,8 @@
 package com.example.krankenhaus.ui.doctor.ui.main;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,7 +15,6 @@ import android.view.ViewGroup;
 import com.example.krankenhaus.databinding.FragmentDoctorDashboardBinding;
 
 import com.example.krankenhaus.R;
-import com.example.krankenhaus.srccode.entities.Patient;
 import com.example.krankenhaus.ui.doctor.DoctorActivity;
 
 public class DoctorDashboardFragment extends Fragment {
@@ -58,11 +53,11 @@ public class DoctorDashboardFragment extends Fragment {
     }
 
     public void openFragmentPatientList() {
-        PatientListFragment patientListFragment = new PatientListFragment();
+        DoctorPatientListFragment doctorPatientListFragment = new DoctorPatientListFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.setReorderingAllowed(true);
         ft.addToBackStack(null);
-        ft.replace(R.id.nav_host_fragment_activity_doctor, patientListFragment);
+        ft.replace(R.id.nav_host_fragment_activity_doctor, doctorPatientListFragment);
         ft.commit();
     }
 

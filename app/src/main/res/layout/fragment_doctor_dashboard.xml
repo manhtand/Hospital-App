@@ -11,7 +11,7 @@
         android:id="@+id/doctor_visit_list_button"
         android:layout_width="135dp"
         android:layout_height="wrap_content"
-        android:text="Vist List"
+        android:text="Visit List"
         app:layout_constraintBottom_toTopOf="@+id/doctor_patient_list_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
