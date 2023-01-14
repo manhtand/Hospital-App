@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import com.example.krankenhaus.R;
 import com.example.krankenhaus.databinding.FragmentBedListBinding;
 import com.example.krankenhaus.srccode.entities.Bed;
+import com.example.krankenhaus.srccode.entities.relations.BedAndPatient;
 import com.example.krankenhaus.ui.administrator.AdministratorActivity;
 import com.example.krankenhaus.ui.administrator.ui.main.AdministratorViewModel;
 
@@ -49,16 +50,19 @@ public class BedListFragment extends Fragment {
         bedAdapter = new BedAdapter();
         recyclerView.setAdapter(bedAdapter);
 
-        administratorViewModel.getAllBeds().observe(getViewLifecycleOwner(), new Observer<List<Bed>>() {
+        administratorViewModel.getAllBedAndPatients().observe(getViewLifecycleOwner(), new Observer<List<BedAndPatient>>() {
             @Override
-            public void onChanged(List<Bed> beds) {
-                if (beds == null) {
-                    return;
-                }
-                bedAdapter.setBedList(beds);
+            public void onChanged(List<BedAndPatient> bedAndPatients) {
+                bedAdapter.setBedList(bedAndPatients);
             }
         });
 
+        /*bedAdapter.setOnItemClickListener(new BedAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BedAndPatient bedAndPatient) {
+
+            }
+        });*/
         return root;
     }
 

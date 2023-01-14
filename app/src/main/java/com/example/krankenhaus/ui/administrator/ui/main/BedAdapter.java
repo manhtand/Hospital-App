@@ -6,78 +6,93 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Database;
-import androidx.room.Query;
-import androidx.room.Relation;
 
-import com.example.krankenhaus.srccode.dao.BedDao;
-import com.example.krankenhaus.srccode.entities.Bed;
 import com.example.krankenhaus.R;
+import com.example.krankenhaus.srccode.entities.relations.BedAndPatient;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
-import com.example.krankenhaus.ui.doctor.ui.main.DoctorViewModel;
-
-import org.w3c.dom.Text;
+import com.example.krankenhaus.ui.doctor.ui.main.PatientAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BedAdapter extends RecyclerView.Adapter<BedAdapter.BedHolder> {
-    private List<Bed> bedList;
-    BedDao bedDao;
+public class BedAdapter extends RecyclerView.Adapter<BedAdapter.BedAndPatientHolder> {
+    private List<BedAndPatient> bedAndPatientList;
+    private OnItemClickListener listener;
 
     BedAdapter() {
-        this.bedList = new ArrayList<>();
+        this.bedAndPatientList = new ArrayList<>();
     }
 
     @NonNull
     @Override
-    public BedHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BedAndPatientHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.bed_item, parent, false);
-        return new BedHolder(view);
+        return new BedAndPatientHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BedHolder holder, int position) {
-        if (bedList.size() == 0) {
+    public void onBindViewHolder(@NonNull BedAndPatientHolder holder, int position) {
+        if (bedAndPatientList.size() == 0) {
             return;
         }
-        Bed bed = bedList.get(position);
-        holder.textViewBedNumber.setText(Integer.toString(bed.getNumber()));
+        BedAndPatient bedAndPatient = bedAndPatientList.get(position);
+        holder.textViewBedNumber.setText("Bed Number: " + Integer.toString(bedAndPatient.bed.getNumber()));
 
-        if (bedDao.getPatientNameFromBed() != null && bedDao.getPatientInsuranceNumberFromBed() != null)
+        if (bedAndPatient.patient != null)
         {
-            holder.textViewPatientName.setText(bedDao.getPatientNameFromBed().getValue());
-            holder.textViewPatientInsuranceNumber.setText(bedDao.getPatientInsuranceNumberFromBed().getValue());
+            holder.textViewPatientName.setText("Patient Name: " + bedAndPatient.patient.getName());
+            if(bedAndPatient.patient.isDischarged()){
+                holder.textViewPatientHealthStatus.setText("Health Status: Recoverd");
+            }
+            else{
+                holder.textViewPatientHealthStatus.setText("Health Status: Not Recoverd");
+            }
         }
         else {
             holder.textViewPatientName.setText("");
-            holder.textViewPatientInsuranceNumber.setText("");
+            holder.textViewPatientHealthStatus.setText("");
         }
     }
 
     @Override
     public int getItemCount() {
-        return bedList.size();
+        return bedAndPatientList.size();
     }
 
-    public void setBedList(List<Bed> bedList) {
-        this.bedList = bedList;
+    public void setBedList(List<BedAndPatient> bedAndPatientList) {
+        this.bedAndPatientList = bedAndPatientList;
         notifyDataSetChanged();
     }
 
-    class BedHolder extends RecyclerView.ViewHolder {
+    class BedAndPatientHolder extends RecyclerView.ViewHolder {
         private TextView textViewBedNumber;
         private TextView textViewPatientName;
-        private TextView textViewPatientInsuranceNumber;
+        private TextView textViewPatientHealthStatus;
 
-        public BedHolder(@NonNull View view) {
+        public BedAndPatientHolder(@NonNull View view) {
             super(view);
-            textViewBedNumber = view.findViewById(R.id.bedlist_bed_number);
-            textViewPatientName = view.findViewById(R.id.bedlist_patient_name);
-            textViewPatientInsuranceNumber = view.findViewById(R.id.bedlist_patient_insurance_number);
+            textViewBedNumber = view.findViewById(R.id.bed_item_bed_number);
+            textViewPatientName = view.findViewById(R.id.bed_item_patient_name);
+            textViewPatientHealthStatus = view.findViewById(R.id.bed_item_health_status);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(bedAndPatientList.get(position));
+                    }
+                }
+            });
         }
+    }
+    public interface OnItemClickListener {
+        void onItemClick(BedAndPatient bedAndPatient);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 }

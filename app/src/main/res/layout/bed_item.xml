@@ -20,18 +20,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="BED"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:id="@+id/bedlist_bed_number"
+                android:id="@+id/bed_item_bed_number"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textStyle="bold"
-                android:text="1"
-                android:layout_marginStart="10dp"/>
+                android:text="BED "/>
 
         </LinearLayout>
 
@@ -46,17 +38,10 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/bed_item_patient_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Patient Name: ">
-
-                </TextView>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/bedlist_patient_name"
-                    android:layout_marginStart="6dp">
 
                 </TextView>
 
@@ -68,17 +53,10 @@
                 android:orientation="horizontal" >
 
                 <TextView
+                    android:id="@+id/bed_item_health_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Insurance Nr.: ">
-
-                </TextView>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/bedlist_patient_insurance_number"
-                    android:layout_marginStart="8dp">
+                    android:text="Health Status">
 
                 </TextView>
 

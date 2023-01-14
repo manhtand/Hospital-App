@@ -8,12 +8,11 @@ import androidx.lifecycle.LiveData;
 
 import com.example.krankenhaus.srccode.entities.Bed;
 import com.example.krankenhaus.srccode.entities.Patient;
+import com.example.krankenhaus.srccode.entities.relations.BedAndPatient;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
 import com.example.krankenhaus.srccode.repository.BedRepository;
 import com.example.krankenhaus.srccode.repository.PatientRepository;
-import com.example.krankenhaus.ui.doctor.ui.main.DoctorViewModel;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class AdministratorViewModel extends AndroidViewModel {
@@ -23,6 +22,7 @@ public class AdministratorViewModel extends AndroidViewModel {
 
     private BedRepository bedRepository;
     private LiveData<List<Bed>> allBeds;
+    private LiveData<List<BedAndPatient>> allBedAndPatients;
 
     public AdministratorViewModel(@NonNull Application application) {
         super(application);
@@ -33,6 +33,7 @@ public class AdministratorViewModel extends AndroidViewModel {
 
         bedRepository = BedRepository.getInstance(application);
         allBeds = bedRepository.getAllBeds();
+        allBedAndPatients = bedRepository.getBedAndPatientLists();
     }
 
     public void setRepository(PatientRepository patientRepository, BedRepository bedRepository) {
@@ -55,4 +56,8 @@ public class AdministratorViewModel extends AndroidViewModel {
     public LiveData<Integer> getNumberOfTotalBeds() { return bedRepository.getNumberOfTotalBeds(); }
 
     public LiveData<List<Bed>> getAllBeds() { return allBeds; }
+
+    public LiveData<List<BedAndPatient>> getAllBedAndPatients(){
+        return allBedAndPatients;
+    }
 }

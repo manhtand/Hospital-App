@@ -13,6 +13,7 @@ import java.util.List;
 import com.example.krankenhaus.srccode.HospitalDatabase;
 import com.example.krankenhaus.srccode.dao.BedDao;
 import com.example.krankenhaus.srccode.entities.Bed;
+import com.example.krankenhaus.srccode.entities.relations.BedAndPatient;
 
 import io.reactivex.Flowable;
 
@@ -25,6 +26,7 @@ public class BedRepository {
     private LiveData<List<Bed>> FreeBedList;
     private LiveData<List<Bed>> BedList;
     private LiveData<String> patientName;
+    private LiveData<List<BedAndPatient>> BedAndPatientLists;
 
     private BedRepository(Application application) {
         HospitalDatabase hospitalDatabase = HospitalDatabase.getInstance(application);
@@ -35,6 +37,7 @@ public class BedRepository {
         FreeBedList = bedDao.getAllFreeBeds();
         BedList = bedDao.getAllBeds();
         patientName = bedDao.getPatientNameFromBed();
+        BedAndPatientLists = bedDao.getAllBedAndPatient();
     }
 
     public static synchronized BedRepository getInstance(Application application) {
@@ -70,6 +73,10 @@ public class BedRepository {
 
     public LiveData<Integer> getNumberOfTotalBeds() {
         return NumberOfTotalBeds;
+    }
+
+    public LiveData<List<BedAndPatient>> getBedAndPatientLists() {
+        return BedAndPatientLists;
     }
 
     private static class InsertBedAsyncTask extends AsyncTask<Bed,Void,Void>{

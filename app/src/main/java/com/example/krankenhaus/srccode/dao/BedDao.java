@@ -6,9 +6,12 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Relation;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.example.krankenhaus.srccode.entities.Bed;
+import com.example.krankenhaus.srccode.entities.relations.BedAndPatient;
 
 import java.util.List;
 
@@ -40,4 +43,8 @@ public interface BedDao {
 
     @Query("SELECT insurance_number FROM patient_table p, bed_table b WHERE p.bed_number = b.number")
     LiveData<String> getPatientInsuranceNumberFromBed();
+
+    @Transaction
+    @Query("SELECT * FROM bed_table left join patient_table on patient_table.bed_number = bed_table.number")
+    LiveData<List<BedAndPatient>> getAllBedAndPatient();
 }
