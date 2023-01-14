@@ -10,7 +10,6 @@ import com.example.krankenhaus.srccode.entities.Record;
 import com.example.krankenhaus.srccode.entities.Visit;
 import com.example.krankenhaus.srccode.entities.BloodTest;
 import com.example.krankenhaus.srccode.entities.Patient;
-import com.example.krankenhaus.srccode.entities.Medication;
 
 public class RecordWithAll {
     @Embedded
@@ -36,14 +35,6 @@ public class RecordWithAll {
             entityColumn = "record_id"
     )
     public MRI mri;
-
-    @Relation(
-            entity = Medication.class,
-            parentColumn = "id",
-            entityColumn = "record_id"
-    )
-    public List<Medication> medications;
-
 
     @Relation(
             entity = Patient.class,

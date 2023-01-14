@@ -10,7 +10,6 @@ import androidx.room.TypeConverters;
 import java.time.LocalDate;
 
 import com.example.krankenhaus.srccode.converter.LocalDateConverter;
-import com.example.krankenhaus.srccode.converter.HealthStateConverter;
 
 @Entity(
         tableName = "patient_table",
@@ -48,10 +47,6 @@ public class Patient {
     @ColumnInfo(name = "zip_code")
     private String zipCode;
 
-    @ColumnInfo(name = "health_state")
-    @TypeConverters(HealthStateConverter.class)
-    private HealthState healthState;
-
     @ColumnInfo(name = "health_insurance_company")
     private String healthInsuranceCompany;
 
@@ -70,7 +65,6 @@ public class Patient {
         this.address = address;
         this.placeOfResidence = placeOfResidence;
         this.zipCode = zipCode;
-        this.healthState = HealthState.NEW;
         this.healthInsuranceCompany = "HealthInsuranceCompany";
         this.admissionDate = LocalDate.now();
         this.isDischarged = false;
@@ -130,14 +124,6 @@ public class Patient {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
-    }
-
-    public HealthState getHealthState() {
-        return healthState;
-    }
-
-    public void setHealthState(HealthState healthState) {
-        this.healthState = healthState;
     }
 
     public String getHealthInsuranceCompany() {

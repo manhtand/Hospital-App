@@ -5,10 +5,4 @@
     <string name="title_notifications">Notifications</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="health_state_new">New</string>
-    <string name="health_state_contagious">Contagious</string>
-    <string name="health_state_stable">Stable</string>
-    <string name="health_state_critical">Critical</string>
-    <string name="health_state_recovered">Recovered</string>
 </resources>

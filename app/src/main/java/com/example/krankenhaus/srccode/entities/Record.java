@@ -24,6 +24,9 @@ public class Record {
     @ColumnInfo(name = "patient_insurance_number", index = true)
     private String patientInsuranceNumber;
 
+    @ColumnInfo(name = "medication")
+    private String medication;
+
     public Record(String patientInsuranceNumber) {
         this.patientInsuranceNumber = patientInsuranceNumber;
     }
@@ -42,5 +45,13 @@ public class Record {
 
     public void setPatientInsuranceNumber(String patientInsuranceNumber) {
         this.patientInsuranceNumber = patientInsuranceNumber;
+    }
+
+    public String getMedication() {
+        return medication;
+    }
+
+    public void setMedication(String medication) {
+        this.medication = medication;
     }
 }
