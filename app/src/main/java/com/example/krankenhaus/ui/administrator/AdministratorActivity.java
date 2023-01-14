@@ -8,6 +8,7 @@ import android.view.MenuItem;
 
 import com.example.krankenhaus.R;
 import com.example.krankenhaus.srccode.entities.Bed;
+import com.example.krankenhaus.srccode.entities.Patient;
 import com.example.krankenhaus.srccode.repository.BedRepository;
 import com.example.krankenhaus.srccode.repository.PatientRepository;
 import com.example.krankenhaus.ui.administrator.ui.main.AdministratorViewModel;
@@ -15,6 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavGraph;
@@ -23,6 +25,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.krankenhaus.databinding.ActivityAdministratorBinding;
+
+import java.time.LocalDate;
 
 public class AdministratorActivity extends AppCompatActivity {
 
@@ -60,9 +64,6 @@ public class AdministratorActivity extends AppCompatActivity {
         AdministratorViewModel administratorViewModel = new ViewModelProvider(activity).get(AdministratorViewModel.class);
         administratorViewModel.setRepository(patientRepository, bedRepository);
 
-        for (int i = 1; i <= 21; i++) {
-            bedRepository.insertBed(new Bed(i));
-        }
 
         return administratorViewModel;
     }

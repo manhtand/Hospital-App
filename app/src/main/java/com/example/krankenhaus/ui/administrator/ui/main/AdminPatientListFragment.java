@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import com.example.krankenhaus.R;
 import com.example.krankenhaus.databinding.AdminFragmentPatientListBinding;
 import com.example.krankenhaus.srccode.entities.Patient;
+import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
 import com.example.krankenhaus.ui.doctor.ui.main.DoctorViewModel;
 import com.example.krankenhaus.ui.doctor.ui.main.PatientAdapter;
 
@@ -45,16 +46,16 @@ public class AdminPatientListFragment extends Fragment {
 
         recyclerView = binding.adminPatientList;
 
-        //patientAdapter = new PatientAdapter();
-        //recyclerView.setAdapter(patientAdapter);
+        patientAdapter = new PatientAdapter();
+        recyclerView.setAdapter(patientAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
-        /*administratorViewModel.getAllPatients().observe(getViewLifecycleOwner(), new Observer<List<Patient>>() {
+        administratorViewModel.getAllPatientAndBeds().observe(getViewLifecycleOwner(), new Observer<List<PatientAndBed>>() {
             @Override
-            public void onChanged(List<Patient> patients) {
-                patientAdapter.setPatientList(patients);
+            public void onChanged(List<PatientAndBed> patientAndBeds) {
+                patientAdapter.setPatientAndBedList(patientAndBeds);
             }
-        });*/
+        });
 
         binding.addPatientButton.setOnClickListener(new View.OnClickListener() {
             @Override

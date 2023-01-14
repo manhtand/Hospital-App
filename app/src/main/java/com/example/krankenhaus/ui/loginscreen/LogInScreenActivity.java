@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
+import com.example.krankenhaus.srccode.entities.Bed;
+import com.example.krankenhaus.srccode.repository.BedRepository;
 import com.example.krankenhaus.ui.administrator.AdministratorActivity;
 import com.example.krankenhaus.ui.doctor.DoctorActivity;
 import com.example.krankenhaus.ui.menubar.MainActivity;
@@ -47,6 +49,11 @@ public class LogInScreenActivity extends AppCompatActivity {
             public void onClick(View v) { openActivityService();
             }
         });
+
+        BedRepository bedRepository = BedRepository.getInstance(this.getApplication());
+        for (int i = 1; i <= 21; i++) {
+            bedRepository.insertBed(new Bed(i));
+        }
     }
 
     public void openActivityDoctor(){
