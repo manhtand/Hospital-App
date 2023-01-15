@@ -12,9 +12,11 @@ import android.app.Application;
 
 import com.example.krankenhaus.srccode.HospitalDatabase;
 import com.example.krankenhaus.srccode.dao.PatientDao;
+import com.example.krankenhaus.srccode.dao.RecordDao;
 import com.example.krankenhaus.srccode.entities.Patient;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndRecord;
+import com.example.krankenhaus.srccode.entities.relations.RecordAndVisitAndPatient;
 
 import java.util.List;
 

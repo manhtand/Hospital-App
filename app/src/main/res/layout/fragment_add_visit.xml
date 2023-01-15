@@ -17,13 +17,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Record ID"
+            android:text="Insurance Number"
             android:textStyle="bold" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/et_visit_record_id" />
+            android:id="@+id/et_visit_insurance_number" />
 
     </LinearLayout>
 
