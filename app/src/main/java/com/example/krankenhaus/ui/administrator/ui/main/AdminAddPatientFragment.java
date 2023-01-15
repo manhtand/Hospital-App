@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -13,17 +14,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.NumberPicker;
 import android.widget.Toast;
+
+import com.example.krankenhaus.srccode.entities.Bed;
 import com.example.krankenhaus.srccode.entities.Patient;
 
 import com.example.krankenhaus.R;
 import com.example.krankenhaus.databinding.FragmentAddPatientBinding;
+import com.example.krankenhaus.srccode.entities.Record;
+import com.example.krankenhaus.srccode.entities.relations.BedAndPatient;
+import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdminAddPatientFragment extends Fragment {
-    AdminViewModel administratorViewModel;
+    AdminViewModel adminViewModel;
     private FragmentAddPatientBinding binding;
 
+    Bed freeBed;
     int year;
     int month;
     int day;
@@ -41,8 +50,67 @@ public class AdminAddPatientFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentAddPatientBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        administratorViewModel = new ViewModelProvider(requireActivity()).get(AdminViewModel.class);
+        adminViewModel = new ViewModelProvider(requireActivity()).get(AdminViewModel.class);
 
+        adminViewModel.getNextFreeBed().observe(getViewLifecycleOwner(), new Observer<Bed>() {
+            @Override
+            public void onChanged(Bed bed) {
+                freeBed = bed;
+            }
+        });
+
+        setUpDateOfBirth();
+
+        binding.createPatientButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                savePatient();
+                returnToPatientList();
+            }
+        });
+
+
+        return root;
+    }
+
+    private void savePatient() {
+        if (freeBed == null) {
+            Toast.makeText(getActivity(), "No bed available!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String name = binding.etName.getText().toString();
+        int bedNumber = freeBed.getNumber();
+        LocalDate dob = LocalDate.of(year, month, day);
+        String address = binding.etAddress.getText().toString();
+        String zipcode = binding.etZipcode.getText().toString();
+        String placeOfResidence = binding.etPlaceofresidence.getText().toString();
+        String insuranceNumber = binding.etInsurancenumber.getText().toString();
+        String insuranceCompany = binding.etInsurancecompany.getText().toString();
+
+        if (name.trim().isEmpty() ||
+                address.trim().isEmpty() ||
+                zipcode.trim().isEmpty() ||
+                placeOfResidence.trim().isEmpty() ||
+                insuranceNumber.trim().isEmpty() ||
+                insuranceCompany.trim().isEmpty()) {
+            Toast.makeText(getActivity(), "Please insert all informations", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        adminViewModel.insertPatient(new Patient(insuranceNumber, bedNumber, name, dob, address, placeOfResidence, zipcode));
+        adminViewModel.insertRecord(new Record(insuranceNumber));
+
+        Toast.makeText(getContext(), "Patient Added", Toast.LENGTH_LONG).show();
+    }
+
+    public void returnToPatientList() {
+        AdminPatientListFragment adminPatientListFragment = new AdminPatientListFragment();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.nav_host_fragment_activity_administrator, adminPatientListFragment);
+        ft.commit();
+    }
+
+    private void setUpDateOfBirth(){
         binding.npYear.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker numberPicker, int oldVal, int newVal) {
@@ -88,44 +156,5 @@ public class AdminAddPatientFragment extends Fragment {
             binding.npDay.setMaxValue(30);
         }
         binding.npDay.setMinValue(1);
-
-        binding.createPatientButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                savePatient();
-                returnToPatientList();
-            }
-        });
-
-
-        return root;
-    }
-
-    private void savePatient() {
-        String name = binding.etName.getText().toString();
-        LocalDate dob = LocalDate.of(year, month, day);
-        String address = binding.etAddress.getText().toString();
-        String zipcode = binding.etZipcode.getText().toString();
-        String placeOfResidence = binding.etPlaceofresidence.getText().toString();
-        String insuranceNumber = binding.etInsurancenumber.getText().toString();
-        String insuranceCompany = binding.etInsurancecompany.getText().toString();
-
-        if (name.trim().isEmpty() ||
-                address.trim().isEmpty() ||
-                zipcode.trim().isEmpty() ||
-                placeOfResidence.trim().isEmpty() ||
-                insuranceNumber.trim().isEmpty() ||
-                insuranceCompany.trim().isEmpty()) {
-            Toast.makeText(getActivity(), "Please insert all informations", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        administratorViewModel.insertPatient(new Patient(insuranceNumber, 3, name, dob, address, placeOfResidence, zipcode));
-    }
-
-    public void returnToPatientList() {
-        AdminPatientListFragment adminPatientListFragment = new AdminPatientListFragment();
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.nav_host_fragment_activity_administrator, adminPatientListFragment);
-        ft.commit();
     }
 }

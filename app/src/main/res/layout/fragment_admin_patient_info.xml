@@ -11,12 +11,33 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.15"
+        android:layout_weight="0.1"
         android:id="@+id/admin_patient_info_name"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:gravity="center"
         android:text="Name"
         android:background="#E3AA"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.05dp"
+        android:layout_weight="0.05"
+        android:background="#E3AA"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Record ID: "
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <TextView
+            android:id="@+id/admin_patient_record_id"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Record ID number"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+    </LinearLayout>
 
     <TableLayout
         android:id="@+id/admin_patient_info_table"
@@ -61,7 +82,7 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/address"
+                android:id="@+id/admin_address"
                 android:text="Nieder-Ramstaedter Strasse"
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"
@@ -83,7 +104,7 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/zip_code"
+                android:id="@+id/admin_zip_code"
                 android:text="64285"
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"
@@ -105,7 +126,7 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/place_of_residence"
+                android:id="@+id/admin_place_of_residence"
                 android:text="Darmstadt"
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"
@@ -127,7 +148,7 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/insurance_number"
+                android:id="@+id/admin_insurance_number"
                 android:text="A1234567"
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"
@@ -149,7 +170,7 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/health_insurance_company"
+                android:id="@+id/admin_health_insurance_company"
                 android:text="TK"
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"
@@ -171,7 +192,7 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/admission_date"
+                android:id="@+id/admin_admission_date"
                 android:text="24/12/2022"
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"
@@ -193,122 +214,37 @@
                 android:background="@drawable/table_line"
                 android:textStyle="bold"/>
 
-            <RadioGroup
-                android:id="@+id/radio_button_group"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/admin_patient_health_status"
+                android:text="Not Recovered"
                 android:layout_height="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_weight="4"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <RadioButton
-                    android:id="@+id/yes_radio_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="Yes"
-                    android:background="@drawable/table_line"/>
-
-                <RadioButton
-                    android:id="@+id/no_radio_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="No"
-                    android:background="@drawable/table_line"/>
-
-            </RadioGroup>
+                android:gravity="center"
+                android:background="@drawable/table_line"/>
         </TableRow>
     </TableLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.25"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.05"
         android:orientation="horizontal"
-        android:weightSum="1">
+        android:weightSum="5">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:background="@drawable/table_line"
-            android:weightSum="1"
-            android:orientation="vertical">
+        <Button
+            android:id="@+id/admin_discharge_patient_button"
+            android:layout_width="242dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Discharge Patient" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.7"
-                android:background="@drawable/table_line"
-                android:text="assignment.pdf"
-                android:layout_marginBottom="6dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="6dp"
-                android:layout_marginStart="6dp">
-
-            </TextView>
-
-            <Button
-                android:id="@+id/assignment_request_button"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="0.25"
-                android:layout_gravity="center"
-                android:background="@drawable/table_line"
-                android:text="Request"
-                android:textAppearance="@style/TextAppearance.AppCompat">
-
-            </Button>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:background="@drawable/table_line"
-            android:weightSum="1"
-            android:orientation="vertical">
-
-            <ViewSwitcher
-                android:id="@+id/medication_viewswitcher"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.7"
-                android:background="@drawable/table_line"
-                android:layout_marginBottom="6dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="6dp"
-                android:layout_marginStart="6dp">
-
-                <TextView
-                    android:id="@+id/medication_textview"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:text="Medication 1" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/medication_edittext" />
-
-            </ViewSwitcher>
-
-            <Button
-                android:id="@+id/medication_edit_button"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="0.25"
-                android:layout_gravity="center"
-                android:background="@drawable/table_line"
-                android:text="Edit"
-                android:textAppearance="@style/TextAppearance.AppCompat">
-
-            </Button>
-
-        </LinearLayout>
-
+        <Button
+            android:id="@+id/admin_edit_patient_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="Edit Info" />
     </LinearLayout>
 
 </LinearLayout>
