@@ -47,8 +47,6 @@ public class DoctorActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.doctorNavigationView, navController);
 
-        navController.setGraph(binding.doctorNavigationView, args);
-
         getSupportActionBar().setTitle("Doctor");
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
