@@ -12,12 +12,21 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.15"
+        android:layout_weight="0.125"
         android:id="@+id/patient_info_name"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:gravity="center"
         android:text="name"
         android:background="#E3AA"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.025"
+        android:id="@+id/patient_info_record_id"
+        android:gravity="center"
+        android:text="record id"
+        android:background="#00BCD4"/>
 
     <TableLayout
         android:id="@+id/patient_info_table"
@@ -287,7 +296,7 @@
                     android:id="@+id/medication_textview"
                     android:layout_height="match_parent"
                     android:layout_width="match_parent"
-                    android:text="Medication 1" />
+                    android:text="Medication" />
 
                 <EditText
                     android:layout_width="match_parent"

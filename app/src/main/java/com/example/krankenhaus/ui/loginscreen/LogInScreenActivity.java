@@ -49,7 +49,7 @@ public class LogInScreenActivity extends AppCompatActivity {
             public void onClick(View v) { openActivityService();
             }
         });
-
+        
         BedRepository bedRepository = BedRepository.getInstance(this.getApplication());
         for (int i = 1; i <= 21; i++) {
             bedRepository.insertBed(new Bed(i));

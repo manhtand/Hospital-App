@@ -65,7 +65,7 @@ public class DoctorPatientListFragment extends Fragment {
                 ft.replace(R.id.nav_host_fragment_activity_doctor, doctorPatientInfoFragment);
                 ft.commit();
 
-                doctorViewModel.setPatient(patientAndBed.patient);
+                doctorViewModel.setInsuranceNumber(patientAndBed.patient.getInsuranceNumber());
             }
         });
 
