@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
 import com.example.krankenhaus.srccode.entities.Bed;
@@ -30,6 +31,8 @@ public class AdminViewModel extends AndroidViewModel {
 
     private RecordRepository recordRepository;
 
+    public MutableLiveData<Patient> patient = new MutableLiveData<>();
+
     public AdminViewModel(@NonNull Application application) {
         super(application);
 
@@ -50,6 +53,10 @@ public class AdminViewModel extends AndroidViewModel {
         this.bedRepository = bedRepository;
     }
 
+    public void setPatient(Patient input) {
+        patient.setValue(input);
+    }
+
     public void insertPatient(Patient patient) { patientRepository.insertPatient(patient); }
 
     public void insertRecord(Record record) { recordRepository.insertRecord(record);}
@@ -57,6 +64,10 @@ public class AdminViewModel extends AndroidViewModel {
     public void updatePatient(Patient patient) { patientRepository.updatePatient(patient); }
 
     public void updateBed(Bed bed) { bedRepository.updateBed(bed); }
+
+    public LiveData<Patient> getPatient() {
+        return patient;
+    }
 
     public LiveData<List<Patient>> getAllPatients() { return allPatients; }
 

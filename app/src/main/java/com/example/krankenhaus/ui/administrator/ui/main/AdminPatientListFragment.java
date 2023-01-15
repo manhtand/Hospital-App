@@ -69,6 +69,19 @@ public class AdminPatientListFragment extends Fragment {
             }
         });
 
+        patientAdapter.setOnItemClickListener(new PatientAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(PatientAndBed patientAndBed) {
+                AdminPatientInfoFragment adminPatientInfoFragment = new AdminPatientInfoFragment();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.setReorderingAllowed(true);
+                ft.addToBackStack(null);
+                ft.replace(R.id.nav_host_fragment_activity_administrator, adminPatientInfoFragment);
+                ft.commit();
+
+                administratorViewModel.setPatient(patientAndBed.patient);
+            }
+        });
         return root;
     }
 

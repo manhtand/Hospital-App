@@ -21,12 +21,8 @@ import com.example.krankenhaus.srccode.entities.Patient;
 import com.example.krankenhaus.R;
 import com.example.krankenhaus.databinding.FragmentAddPatientBinding;
 import com.example.krankenhaus.srccode.entities.Record;
-import com.example.krankenhaus.srccode.entities.relations.BedAndPatient;
-import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AdminAddPatientFragment extends Fragment {
     AdminViewModel adminViewModel;

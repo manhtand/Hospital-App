@@ -2,65 +2,76 @@ package com.example.krankenhaus.ui.administrator.ui.main;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.krankenhaus.R;
+import com.example.krankenhaus.databinding.FragmentAdminPatientInfoBinding;
+import com.example.krankenhaus.srccode.entities.Patient;
+import com.example.krankenhaus.srccode.entities.Record;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AdminPatientInfoFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.time.format.DateTimeFormatter;
+
 public class AdminPatientInfoFragment extends Fragment {
+    private Patient patient;
+    private Record record;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private AdminViewModel adminViewModel;
+    private FragmentAdminPatientInfoBinding binding;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public AdminPatientInfoFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AdminPatientInfoFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AdminPatientInfoFragment newInstance(String param1, String param2) {
-        AdminPatientInfoFragment fragment = new AdminPatientInfoFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        adminViewModel = new ViewModelProvider(requireActivity()).get(AdminViewModel.class);
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Patient Information");
+
+        adminViewModel.getPatient().observe(getActivity(), new Observer<Patient>() {
+            @Override
+            public void onChanged(Patient p) {
+                patient = p;
+            }
+        });
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_admin_patient_info, container, false);
+        binding = FragmentAdminPatientInfoBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+
+        setPatientData(patient);
+
+        return root;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
+    public void setPatientData(Patient patient) {
+        binding.adminPatientInfoName.setText(patient.getName());
+        binding.adminPatientInfoDateOfBirth.setText(DateTimeFormatter.ofPattern("dd/MM/yyyy").format(patient.getDateOfBirth()));
+        binding.adminPatientInfoAddress.setText(patient.getAddress());
+        binding.adminPatientInfoZipCode.setText(patient.getZipCode());
+        binding.adminPatientInfoPlaceOfResidence.setText(patient.getPlaceOfResidence());
+        binding.adminPatientInfoInsuranceNumber.setText(patient.getInsuranceNumber());
+        binding.adminPatientInfoHealthInsuranceCompany.setText(patient.getHealthInsuranceCompany());
+        binding.adminPatientInfoAdmissionDate.setText(DateTimeFormatter.ofPattern("dd/MM/yyyy").format(patient.getAdmissionDate()));
+
+        if (patient.isDischarged()) {
+            binding.adminPatientHealthStatus.setText("Recoverd");
+        }
+        else {
+            binding.adminPatientHealthStatus.setText("Not Recoverd");
+        }
     }
 }

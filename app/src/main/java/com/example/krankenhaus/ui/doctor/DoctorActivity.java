@@ -8,8 +8,10 @@ import android.view.MenuItem;
 
 import com.example.krankenhaus.R;
 import com.example.krankenhaus.srccode.entities.Patient;
+import com.example.krankenhaus.srccode.entities.Record;
 import com.example.krankenhaus.srccode.repository.BedRepository;
 import com.example.krankenhaus.srccode.repository.PatientRepository;
+import com.example.krankenhaus.srccode.repository.RecordRepository;
 import com.example.krankenhaus.srccode.repository.VisitRepository;
 import com.example.krankenhaus.ui.doctor.ui.main.DoctorViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -61,9 +63,6 @@ public class DoctorActivity extends AppCompatActivity {
         VisitRepository visitRepository = VisitRepository.getInstance(activity.getApplication());
         DoctorViewModel doctorViewModel = new ViewModelProvider(activity).get(DoctorViewModel.class);
         doctorViewModel.setRepository(patientRepository, visitRepository);
-
-        patientRepository.insertPatient(new Patient("123", 2, "Doan", LocalDate.of(2001, 10, 02), "Hanoi", "Hanoi", "123"));
-
         return doctorViewModel;
     }
 
