@@ -1,7 +1,9 @@
 package com.example.krankenhaus.ui.doctor;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -15,17 +17,21 @@ import com.example.krankenhaus.srccode.repository.PatientRepository;
 import com.example.krankenhaus.srccode.repository.RecordRepository;
 import com.example.krankenhaus.srccode.repository.VisitRepository;
 import com.example.krankenhaus.ui.doctor.ui.main.DoctorViewModel;
+import com.example.krankenhaus.ui.loginscreen.LogInScreenActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavArgument;
 import androidx.navigation.NavController;
+import androidx.navigation.NavGraph;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.krankenhaus.databinding.ActivityDoctorBinding;
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.time.LocalDate;
 
@@ -62,10 +68,12 @@ public class DoctorActivity extends AppCompatActivity {
         PatientRepository patientRepository = PatientRepository.getInstance(activity.getApplication());
         BedRepository bedRepository = BedRepository.getInstance(activity.getApplication());
         VisitRepository visitRepository = VisitRepository.getInstance(activity.getApplication());
+        RecordRepository recordRepository = RecordRepository.getInstance(activity.getApplication());
         DoctorViewModel doctorViewModel = new ViewModelProvider(activity).get(DoctorViewModel.class);
-        doctorViewModel.setRepository(patientRepository, visitRepository);
+        doctorViewModel.setRepository(patientRepository, visitRepository, recordRepository);
 
         patientRepository.insertPatient(new Patient("123", 2, "Doan", LocalDate.of(2001, 10, 02), "Hanoi", "Hanoi", "123"));
+        recordRepository.insertRecord(new Record("123"));
 
         return doctorViewModel;
     }
