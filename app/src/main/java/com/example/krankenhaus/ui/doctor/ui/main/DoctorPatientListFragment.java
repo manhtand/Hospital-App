@@ -30,6 +30,7 @@ public class DoctorPatientListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        doctorViewModel = new ViewModelProvider(requireActivity()).get(DoctorViewModel.class);
     }
 
     @Override
@@ -38,7 +39,6 @@ public class DoctorPatientListFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Patient List");
 
         binding = DoctorFragmentPatientListBinding.inflate(inflater, container, false);
-        doctorViewModel = new ViewModelProvider(requireActivity()).get(DoctorViewModel.class);
         View root = binding.getRoot();
 
         recyclerView = binding.patientList;

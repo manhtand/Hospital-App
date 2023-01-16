@@ -11,6 +11,7 @@ import com.example.krankenhaus.srccode.entities.Patient;
 import com.example.krankenhaus.srccode.entities.Record;
 import com.example.krankenhaus.srccode.entities.Visit;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
+import com.example.krankenhaus.srccode.entities.relations.PatientAndRecord;
 import com.example.krankenhaus.srccode.entities.relations.RecordAndVisitAndPatient;
 import com.example.krankenhaus.srccode.entities.relations.RecordWithAll;
 import com.example.krankenhaus.srccode.repository.PatientRepository;
@@ -43,9 +44,10 @@ public class DoctorViewModel extends AndroidViewModel {
         recordRepository = RecordRepository.getInstance(application);
     }
 
-    public void setRepository(PatientRepository patientRepository, VisitRepository visitRepository) {
+    public void setRepository(PatientRepository patientRepository, VisitRepository visitRepository, RecordRepository recordRepository) {
         this.patientRepository = patientRepository;
         this.visitRepository = visitRepository;
+        this.recordRepository = recordRepository;
     }
 
     public void setInsuranceNumber(String input) {
@@ -71,6 +73,8 @@ public class DoctorViewModel extends AndroidViewModel {
     public void insertVisit(Visit visit) { visitRepository.insertVisit(visit); }
 
     public LiveData<List<Visit>> getAllVisits() { return allVisits; }
+
+    public LiveData<PatientAndRecord> getPatientAndRecordByInsuranceNumber(String insuranceNumber) { return patientRepository.getPatientAndRecordByInsuranceNumber(insuranceNumber); }
 
     public LiveData<RecordAndVisitAndPatient> getRecordAndVisitAndPatientByInsuranceNumber(String insuranceNumber) { return recordRepository.getRecordAndPatientAndVisitByInsuranceNumber(insuranceNumber); }
 
