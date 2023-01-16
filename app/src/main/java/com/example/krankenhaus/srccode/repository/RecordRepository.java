@@ -70,7 +70,7 @@ public class RecordRepository {
         return allRecordAndPatientAndVisits;
     }
 
-    public LiveData<List<RecordAndBloodTestAndMRI>> getAllRecordAndBloodTestAndMRIByInsuranceNumber(String insuranceNumber){
+    public LiveData<RecordAndBloodTestAndMRI> getAllRecordAndBloodTestAndMRIByInsuranceNumber(String insuranceNumber){
         return recordDao.getAllRecordAndBloodTestAndMRIByInsuranceNumber(insuranceNumber);
     }
 

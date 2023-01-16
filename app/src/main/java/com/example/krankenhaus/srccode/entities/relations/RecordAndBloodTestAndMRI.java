@@ -7,6 +7,8 @@ import com.example.krankenhaus.srccode.entities.BloodTest;
 import com.example.krankenhaus.srccode.entities.MRI;
 import com.example.krankenhaus.srccode.entities.Record;
 
+import java.util.List;
+
 public class RecordAndBloodTestAndMRI {
     @Embedded
     public Record record;
@@ -16,12 +18,12 @@ public class RecordAndBloodTestAndMRI {
             parentColumn = "id",
             entityColumn = "record_id"
     )
-    public BloodTest bloodTest;
+    public List<BloodTest> bloodTest;
 
     @Relation(
             entity = MRI.class,
             parentColumn = "id",
             entityColumn = "record_id"
     )
-    public MRI mri;
+    public List<MRI> mri;
 }

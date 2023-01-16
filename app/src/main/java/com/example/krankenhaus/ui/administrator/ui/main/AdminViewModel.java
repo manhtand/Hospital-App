@@ -36,8 +36,8 @@ public class AdminViewModel extends AndroidViewModel {
 
     public MutableLiveData<Patient> patient = new MutableLiveData<>();
     public MutableLiveData<PatientAndRecord> patientAndRecord = new MutableLiveData<>();
-    public MutableLiveData<List<RecordAndBloodTestAndMRI>> recordAndBloodTestAndMRIList = new MutableLiveData<>();
-    public  MutableLiveData<List<RecordAndVisitAndPatient>> recordAndVisitAndPatientList = new MutableLiveData<>();
+    public MutableLiveData<RecordAndBloodTestAndMRI> recordAndBloodTestAndMRIList = new MutableLiveData<>();
+    public  MutableLiveData<RecordAndVisitAndPatient> recordAndVisitAndPatientList = new MutableLiveData<>();
 
     public AdminViewModel(@NonNull Application application) {
         super(application);
@@ -67,11 +67,11 @@ public class AdminViewModel extends AndroidViewModel {
         patientAndRecord.setValue(input);
     }
 
-    public void setRecordAndBloodTestAndMRIList(List<RecordAndBloodTestAndMRI> inputList){
+    public void setRecordAndBloodTestAndMRIList(RecordAndBloodTestAndMRI inputList){
         recordAndBloodTestAndMRIList.setValue(inputList);
     }
 
-    public void setRecordAndVisitAndPatientList(List<RecordAndVisitAndPatient> inputList){
+    public void setRecordAndVisitAndPatientList(RecordAndVisitAndPatient inputList){
         recordAndVisitAndPatientList.setValue(inputList);
     }
 
@@ -105,16 +105,24 @@ public class AdminViewModel extends AndroidViewModel {
         return allBedAndPatients;
     }
 
+    public LiveData<RecordAndBloodTestAndMRI> getRecordAndBloodTestAndMRIList(){
+        return recordAndBloodTestAndMRIList;
+    }
+
+    public LiveData<RecordAndVisitAndPatient> getRecordAndVisitAndPatientList(){
+        return recordAndVisitAndPatientList;
+    }
+
     public LiveData<PatientAndRecord> getPatientAndRecordByInsuranceNumber(String insuranceNumber) {
         return patientRepository.getPatientAndRecordByInsuranceNumber(insuranceNumber);
     }
 
-    public LiveData<List<RecordAndBloodTestAndMRI>> getRecordAndBloodTestAndMRIList(){
-        return recordAndBloodTestAndMRIList;
+    public LiveData<RecordAndBloodTestAndMRI> getRecordAndBloodTestAndMRIByInsuranceNumber(String insuranceNumber){
+        return recordRepository.getAllRecordAndBloodTestAndMRIByInsuranceNumber(insuranceNumber);
     }
 
-    public LiveData<List<RecordAndVisitAndPatient>> getRecordAndVisitAndPatientList(){
-        return recordAndVisitAndPatientList;
+    public LiveData<RecordAndVisitAndPatient> getRecordAndVisitAndPatientByInsuranceNumber (String insuranceNumber){
+        return recordRepository.getRecordAndPatientAndVisitByInsuranceNumber(insuranceNumber);
     }
 
     public LiveData<Integer> getNumberOfOccupiedBeds() { return bedRepository.getNumberOfOccupiedBeds(); }

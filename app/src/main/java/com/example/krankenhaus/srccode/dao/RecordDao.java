@@ -44,5 +44,5 @@ public interface RecordDao {
 
     @Transaction
     @Query("SELECT * FROM (SELECT * FROM record_table r LEFT JOIN blood_test_table b ON b.record_id = r.id LEFT JOIN mri_table m ON r.id = m.record_id ) WHERE patient_insurance_number = :insuranceNumber")
-    LiveData<List<RecordAndBloodTestAndMRI>> getAllRecordAndBloodTestAndMRIByInsuranceNumber(String insuranceNumber);
+    LiveData<RecordAndBloodTestAndMRI> getAllRecordAndBloodTestAndMRIByInsuranceNumber(String insuranceNumber);
 }

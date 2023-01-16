@@ -22,6 +22,8 @@ import com.example.krankenhaus.databinding.AdminFragmentPatientListBinding;
 
 import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndRecord;
+import com.example.krankenhaus.srccode.entities.relations.RecordAndBloodTestAndMRI;
+import com.example.krankenhaus.srccode.entities.relations.RecordAndVisitAndPatient;
 import com.example.krankenhaus.srccode.repository.PatientRepository;
 import com.example.krankenhaus.ui.doctor.ui.main.PatientAdapter;
 
@@ -80,6 +82,20 @@ public class AdminPatientListFragment extends Fragment {
                     @Override
                     public void onChanged(PatientAndRecord patientAndRecord) {
                         administratorViewModel.setPatientAndRecord(patientAndRecord);
+                    }
+                });
+
+                administratorViewModel.getRecordAndBloodTestAndMRIByInsuranceNumber(patientAndBed.patient.getInsuranceNumber()).observe(getViewLifecycleOwner(), new Observer<RecordAndBloodTestAndMRI>() {
+                    @Override
+                    public void onChanged(RecordAndBloodTestAndMRI recordAndBloodTestAndMRIS) {
+                        administratorViewModel.setRecordAndBloodTestAndMRIList(recordAndBloodTestAndMRIS);
+                    }
+                });
+
+                administratorViewModel.getRecordAndVisitAndPatientByInsuranceNumber(patientAndBed.patient.getInsuranceNumber()).observe(getViewLifecycleOwner(), new Observer<RecordAndVisitAndPatient>() {
+                    @Override
+                    public void onChanged(RecordAndVisitAndPatient recordAndVisitAndPatient) {
+                        administratorViewModel.setRecordAndVisitAndPatientList(recordAndVisitAndPatient);
                     }
                 });
 
