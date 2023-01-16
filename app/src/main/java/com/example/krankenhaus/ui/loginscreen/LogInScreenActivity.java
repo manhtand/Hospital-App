@@ -144,6 +144,12 @@ public class LogInScreenActivity extends AppCompatActivity {
             public void onChanged(PatientAndRecord patientAndRecord) {
                 recordid = patientAndRecord.record.getRecordId();
             }
+        });
+        recordRepository.getAllRecordAndBloodTestAndMRIByInsuranceNumber("100").observe(this, new Observer<List<RecordAndBloodTestAndMRI>>() {
+            @Override
+            public void onChanged(List<RecordAndBloodTestAndMRI> recordAndBloodTestAndMRIS) {
+                recordAndBloodTestAndMRIS.size();
+            }
         });*/
     }
 

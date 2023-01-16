@@ -60,7 +60,7 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/admin_bed_number"
+                android:id="@+id/admin_patient_info_bed_number"
                 android:text="Bed Number"
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"

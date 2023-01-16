@@ -39,6 +39,13 @@ public class AdminPatientInfoFragment extends Fragment {
                 patient = p;
             }
         });
+
+        adminViewModel.getPatientAndRecord().observe(getActivity(), new Observer<PatientAndRecord>() {
+            @Override
+            public void onChanged(PatientAndRecord patientAndRecord) {
+                record = patientAndRecord.record;
+            }
+        });
     }
 
     @Override
@@ -60,6 +67,8 @@ public class AdminPatientInfoFragment extends Fragment {
 
     public void setPatientData(Patient patient) {
         binding.adminPatientInfoName.setText(patient.getName());
+        binding.adminPatientInfoRecordId.setText(String.valueOf(record.getRecordId()));
+        binding.adminPatientInfoBedNumber.setText(String.valueOf(patient.getBedNumber()));
         binding.adminPatientInfoDateOfBirth.setText(DateTimeFormatter.ofPattern("dd/MM/yyyy").format(patient.getDateOfBirth()));
         binding.adminPatientInfoAddress.setText(patient.getAddress());
         binding.adminPatientInfoZipCode.setText(patient.getZipCode());
