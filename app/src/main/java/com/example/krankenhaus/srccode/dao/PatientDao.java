@@ -2,6 +2,7 @@ package com.example.krankenhaus.srccode.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -22,6 +23,9 @@ public interface PatientDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updatePatient(Patient patient);
 
+    @Delete
+    void deletePatient(Patient patient);
+
     @Query("SELECT * FROM patient_table ORDER BY name ASC")
     LiveData<List<Patient>> getAllPatients();
 
@@ -33,7 +37,7 @@ public interface PatientDao {
 
     @Transaction
     @Query("SELECT * FROM patient_table p WHERE p.insurance_number = :insuranceNumber")
-    LiveData<PatientAndBed> getPatientAndBed(String insuranceNumber);
+    LiveData<PatientAndBed> getPatientAndBedByInsuranceNumber(String insuranceNumber);
 
     @Transaction
     @Query("SELECT * FROM patient_table WHERE patient_table.insurance_number = :insuranceNumber")

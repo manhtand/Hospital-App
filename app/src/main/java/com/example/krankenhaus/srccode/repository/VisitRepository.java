@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import com.example.krankenhaus.srccode.HospitalDatabase;
 import com.example.krankenhaus.srccode.dao.VisitDao;
 import com.example.krankenhaus.srccode.entities.Visit;
+import com.example.krankenhaus.srccode.entities.relations.VisitAndRecord;
 
 import java.util.List;
 
@@ -15,11 +16,13 @@ public class VisitRepository {
     private volatile static VisitRepository INSTANCE = null;
     private final VisitDao visitDao;
     private LiveData<List<Visit>> allVisit;
+    private LiveData<List<VisitAndRecord>> allVisitAndRecord;
 
     public VisitRepository(Application application) {
         HospitalDatabase hospitalDatabase = HospitalDatabase.getInstance(application);
         visitDao = hospitalDatabase.visitDao();
         allVisit = visitDao.getAllVisits();
+        allVisitAndRecord = visitDao.getAllVisitAndRecord();
     }
 
     public static synchronized VisitRepository getInstance(Application application) {
@@ -33,8 +36,20 @@ public class VisitRepository {
         new InsertRecordAsyncTask(visitDao).execute(visit);
     }
 
+    public void deleteVisit(Visit visit){
+        visitDao.deleteVisit(visit);
+    }
+
     public LiveData<List<Visit>> getAllVisits(){
         return allVisit;
+    }
+
+    public LiveData<List<Visit>> getAllVisitByRecordID(int recordID){
+        return visitDao.getAllVisitByRecordID(recordID);
+    }
+
+    public LiveData<List<VisitAndRecord>> getAllVisitAndRecord(){
+        return allVisitAndRecord;
     }
 
     private static class InsertRecordAsyncTask extends AsyncTask<Visit,Void,Void> {

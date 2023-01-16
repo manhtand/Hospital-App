@@ -48,6 +48,10 @@ public class PatientRepository {
         new UpdatePatientAsyncTask(patientDao).execute(patient);
     }
 
+    public void deletePatient(Patient patient){
+        patientDao.deletePatient(patient);
+    }
+
     public LiveData<List<Patient>> getAllPatients(){
         return allPatients;
     }
@@ -55,32 +59,15 @@ public class PatientRepository {
     public LiveData<List<PatientAndBed>> getAllPatientAndBeds() { return allPatientAndBeds;}
 
     public LiveData<PatientAndBed> getPatientAndBedByInsuranceNumber(String insuranceNumber){
-        try {
-            return new getPatientAndBedByInsuranceNumberAsyncTask(patientDao).execute(insuranceNumber).get();
-        }
-        finally {
-            return null;
-        }
+        return patientDao.getPatientAndBedByInsuranceNumber(insuranceNumber);
     }
 
     public LiveData<Patient> getPatientByInsuranceNumber(String insuranceNumber){
-        /*try {
-            return new getPatientByInsuranceNumberAsyncTask(patientDao).execute(insuranceNumber).get();
-        }
-        finally {
-            return null;
-        }*/
-
         return patientDao.getPatientByInsuranceNumber(insuranceNumber);
     }
 
     public LiveData<PatientAndRecord> getPatientAndRecordByInsuranceNumber(String insuranceNumber){
-        try{
-            return new getPatientAndRecordByInsuranceNumberAsyncTask(patientDao).execute(insuranceNumber).get();
-        }
-        finally {
-            return null;
-        }
+        return patientDao.getPatientAndRecordByInsuranceNumber(insuranceNumber);
     }
 
     private static class InsertPatientAsyncTask extends AsyncTask<Patient,Void,Void> {
@@ -120,7 +107,7 @@ public class PatientRepository {
 
         @Override
         protected LiveData<PatientAndBed> doInBackground(String... strings) {
-            return patientDao.getPatientAndBed(strings[0]);
+            return patientDao.getPatientAndBedByInsuranceNumber(strings[0]);
         }
     }
 

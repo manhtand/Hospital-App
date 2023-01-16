@@ -2,6 +2,7 @@ package com.example.krankenhaus.srccode.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -10,9 +11,8 @@ import androidx.room.Update;
 
 import java.util.List;
 
-import io.reactivex.Flowable;
-
 import com.example.krankenhaus.srccode.entities.Record;
+import com.example.krankenhaus.srccode.entities.relations.RecordAndBloodTestAndMRI;
 import com.example.krankenhaus.srccode.entities.relations.RecordAndVisitAndPatient;
 import com.example.krankenhaus.srccode.entities.relations.RecordWithAll;
 
@@ -23,6 +23,9 @@ public interface RecordDao {
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateRecord(Record record);
+
+    @Delete
+    void deleteRecord(Record record);
 
     @Query("SELECT * FROM record_table")
     LiveData<List<Record>> getAllRecords();
@@ -38,4 +41,8 @@ public interface RecordDao {
     @Transaction
     @Query("SELECT * FROM record_table")
     LiveData<List<RecordAndVisitAndPatient>> getAllRecordAndPatientAndVisit();
+
+    @Transaction
+    @Query("SELECT * FROM (SELECT * FROM record_table r LEFT JOIN blood_test_table b ON b.record_id = r.id ) WHERE record_id = :insuranceNumber")
+    LiveData<List<RecordAndBloodTestAndMRI>> getAllRecordAndBloodTestAndMRIByInsuranceNumber(String insuranceNumber);
 }

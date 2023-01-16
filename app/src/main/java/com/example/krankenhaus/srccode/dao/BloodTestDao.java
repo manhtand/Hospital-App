@@ -1,5 +1,6 @@
 package com.example.krankenhaus.srccode.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -16,4 +17,7 @@ public interface BloodTestDao {
 
     @Delete
     void deleteBloodTest(BloodTest bloodTest);
+
+    @Query("SELECT * FROM blood_test_table WHERE blood_test_table.record_id = :recordid ORDER BY blood_test_table.id ASC")
+    LiveData<BloodTest> getAllBloodTestByRecordID(int recordid);
 }

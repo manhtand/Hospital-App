@@ -3,6 +3,7 @@ package com.example.krankenhaus.srccode.repository;
 import android.app.Application;
 import android.os.AsyncTask;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Delete;
 
 import com.example.krankenhaus.srccode.HospitalDatabase;
@@ -33,6 +34,10 @@ public class BloodTestRepository {
 
     public void deleteBloodTest(BloodTest bloodTest){
         new DeleteBloodTestAsyncTask(bloodTestDao).execute(bloodTest);
+    }
+
+    public LiveData<BloodTest> getAllBloodTestByRecordID(int recordID){
+        return bloodTestDao.getAllBloodTestByRecordID(recordID);
     }
 
     private static class InsertBloodTestAsyncTask extends AsyncTask<BloodTest,Void,Void> {

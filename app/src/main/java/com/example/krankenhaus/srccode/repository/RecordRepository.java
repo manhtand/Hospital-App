@@ -12,6 +12,7 @@ import androidx.room.Update;
 import com.example.krankenhaus.srccode.HospitalDatabase;
 import com.example.krankenhaus.srccode.dao.RecordDao;
 import com.example.krankenhaus.srccode.entities.Record;
+import com.example.krankenhaus.srccode.entities.relations.RecordAndBloodTestAndMRI;
 import com.example.krankenhaus.srccode.entities.relations.RecordAndVisitAndPatient;
 import com.example.krankenhaus.srccode.entities.relations.RecordWithAll;
 
@@ -49,30 +50,28 @@ public class RecordRepository {
         new UpdateRecordAsyncTask(recordDao).execute(record);
     }
 
+    public void deleteRecord(Record record){
+        recordDao.deleteRecord(record);
+    }
+
     public LiveData<List<Record>> getAllRecords(){
         return allRecords;
     }
 
     public LiveData<List<RecordWithAll>> getRecordWithAllByRecordId(int recordId){
-        try{
-            return new getRecordWithAllByRecordIdAsyncTask(recordDao).execute(recordId).get();
-        }
-        finally {
-            return null;
-        }
+        return recordDao.getRecordWithAllByRecordId(recordId);
     }
 
     public LiveData<RecordAndVisitAndPatient> getRecordAndPatientAndVisitByInsuranceNumber(String insuranceNumber){
-        try{
-            return new getRecordAndPatientAndVisitByInsuranceNumberAsyncTask(recordDao).execute(insuranceNumber).get();
-        }
-        finally {
-            return null;
-        }
+        return recordDao.getRecordAndPatientAndVisitByInsuranceNumber(insuranceNumber);
     }
 
     public LiveData<List<RecordAndVisitAndPatient>> getAllRecordAndPatientAndVisit(){
         return allRecordAndPatientAndVisits;
+    }
+
+    public LiveData<List<RecordAndBloodTestAndMRI>> getAllRecordAndBloodTestAndMRIByInsuranceNumber(String insuranceNumber){
+        return recordDao.getAllRecordAndBloodTestAndMRIByInsuranceNumber(insuranceNumber);
     }
 
     private static class InsertRecordAsyncTask extends AsyncTask<Record,Void,Void> {

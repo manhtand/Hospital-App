@@ -23,6 +23,9 @@ public interface BedDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateBed(Bed bed);
 
+    @Delete
+    void deleteBed(Bed bed);
+
     @Query("SELECT * FROM bed_table b WHERE b.number NOT IN (SELECT p.bed_number FROM patient_table p) ORDER BY b.number")
     LiveData<List<Bed>> getAllFreeBeds();
 
@@ -40,9 +43,6 @@ public interface BedDao {
 
     @Query("SELECT name FROM patient_table p, bed_table b WHERE p.bed_number = b.number")
     LiveData<String> getPatientNameFromBed();
-
-    @Query("SELECT insurance_number FROM patient_table p, bed_table b WHERE p.bed_number = b.number")
-    LiveData<String> getPatientInsuranceNumberFromBed();
 
     @Transaction
     @Query("SELECT * FROM bed_table left join patient_table on patient_table.bed_number = bed_table.number")

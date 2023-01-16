@@ -55,6 +55,8 @@ public class BedRepository {
         new UpdateBedAsyncTask(bedDao).execute(bed);
     }
 
+    public void deleteBed(Bed bed) { bedDao.deleteBed(bed); }
+
     public LiveData<List<Bed>> getAllBeds(){
         return BedList;
     }
