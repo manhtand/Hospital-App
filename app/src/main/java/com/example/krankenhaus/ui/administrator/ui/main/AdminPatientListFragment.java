@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,13 +76,14 @@ public class AdminPatientListFragment extends Fragment {
             @Override
             public void onItemClick(PatientAndBed patientAndBed) {
                 administratorViewModel.setPatient(patientAndBed.patient);
-                PatientRepository patientRepository = PatientRepository.getInstance(getActivity().getApplication());
-                patientRepository.getPatientAndRecordByInsuranceNumber("100").observe(getViewLifecycleOwner(), new Observer<PatientAndRecord>() {
+                administratorViewModel.getPatientAndRecordByInsuranceNumber("100").observe(getViewLifecycleOwner(), new Observer<PatientAndRecord>() {
                     @Override
                     public void onChanged(PatientAndRecord patientAndRecord) {
                         administratorViewModel.setPatientAndRecord(patientAndRecord);
                     }
                 });
+
+                SystemClock.sleep(50);
 
                 AdminPatientInfoFragment adminPatientInfoFragment = new AdminPatientInfoFragment();
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
