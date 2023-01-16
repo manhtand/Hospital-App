@@ -26,9 +26,6 @@ public interface VisitDao {
     @Query("SELECT * FROM visit_table ORDER BY visit_table.id ASC")
     LiveData<List<Visit>> getAllVisits();
 
-    @Query("SELECT * FROM visit_table ORDER BY visit_table.id ASC")
-    LiveData<List<RecordAndVisitAndPatient>> getAllRecordAndVisitAndPatient();
-
     @Query("SELECT * FROM visit_table WHERE visit_table.record_id = :recordID ORDER BY visit_table.id ASC")
     LiveData<List<Visit>> getAllVisitByRecordID(int recordID);
 

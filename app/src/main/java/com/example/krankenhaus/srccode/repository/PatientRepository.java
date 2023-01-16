@@ -49,7 +49,7 @@ public class PatientRepository {
     }
 
     public void deletePatient(Patient patient){
-        patientDao.deletePatient(patient);
+        new DeletePatientAsyncTask(patientDao).execute(patient);
     }
 
     public LiveData<List<Patient>> getAllPatients(){
@@ -98,7 +98,21 @@ public class PatientRepository {
         }
     }
 
-    private static class getPatientAndBedByInsuranceNumberAsyncTask extends AsyncTask<String,String,LiveData<PatientAndBed>> {
+    private static class DeletePatientAsyncTask extends AsyncTask<Patient,Void,Void> {
+        private PatientDao patientDao;
+
+        private DeletePatientAsyncTask(PatientDao patientDao){
+            this.patientDao = patientDao;
+        }
+
+        @Override
+        protected Void doInBackground(Patient... patients) {
+            patientDao.deletePatient(patients[0]);
+            return null;
+        }
+    }
+
+    /*private static class getPatientAndBedByInsuranceNumberAsyncTask extends AsyncTask<String,String,LiveData<PatientAndBed>> {
         private PatientDao patientDao;
 
         private getPatientAndBedByInsuranceNumberAsyncTask(PatientDao patientDao) {
@@ -135,5 +149,5 @@ public class PatientRepository {
         protected LiveData<PatientAndRecord> doInBackground(String... strings) {
             return patientDao.getPatientAndRecordByInsuranceNumber(strings[0]);
         }
-    }
+    }*/
 }

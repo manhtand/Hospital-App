@@ -55,7 +55,7 @@ public class BedRepository {
         new UpdateBedAsyncTask(bedDao).execute(bed);
     }
 
-    public void deleteBed(Bed bed) { bedDao.deleteBed(bed); }
+    public void deleteBed(Bed bed) { new DeleteBedAsyncTask(bedDao).execute(bed); }
 
     public LiveData<List<Bed>> getAllBeds(){
         return BedList;
@@ -104,6 +104,20 @@ public class BedRepository {
         @Override
         protected Void doInBackground(Bed... beds) {
             bedDao.updateBed(beds[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteBedAsyncTask extends AsyncTask<Bed,Void,Void>{
+        private BedDao bedDao;
+
+        private DeleteBedAsyncTask(BedDao bedDao){
+            this.bedDao = bedDao;
+        }
+
+        @Override
+        protected Void doInBackground(Bed... beds) {
+            bedDao.deleteBed(beds[0]);
             return null;
         }
     }

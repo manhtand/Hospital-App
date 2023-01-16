@@ -18,14 +18,12 @@ public class VisitRepository {
     private final VisitDao visitDao;
     private LiveData<List<Visit>> allVisit;
     private LiveData<List<VisitAndRecord>> allVisitAndRecord;
-    private LiveData<List<RecordAndVisitAndPatient>> allRecordAndVisitAndPatient;
 
     public VisitRepository(Application application) {
         HospitalDatabase hospitalDatabase = HospitalDatabase.getInstance(application);
         visitDao = hospitalDatabase.visitDao();
         allVisit = visitDao.getAllVisits();
         allVisitAndRecord = visitDao.getAllVisitAndRecord();
-        allRecordAndVisitAndPatient = visitDao.getAllRecordAndVisitAndPatient();
     }
 
     public static synchronized VisitRepository getInstance(Application application) {
@@ -40,14 +38,12 @@ public class VisitRepository {
     }
 
     public void deleteVisit(Visit visit){
-        visitDao.deleteVisit(visit);
+        new DeleteRecordAsyncTask(visitDao).execute(visit);
     }
 
     public LiveData<List<Visit>> getAllVisits(){
         return allVisit;
     }
-
-    public LiveData<List<RecordAndVisitAndPatient>> getAllRecordAndVisitAndPatients() { return allRecordAndVisitAndPatient; }
 
     public LiveData<List<Visit>> getAllVisitByRecordID(int recordID){
         return visitDao.getAllVisitByRecordID(recordID);
@@ -67,6 +63,20 @@ public class VisitRepository {
         @Override
         protected Void doInBackground(Visit... visits) {
             visitDao.insertVisit(visits[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteRecordAsyncTask extends AsyncTask<Visit,Void,Void> {
+        private VisitDao visitDao;
+
+        private DeleteRecordAsyncTask(VisitDao visitDao){
+            this.visitDao = visitDao;
+        }
+
+        @Override
+        protected Void doInBackground(Visit... visits) {
+            visitDao.deleteVisit(visits[0]);
             return null;
         }
     }

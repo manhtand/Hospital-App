@@ -30,7 +30,7 @@ public class MRIRepository {
     }
 
     public void deleteMRI(MRI mri) {
-        mriDao.deleteMRI(mri);
+        new DeleteMRIAsyncTask(mriDao).execute(mri);
     }
 
     public LiveData<MRI> getAllMRIByRecordID(int recordID){
@@ -47,6 +47,20 @@ public class MRIRepository {
         @Override
         protected Void doInBackground(MRI... mris) {
             mriDao.insertMRT(mris[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteMRIAsyncTask extends AsyncTask<MRI,Void,Void> {
+        private MRIDao mriDao;
+
+        private DeleteMRIAsyncTask(MRIDao mriDao){
+            this.mriDao = mriDao;
+        }
+
+        @Override
+        protected Void doInBackground(MRI... mris) {
+            mriDao.deleteMRI(mris[0]);
             return null;
         }
     }

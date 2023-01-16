@@ -51,12 +51,12 @@ public class VisitListFragment extends Fragment {
         visitAdapter = new VisitAdapter();
         recyclerView.setAdapter(visitAdapter);
 
-        doctorViewModel.getAllRecordAndVisitAndPatients().observe(getViewLifecycleOwner(), new Observer<List<RecordAndVisitAndPatient>>() {
+        /*doctorViewModel.getAllRecordAndVisitAndPatients().observe(getViewLifecycleOwner(), new Observer<List<RecordAndVisitAndPatient>>() {
             @Override
             public void onChanged(List<RecordAndVisitAndPatient> visits) {
                 visitAdapter.setRecordAndVisitAndPatientList(visits);
             }
-        });
+        });*/
 
         // Swipe to delete visit
         /*new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {

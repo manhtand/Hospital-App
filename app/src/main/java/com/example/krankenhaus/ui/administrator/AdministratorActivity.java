@@ -20,6 +20,7 @@ import com.example.krankenhaus.srccode.repository.PatientRepository;
 import com.example.krankenhaus.srccode.repository.RecordRepository;
 import com.example.krankenhaus.srccode.repository.VisitRepository;
 import com.example.krankenhaus.ui.administrator.ui.main.AdminViewModel;
+import com.example.krankenhaus.ui.doctor.DoctorActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.fragment.app.FragmentActivity;
@@ -69,6 +70,10 @@ public class AdministratorActivity extends AppCompatActivity {
             public void onChanged(List<Record> records) {
                 Visit testVisit = new Visit(records.get(0).getRecordId(),"");
                 visitRepository.insertVisit(testVisit);
+                Visit testVisit1 = new Visit(records.get(0).getRecordId(),"");
+                visitRepository.insertVisit(testVisit1);
+                Visit testVisit2 = new Visit(records.get(0).getRecordId(),"");
+                visitRepository.insertVisit(testVisit2);
             }
         });
 
@@ -109,6 +114,19 @@ public class AdministratorActivity extends AppCompatActivity {
                 recordAndBloodTestAndMRI.bloodTest.size();
             }
         });
+
+        /*recordRepository.getAllRecords().observe(this, new Observer<List<Record>>() {
+            @Override
+            public void onChanged(List<Record> records) {
+                visitRepository.getAllVisitByRecordID(records.get(0).getRecordId()).observe(AdministratorActivity.this, new Observer<List<Visit>>() {
+                    @Override
+                    public void onChanged(List<Visit> visits) {
+                        visitRepository.deleteVisit(visits.get(0));
+                        visits.size();
+                    }
+                });
+            }
+        });*/
     }
 
     public void setActionBarTitle(String title) {

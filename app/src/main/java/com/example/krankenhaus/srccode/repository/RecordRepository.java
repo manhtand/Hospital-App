@@ -38,10 +38,6 @@ public class RecordRepository {
         return INSTANCE;
     }
 
-    //LiveData<RecordAndVisitAndPatient> getRecordAndPatientAndVisitByInsuranceNumber(String insuranceNumber);
-
-    //LiveData<List<RecordAndVisitAndPatient>> getAllRecordAndPatientAndVisit();
-
     public void insertRecord(Record record){
         new InsertRecordAsyncTask(recordDao).execute(record);
     }
@@ -51,7 +47,7 @@ public class RecordRepository {
     }
 
     public void deleteRecord(Record record){
-        recordDao.deleteRecord(record);
+        new DeleteRecordAsyncTask(recordDao).execute(record);
     }
 
     public LiveData<List<Record>> getAllRecords(){
@@ -102,7 +98,21 @@ public class RecordRepository {
         }
     }
 
-    private static class getRecordWithAllByRecordIdAsyncTask extends AsyncTask<Integer,Integer,LiveData<List<RecordWithAll>>> {
+    private static class DeleteRecordAsyncTask extends AsyncTask<Record,Void,Void> {
+        private RecordDao recordDao;
+
+        private DeleteRecordAsyncTask(RecordDao recordDao){
+            this.recordDao = recordDao;
+        }
+
+        @Override
+        protected Void doInBackground(Record... records) {
+            recordDao.deleteRecord(records[0]);
+            return null;
+        }
+    }
+
+    /*private static class getRecordWithAllByRecordIdAsyncTask extends AsyncTask<Integer,Integer,LiveData<List<RecordWithAll>>> {
         private RecordDao recordDao;
 
         private getRecordWithAllByRecordIdAsyncTask(RecordDao recordDao) {
@@ -126,5 +136,5 @@ public class RecordRepository {
         protected LiveData<RecordAndVisitAndPatient> doInBackground(String... strings) {
             return recordDao.getRecordAndPatientAndVisitByInsuranceNumber(strings[0]);
         }
-    }
+    }*/
 }
