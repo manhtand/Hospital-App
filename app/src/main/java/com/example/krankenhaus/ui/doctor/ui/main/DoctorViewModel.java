@@ -28,6 +28,7 @@ public class DoctorViewModel extends AndroidViewModel {
     private LiveData<List<Patient>> allPatients;
     private LiveData<List<PatientAndBed>> allPatientAndBeds;
     private LiveData<List<Visit>> allVisits;
+    private LiveData<List<RecordAndVisitAndPatient>> allRecordAndVisitAndPatients;
 
     public MutableLiveData<PatientAndRecord> patientAndRecord = new MutableLiveData<>();
 
@@ -40,6 +41,7 @@ public class DoctorViewModel extends AndroidViewModel {
 
         visitRepository = VisitRepository.getInstance(application);
         allVisits = visitRepository.getAllVisits();
+        allRecordAndVisitAndPatients = visitRepository.getAllRecordAndVisitAndPatients();
 
         recordRepository = RecordRepository.getInstance(application);
     }
@@ -71,6 +73,8 @@ public class DoctorViewModel extends AndroidViewModel {
     public void insertVisit(Visit visit) { visitRepository.insertVisit(visit); }
 
     public LiveData<List<Visit>> getAllVisits() { return allVisits; }
+
+    public LiveData<List<RecordAndVisitAndPatient>> getAllRecordAndVisitAndPatients() { return allRecordAndVisitAndPatients; }
 
     public LiveData<PatientAndRecord> getPatientAndRecordByInsuranceNumber(String insuranceNumber) { return patientRepository.getPatientAndRecordByInsuranceNumber(insuranceNumber); }
 

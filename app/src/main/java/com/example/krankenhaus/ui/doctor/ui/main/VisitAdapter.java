@@ -11,16 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.krankenhaus.R;
 import com.example.krankenhaus.srccode.dao.PatientDao;
 import com.example.krankenhaus.srccode.entities.Visit;
+import com.example.krankenhaus.srccode.entities.relations.RecordAndVisitAndPatient;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class VisitAdapter extends RecyclerView.Adapter<VisitAdapter.VisitHolder> {
-    private List<Visit> visitList;
+    private List<RecordAndVisitAndPatient> recordAndVisitAndPatientList;
     PatientDao patientDao;
 
     VisitAdapter() {
-        this.visitList = new ArrayList<>();
+        this.recordAndVisitAndPatientList = new ArrayList<>();
     }
 
     @NonNull
@@ -33,21 +34,22 @@ public class VisitAdapter extends RecyclerView.Adapter<VisitAdapter.VisitHolder>
 
     @Override
     public void onBindViewHolder(@NonNull VisitHolder holder, int position) {
-        if (visitList.size() == 0) {
+        if (recordAndVisitAndPatientList.size() == 0) {
             return;
         }
-        Visit visit = visitList.get(position);
-
-
+        RecordAndVisitAndPatient recordAndVisitAndPatient = recordAndVisitAndPatientList.get(position);
+        holder.textViewName.setText(recordAndVisitAndPatient.patient.getName());
+        holder.textViewInsuranceNumber.setText(recordAndVisitAndPatient.patient.getInsuranceNumber());
+        holder.textViewBedNumber.setText(recordAndVisitAndPatient.patient.getBedNumber());
     }
 
     @Override
     public int getItemCount() {
-        return visitList.size();
+        return recordAndVisitAndPatientList.size();
     }
 
-    public void setVisitList(List<Visit> visitList) {
-        this.visitList = visitList;
+    public void setRecordAndVisitAndPatientList(List<RecordAndVisitAndPatient> recordAndVisitAndPatientList) {
+        this.recordAndVisitAndPatientList = recordAndVisitAndPatientList;
         notifyDataSetChanged();
     }
 

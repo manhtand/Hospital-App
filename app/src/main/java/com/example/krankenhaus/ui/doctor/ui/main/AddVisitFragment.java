@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,7 @@ public class AddVisitFragment extends Fragment {
                     }
                 });
 
-                checkInsuranceNumber(insuranceNumber);
+                checkInsuranceNumber();
                 returnToVisitList();
             }
         });
@@ -75,13 +76,15 @@ public class AddVisitFragment extends Fragment {
         binding = null;
     }
 
-    private void checkInsuranceNumber(String insuranceNumber) {
+    private void checkInsuranceNumber() {
         if (recordAndVisitAndPatient == null) {
             Toast toast = Toast.makeText(getContext(), "Invalid Record ID", Toast.LENGTH_SHORT);
             toast.show();
         }
         else {
             doctorViewModel.insertVisit(new Visit(recordAndVisitAndPatient.record.getRecordId(), description));
+            Toast toast = Toast.makeText(getContext(), "Add Succeed", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 

@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,6 +19,7 @@ import android.view.ViewGroup;
 import com.example.krankenhaus.R;
 import com.example.krankenhaus.databinding.FragmentVisitListBinding;
 import com.example.krankenhaus.srccode.entities.Visit;
+import com.example.krankenhaus.srccode.entities.relations.RecordAndVisitAndPatient;
 
 import java.util.List;
 
@@ -51,10 +51,10 @@ public class VisitListFragment extends Fragment {
         visitAdapter = new VisitAdapter();
         recyclerView.setAdapter(visitAdapter);
 
-        doctorViewModel.getAllVisits().observe(getViewLifecycleOwner(), new Observer<List<Visit>>() {
+        doctorViewModel.getAllRecordAndVisitAndPatients().observe(getViewLifecycleOwner(), new Observer<List<RecordAndVisitAndPatient>>() {
             @Override
-            public void onChanged(List<Visit> visits) {
-                visitAdapter.setVisitList(visits);
+            public void onChanged(List<RecordAndVisitAndPatient> visits) {
+                visitAdapter.setRecordAndVisitAndPatientList(visits);
             }
         });
 

@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import com.example.krankenhaus.srccode.HospitalDatabase;
 import com.example.krankenhaus.srccode.dao.VisitDao;
 import com.example.krankenhaus.srccode.entities.Visit;
+import com.example.krankenhaus.srccode.entities.relations.RecordAndVisitAndPatient;
 import com.example.krankenhaus.srccode.entities.relations.VisitAndRecord;
 
 import java.util.List;
@@ -17,12 +18,14 @@ public class VisitRepository {
     private final VisitDao visitDao;
     private LiveData<List<Visit>> allVisit;
     private LiveData<List<VisitAndRecord>> allVisitAndRecord;
+    private LiveData<List<RecordAndVisitAndPatient>> allRecordAndVisitAndPatient;
 
     public VisitRepository(Application application) {
         HospitalDatabase hospitalDatabase = HospitalDatabase.getInstance(application);
         visitDao = hospitalDatabase.visitDao();
         allVisit = visitDao.getAllVisits();
         allVisitAndRecord = visitDao.getAllVisitAndRecord();
+        allRecordAndVisitAndPatient = visitDao.getAllRecordAndVisitAndPatient();
     }
 
     public static synchronized VisitRepository getInstance(Application application) {
@@ -43,6 +46,8 @@ public class VisitRepository {
     public LiveData<List<Visit>> getAllVisits(){
         return allVisit;
     }
+
+    public LiveData<List<RecordAndVisitAndPatient>> getAllRecordAndVisitAndPatients() { return allRecordAndVisitAndPatient; }
 
     public LiveData<List<Visit>> getAllVisitByRecordID(int recordID){
         return visitDao.getAllVisitByRecordID(recordID);
