@@ -61,7 +61,7 @@ public class AdministratorActivity extends AppCompatActivity {
 
         obtainViewModel(this);
 
-        VisitRepository visitRepository = VisitRepository.getInstance(this.getApplication());
+        /*VisitRepository visitRepository = VisitRepository.getInstance(this.getApplication());
         RecordRepository recordRepository = RecordRepository.getInstance(this.getApplication());
         BloodTestRepository bloodTestRepository = BloodTestRepository.getInstance(this.getApplication());
 
@@ -115,7 +115,7 @@ public class AdministratorActivity extends AppCompatActivity {
             }
         });
 
-        /*recordRepository.getAllRecords().observe(this, new Observer<List<Record>>() {
+        recordRepository.getAllRecords().observe(this, new Observer<List<Record>>() {
             @Override
             public void onChanged(List<Record> records) {
                 visitRepository.getAllVisitByRecordID(records.get(0).getRecordId()).observe(AdministratorActivity.this, new Observer<List<Visit>>() {

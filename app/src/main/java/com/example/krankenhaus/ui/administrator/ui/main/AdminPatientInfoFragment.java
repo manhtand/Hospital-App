@@ -4,9 +4,11 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +18,16 @@ import com.example.krankenhaus.databinding.FragmentAdminPatientInfoBinding;
 import com.example.krankenhaus.srccode.entities.Patient;
 import com.example.krankenhaus.srccode.entities.Record;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndRecord;
+import com.example.krankenhaus.srccode.entities.relations.RecordAndBloodTestAndMRI;
+import com.example.krankenhaus.srccode.entities.relations.RecordAndVisitAndPatient;
 
 import java.time.format.DateTimeFormatter;
 
 public class AdminPatientInfoFragment extends Fragment {
     private Patient patient;
     private Record record;
+    private RecordAndVisitAndPatient recordAndVisitAndPatient;
+    private RecordAndBloodTestAndMRI recordAndBloodTestAndMRI;
 
     private AdminViewModel adminViewModel;
     private FragmentAdminPatientInfoBinding binding;
@@ -46,6 +52,18 @@ public class AdminPatientInfoFragment extends Fragment {
                 record = patientAndRecord.record;
             }
         });
+        adminViewModel.getRecordAndVisitAndPatient().observe(getActivity(), new Observer<RecordAndVisitAndPatient>() {
+            @Override
+            public void onChanged(RecordAndVisitAndPatient input) {
+                recordAndVisitAndPatient = input;
+            }
+        });
+        adminViewModel.getRecordAndBloodTestAndMRI().observe(getActivity(), new Observer<RecordAndBloodTestAndMRI>() {
+            @Override
+            public void onChanged(RecordAndBloodTestAndMRI input) {
+                recordAndBloodTestAndMRI = input;
+            }
+        });
     }
 
     @Override
@@ -55,6 +73,8 @@ public class AdminPatientInfoFragment extends Fragment {
         View root = binding.getRoot();
 
         setPatientData(patient);
+
+        setButton();
 
         return root;
     }
@@ -83,5 +103,20 @@ public class AdminPatientInfoFragment extends Fragment {
         else {
             binding.adminPatientHealthStatus.setText("Not Recoverd");
         }
+    }
+
+    public void setButton(){
+        binding.adminDischargePatientButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adminViewModel.dischargePatient(recordAndVisitAndPatient,recordAndBloodTestAndMRI);
+                SystemClock.sleep(100);
+
+                AdminPatientListFragment adminPatientListFragment = new AdminPatientListFragment();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.nav_host_fragment_activity_administrator, adminPatientListFragment);
+                ft.commit();
+            }
+        });
     }
 }

@@ -88,14 +88,14 @@ public class AdminPatientListFragment extends Fragment {
                 administratorViewModel.getRecordAndBloodTestAndMRIByInsuranceNumber(patientAndBed.patient.getInsuranceNumber()).observe(getViewLifecycleOwner(), new Observer<RecordAndBloodTestAndMRI>() {
                     @Override
                     public void onChanged(RecordAndBloodTestAndMRI recordAndBloodTestAndMRIS) {
-                        administratorViewModel.setRecordAndBloodTestAndMRIList(recordAndBloodTestAndMRIS);
+                        administratorViewModel.setRecordAndBloodTestAndMRI(recordAndBloodTestAndMRIS);
                     }
                 });
 
                 administratorViewModel.getRecordAndVisitAndPatientByInsuranceNumber(patientAndBed.patient.getInsuranceNumber()).observe(getViewLifecycleOwner(), new Observer<RecordAndVisitAndPatient>() {
                     @Override
                     public void onChanged(RecordAndVisitAndPatient recordAndVisitAndPatient) {
-                        administratorViewModel.setRecordAndVisitAndPatientList(recordAndVisitAndPatient);
+                        administratorViewModel.setRecordAndVisitAndPatient(recordAndVisitAndPatient);
                     }
                 });
 
