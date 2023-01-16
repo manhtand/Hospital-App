@@ -30,7 +30,7 @@ public class Examination {
         this.recordId = recordId;
         this.processingState = false;
         this.creationTimestamp = LocalDateTime.now();
-        this.executionTimestamp = null;
+        this.executionTimestamp = LocalDateTime.of(0001,01,1,0,0);
     }
 
     public int getId() {

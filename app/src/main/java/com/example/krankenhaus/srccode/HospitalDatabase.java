@@ -31,7 +31,7 @@ import com.example.krankenhaus.srccode.entities.Visit;
                 Record.class,
                 Visit.class
         },
-        version = 4,
+        version = 5,
         exportSchema = false
 )
 public abstract class HospitalDatabase extends RoomDatabase {
