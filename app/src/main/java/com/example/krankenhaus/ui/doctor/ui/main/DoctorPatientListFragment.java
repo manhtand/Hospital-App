@@ -1,6 +1,7 @@
 package com.example.krankenhaus.ui.doctor.ui.main;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.krankenhaus.R;
 import com.example.krankenhaus.databinding.DoctorFragmentPatientListBinding;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
+import com.example.krankenhaus.srccode.entities.relations.PatientAndRecord;
 
 import java.util.List;
 
@@ -58,14 +60,21 @@ public class DoctorPatientListFragment extends Fragment {
         patientAdapter.setOnItemClickListener(new PatientAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(PatientAndBed patientAndBed) {
+                doctorViewModel.getPatientAndRecordByInsuranceNumber(patientAndBed.patient.getInsuranceNumber()).observe(getViewLifecycleOwner(), new Observer<PatientAndRecord>() {
+                    @Override
+                    public void onChanged(PatientAndRecord patientAndRecord) {
+                        doctorViewModel.setPatientAndRecord(patientAndRecord);
+                    }
+                });
+
+                SystemClock.sleep(50);
+
                 DoctorPatientInfoFragment doctorPatientInfoFragment = new DoctorPatientInfoFragment();
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.setReorderingAllowed(true);
                 ft.addToBackStack(null);
                 ft.replace(R.id.nav_host_fragment_activity_doctor, doctorPatientInfoFragment);
                 ft.commit();
-
-                doctorViewModel.setInsuranceNumber(patientAndBed.patient.getInsuranceNumber());
             }
         });
 

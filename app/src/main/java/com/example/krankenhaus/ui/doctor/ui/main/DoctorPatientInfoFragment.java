@@ -15,15 +15,17 @@ import android.view.ViewGroup;
 
 import com.example.krankenhaus.databinding.DoctorFragmentPatientInfoBinding;
 import com.example.krankenhaus.srccode.entities.Patient;
+import com.example.krankenhaus.srccode.entities.Record;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndRecord;
 import com.example.krankenhaus.srccode.entities.relations.RecordAndVisitAndPatient;
+import com.example.krankenhaus.srccode.repository.RecordRepository;
 
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class DoctorPatientInfoFragment extends Fragment {
     private PatientAndRecord patientAndRecord;
-    private String insuranceNumber;
     private DoctorFragmentPatientInfoBinding binding;
     private DoctorViewModel doctorViewModel;
 
@@ -35,10 +37,10 @@ public class DoctorPatientInfoFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Patient Information");
 
-        doctorViewModel.getInsuranceNumber().observe(getActivity(), new Observer<String>() {
+        doctorViewModel.getPatientAndRecord().observe(getActivity(), new Observer<PatientAndRecord>() {
             @Override
-            public void onChanged(String s) {
-                insuranceNumber = s;
+            public void onChanged(PatientAndRecord input) {
+                patientAndRecord = input;
             }
         });
     }
@@ -48,13 +50,6 @@ public class DoctorPatientInfoFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = DoctorFragmentPatientInfoBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        doctorViewModel.getPatientAndRecordByInsuranceNumber(insuranceNumber).observe(getActivity(), new Observer<PatientAndRecord>() {
-            @Override
-            public void onChanged(PatientAndRecord input) {
-                patientAndRecord = input;
-            }
-        });
 
         binding.medicationEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +84,7 @@ public class DoctorPatientInfoFragment extends Fragment {
 
     public void setPatientData(Patient patient) {
         binding.patientInfoName.setText(patient.getName());
-        binding.patientInfoRecordId.setText(patientAndRecord.record.getRecordId());
+        binding.patientInfoRecordId.setText(Integer.toString(patientAndRecord.record.getRecordId()));
         binding.dateOfBirth.setText(DateTimeFormatter.ofPattern("dd/MM/yyyy").format(patient.getDateOfBirth()));
         binding.address.setText(patient.getAddress());
         binding.zipCode.setText(patient.getZipCode());

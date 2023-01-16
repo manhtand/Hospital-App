@@ -29,7 +29,7 @@ public class DoctorViewModel extends AndroidViewModel {
     private LiveData<List<PatientAndBed>> allPatientAndBeds;
     private LiveData<List<Visit>> allVisits;
 
-    public MutableLiveData<String> insuranceNumber = new MutableLiveData<>();
+    public MutableLiveData<PatientAndRecord> patientAndRecord = new MutableLiveData<>();
 
     public DoctorViewModel(@NonNull Application application) {
         super(application);
@@ -50,11 +50,9 @@ public class DoctorViewModel extends AndroidViewModel {
         this.recordRepository = recordRepository;
     }
 
-    public void setInsuranceNumber(String input) {
-        insuranceNumber.setValue(input);
-    }
+    public void setPatientAndRecord(PatientAndRecord input) { patientAndRecord.setValue(input); }
 
-    public MutableLiveData<String> getInsuranceNumber() { return insuranceNumber; }
+    public MutableLiveData<PatientAndRecord> getPatientAndRecord() { return patientAndRecord; }
 
     public void insertPatient(Patient patient) {
         patientRepository.insertPatient(patient);
