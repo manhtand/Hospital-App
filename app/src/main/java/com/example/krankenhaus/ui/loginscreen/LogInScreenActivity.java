@@ -73,7 +73,7 @@ public class LogInScreenActivity extends AppCompatActivity {
         VisitRepository visitRepository = VisitRepository.getInstance(this.getApplication());
         RecordRepository recordRepository = RecordRepository.getInstance(this.getApplication());
 
-        Patient testPatient = new Patient("100", 1, "Le", LocalDate.of(2001, 10, 02), "Hanoi", "Hanoi", "123");
+        Patient testPatient = new Patient("100", 1, "Le", LocalDate.of(2001, 10, 02), "Hanoi", "Hanoi", "123", "Company");
         patientRepository.insertPatient(testPatient);
 
         patientRepository.getAllPatients().observe(this, new Observer<List<Patient>>() {

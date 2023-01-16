@@ -57,7 +57,7 @@ public class Patient {
     @ColumnInfo(name = "is_discharged")
     private boolean isDischarged;
 
-    public Patient(String insuranceNumber, int bedNumber, String name, LocalDate dateOfBirth, String address, String placeOfResidence, String zipCode) {
+    public Patient(String insuranceNumber, int bedNumber, String name, LocalDate dateOfBirth, String address, String placeOfResidence, String zipCode, String healthInsuranceCompany) {
         this.insuranceNumber = insuranceNumber;
         this.bedNumber = bedNumber;
         this.name = name;
@@ -65,7 +65,7 @@ public class Patient {
         this.address = address;
         this.placeOfResidence = placeOfResidence;
         this.zipCode = zipCode;
-        this.healthInsuranceCompany = "HealthInsuranceCompany";
+        this.healthInsuranceCompany = healthInsuranceCompany;
         this.admissionDate = LocalDate.now();
         this.isDischarged = false;
     }

@@ -76,7 +76,7 @@ public class AdminPatientListFragment extends Fragment {
             @Override
             public void onItemClick(PatientAndBed patientAndBed) {
                 administratorViewModel.setPatient(patientAndBed.patient);
-                administratorViewModel.getPatientAndRecordByInsuranceNumber("100").observe(getViewLifecycleOwner(), new Observer<PatientAndRecord>() {
+                administratorViewModel.getPatientAndRecordByInsuranceNumber(patientAndBed.patient.getInsuranceNumber()).observe(getViewLifecycleOwner(), new Observer<PatientAndRecord>() {
                     @Override
                     public void onChanged(PatientAndRecord patientAndRecord) {
                         administratorViewModel.setPatientAndRecord(patientAndRecord);
