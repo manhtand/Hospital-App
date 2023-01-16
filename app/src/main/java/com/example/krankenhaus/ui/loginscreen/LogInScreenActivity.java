@@ -92,7 +92,8 @@ public class LogInScreenActivity extends AppCompatActivity {
             }
         });
 
-        /*Doctor Test
+        /*
+        //Doctor Test
         VisitRepository visitRepository = VisitRepository.getInstance(this.getApplication());
         RecordRepository recordRepository = RecordRepository.getInstance(this.getApplication());
         recordRepository.getAllRecords().observe(this, new Observer<List<Record>>() {
@@ -121,6 +122,27 @@ public class LogInScreenActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<RecordAndBloodTestAndMRI> recordAndBloodTestAndMRIS) {
                 recordAndBloodTestAndMRIS.size();
+            }
+        });
+
+        recordRepository.getAllRecords().observe(this, new Observer<List<Record>>() {
+            @Override
+            public void onChanged(List<Record> records) {
+                recordid = records.get(0).getRecordId();
+                visitRepository.getAllVisitByRecordID(recordid).observe(DoctorActivity.this, new Observer<List<Visit>>() {
+                    @Override
+                    public void onChanged(List<Visit> visits) {
+                        visits.size();
+                    }
+                });
+            }
+        });
+        PatientRepository patientRepository = PatientRepository.getInstance(getApplication());
+
+        patientRepository.getPatientAndRecordByInsuranceNumber("100").observe(this, new Observer<PatientAndRecord>() {
+            @Override
+            public void onChanged(PatientAndRecord patientAndRecord) {
+                recordid = patientAndRecord.record.getRecordId();
             }
         });*/
     }

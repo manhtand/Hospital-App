@@ -15,6 +15,7 @@ import com.example.krankenhaus.R;
 import com.example.krankenhaus.databinding.FragmentAdminPatientInfoBinding;
 import com.example.krankenhaus.srccode.entities.Patient;
 import com.example.krankenhaus.srccode.entities.Record;
+import com.example.krankenhaus.srccode.entities.relations.PatientAndRecord;
 
 import java.time.format.DateTimeFormatter;
 

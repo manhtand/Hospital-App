@@ -13,6 +13,7 @@ import com.example.krankenhaus.srccode.entities.Patient;
 import com.example.krankenhaus.srccode.entities.Record;
 import com.example.krankenhaus.srccode.entities.relations.BedAndPatient;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
+import com.example.krankenhaus.srccode.entities.relations.PatientAndRecord;
 import com.example.krankenhaus.srccode.repository.BedRepository;
 import com.example.krankenhaus.srccode.repository.PatientRepository;
 import com.example.krankenhaus.srccode.repository.RecordRepository;
@@ -32,6 +33,7 @@ public class AdminViewModel extends AndroidViewModel {
     private RecordRepository recordRepository;
 
     public MutableLiveData<Patient> patient = new MutableLiveData<>();
+    public MutableLiveData<PatientAndRecord> patientAndRecord = new MutableLiveData<>();
 
     public AdminViewModel(@NonNull Application application) {
         super(application);
@@ -57,6 +59,14 @@ public class AdminViewModel extends AndroidViewModel {
         patient.setValue(input);
     }
 
+    public void setPatientAndRecord(PatientAndRecord input) {
+        patientAndRecord.setValue(input);
+    }
+
+    public LiveData<PatientAndRecord> getPatientAndRecordByInsuranceNumber(String insuranceNumber) {
+        return patientRepository.getPatientAndRecordByInsuranceNumber(insuranceNumber);
+    }
+
     public void insertPatient(Patient patient) { patientRepository.insertPatient(patient); }
 
     public void insertRecord(Record record) { recordRepository.insertRecord(record);}
@@ -68,6 +78,8 @@ public class AdminViewModel extends AndroidViewModel {
     public LiveData<Patient> getPatient() {
         return patient;
     }
+
+    public LiveData<PatientAndRecord> getPatientAndRecord() { return patientAndRecord; }
 
     public LiveData<List<Patient>> getAllPatients() { return allPatients; }
 

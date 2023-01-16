@@ -20,6 +20,8 @@ import com.example.krankenhaus.R;
 import com.example.krankenhaus.databinding.AdminFragmentPatientListBinding;
 
 import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
+import com.example.krankenhaus.srccode.entities.relations.PatientAndRecord;
+import com.example.krankenhaus.srccode.repository.PatientRepository;
 import com.example.krankenhaus.ui.doctor.ui.main.PatientAdapter;
 
 import java.util.List;
@@ -72,14 +74,21 @@ public class AdminPatientListFragment extends Fragment {
         patientAdapter.setOnItemClickListener(new PatientAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(PatientAndBed patientAndBed) {
+                administratorViewModel.setPatient(patientAndBed.patient);
+                PatientRepository patientRepository = PatientRepository.getInstance(getActivity().getApplication());
+                patientRepository.getPatientAndRecordByInsuranceNumber("100").observe(getViewLifecycleOwner(), new Observer<PatientAndRecord>() {
+                    @Override
+                    public void onChanged(PatientAndRecord patientAndRecord) {
+                        administratorViewModel.setPatientAndRecord(patientAndRecord);
+                    }
+                });
+
                 AdminPatientInfoFragment adminPatientInfoFragment = new AdminPatientInfoFragment();
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.setReorderingAllowed(true);
                 ft.addToBackStack(null);
                 ft.replace(R.id.nav_host_fragment_activity_administrator, adminPatientInfoFragment);
                 ft.commit();
-
-                administratorViewModel.setPatient(patientAndBed.patient);
             }
         });
         return root;
