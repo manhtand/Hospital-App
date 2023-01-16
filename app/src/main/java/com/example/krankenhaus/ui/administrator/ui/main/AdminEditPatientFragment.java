@@ -6,12 +6,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.krankenhaus.R;
 import com.example.krankenhaus.databinding.FragmentEditPatientBinding;
 
 public class AdminEditPatientFragment extends Fragment {
@@ -33,17 +35,17 @@ public class AdminEditPatientFragment extends Fragment {
         binding = FragmentEditPatientBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        binding.saveInfoButton.setOnClickListener(new View.OnClickListener() {
+        binding.editPatientInfoSaveInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                returnToAdminPatientList();
             }
         });
 
-        binding.dischargeButton.setOnClickListener(new View.OnClickListener() {
+        binding.editPatientInfoCancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                returnToAdminPatientList();
             }
         });
 
@@ -54,12 +56,13 @@ public class AdminEditPatientFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        setEnabledDischargeButton();
+
     }
 
-    private void setEnabledDischargeButton() {
-        /* getPatient->getIsDischarged()->true
-        => binding.dischargeButton->setVisible()
-         */
+    public void returnToAdminPatientList() {
+        AdminPatientListFragment adminPatientListFragment = new AdminPatientListFragment();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.nav_host_fragment_activity_administrator, adminPatientListFragment);
+        ft.commit();
     }
 }

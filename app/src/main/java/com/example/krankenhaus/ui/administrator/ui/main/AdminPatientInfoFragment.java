@@ -12,6 +12,7 @@ import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.krankenhaus.R;
 import com.example.krankenhaus.databinding.FragmentAdminPatientInfoBinding;
@@ -112,9 +113,23 @@ public class AdminPatientInfoFragment extends Fragment {
                 adminViewModel.dischargePatient(recordAndVisitAndPatient,recordAndBloodTestAndMRI);
                 SystemClock.sleep(100);
 
+                Toast.makeText(getActivity(), "Patient released", Toast.LENGTH_LONG).show();
+
                 AdminPatientListFragment adminPatientListFragment = new AdminPatientListFragment();
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(R.id.nav_host_fragment_activity_administrator, adminPatientListFragment);
+                ft.commit();
+            }
+        });
+
+        binding.adminEditPatientInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AdminEditPatientFragment editPatientFragment = new AdminEditPatientFragment();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.setReorderingAllowed(true);
+                ft.addToBackStack(null);
+                ft.replace(R.id.nav_host_fragment_activity_administrator, editPatientFragment);
                 ft.commit();
             }
         });
