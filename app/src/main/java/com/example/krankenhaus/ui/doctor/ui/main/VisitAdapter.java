@@ -10,18 +10,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.krankenhaus.R;
 import com.example.krankenhaus.srccode.dao.PatientDao;
+import com.example.krankenhaus.srccode.entities.Patient;
 import com.example.krankenhaus.srccode.entities.Visit;
+import com.example.krankenhaus.srccode.entities.relations.RecordAndPatient;
 import com.example.krankenhaus.srccode.entities.relations.RecordAndVisitAndPatient;
+import com.example.krankenhaus.srccode.entities.relations.VisitAndRecord;
+import com.example.krankenhaus.srccode.repository.RecordRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class VisitAdapter extends RecyclerView.Adapter<VisitAdapter.VisitHolder> {
-    private List<RecordAndVisitAndPatient> recordAndVisitAndPatientList;
+    private List<VisitAndRecord> visitAndRecordList;
     PatientDao patientDao;
+    RecordRepository recordRepository;
 
     VisitAdapter() {
-        this.recordAndVisitAndPatientList = new ArrayList<>();
+        this.visitAndRecordList = new ArrayList<>();
     }
 
     @NonNull
@@ -34,22 +39,24 @@ public class VisitAdapter extends RecyclerView.Adapter<VisitAdapter.VisitHolder>
 
     @Override
     public void onBindViewHolder(@NonNull VisitHolder holder, int position) {
-        if (recordAndVisitAndPatientList.size() == 0) {
+        if (visitAndRecordList.size() == 0) {
             return;
         }
-        RecordAndVisitAndPatient recordAndVisitAndPatient = recordAndVisitAndPatientList.get(position);
-        holder.textViewName.setText(recordAndVisitAndPatient.patient.getName());
-        holder.textViewInsuranceNumber.setText(recordAndVisitAndPatient.patient.getInsuranceNumber());
-        holder.textViewBedNumber.setText(recordAndVisitAndPatient.patient.getBedNumber());
+        VisitAndRecord visitAndRecord = visitAndRecordList.get(position);
+        RecordAndPatient recordAndPatient = recordRepository.getRecordAndPatientByRecordID(visitAndRecord.record.getRecordId()).getValue();
+
+        holder.textViewBedNumber.setText(recordAndPatient.patient.getBedNumber());
+        holder.textViewName.setText(recordAndPatient.patient.getName());
+        holder.textViewInsuranceNumber.setText(recordAndPatient.patient.getInsuranceNumber());
     }
 
     @Override
     public int getItemCount() {
-        return recordAndVisitAndPatientList.size();
+        return visitAndRecordList.size();
     }
 
-    public void setRecordAndVisitAndPatientList(List<RecordAndVisitAndPatient> recordAndVisitAndPatientList) {
-        this.recordAndVisitAndPatientList = recordAndVisitAndPatientList;
+    public void setVisitAndRecordList(List<VisitAndRecord> visitAndRecordList) {
+        this.visitAndRecordList = visitAndRecordList;
         notifyDataSetChanged();
     }
 

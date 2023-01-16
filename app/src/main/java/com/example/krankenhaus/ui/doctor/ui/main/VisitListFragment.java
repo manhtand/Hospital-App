@@ -20,6 +20,7 @@ import com.example.krankenhaus.R;
 import com.example.krankenhaus.databinding.FragmentVisitListBinding;
 import com.example.krankenhaus.srccode.entities.Visit;
 import com.example.krankenhaus.srccode.entities.relations.RecordAndVisitAndPatient;
+import com.example.krankenhaus.srccode.entities.relations.VisitAndRecord;
 
 import java.util.List;
 
@@ -51,12 +52,12 @@ public class VisitListFragment extends Fragment {
         visitAdapter = new VisitAdapter();
         recyclerView.setAdapter(visitAdapter);
 
-        /*doctorViewModel.getAllRecordAndVisitAndPatients().observe(getViewLifecycleOwner(), new Observer<List<RecordAndVisitAndPatient>>() {
+        doctorViewModel.getAllVisitAndRecords().observe(getViewLifecycleOwner(), new Observer<List<VisitAndRecord>>() {
             @Override
-            public void onChanged(List<RecordAndVisitAndPatient> visits) {
-                visitAdapter.setRecordAndVisitAndPatientList(visits);
+            public void onChanged(List<VisitAndRecord> visitAndRecordList) {
+                visitAdapter.setVisitAndRecordList(visitAndRecordList);
             }
-        });*/
+        });
 
         // Swipe to delete visit
         /*new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {

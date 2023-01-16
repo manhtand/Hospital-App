@@ -14,6 +14,7 @@ import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndRecord;
 import com.example.krankenhaus.srccode.entities.relations.RecordAndVisitAndPatient;
 import com.example.krankenhaus.srccode.entities.relations.RecordWithAll;
+import com.example.krankenhaus.srccode.entities.relations.VisitAndRecord;
 import com.example.krankenhaus.srccode.repository.PatientRepository;
 import com.example.krankenhaus.srccode.repository.RecordRepository;
 import com.example.krankenhaus.srccode.repository.VisitRepository;
@@ -28,6 +29,7 @@ public class DoctorViewModel extends AndroidViewModel {
     private LiveData<List<Patient>> allPatients;
     private LiveData<List<PatientAndBed>> allPatientAndBeds;
     private LiveData<List<Visit>> allVisits;
+    private LiveData<List<VisitAndRecord>> allVisitAndRecords;
 
     public MutableLiveData<PatientAndRecord> patientAndRecord = new MutableLiveData<>();
 
@@ -40,6 +42,7 @@ public class DoctorViewModel extends AndroidViewModel {
 
         visitRepository = VisitRepository.getInstance(application);
         allVisits = visitRepository.getAllVisits();
+        allVisitAndRecords = visitRepository.getAllVisitAndRecord();
 
         recordRepository = RecordRepository.getInstance(application);
     }
@@ -67,6 +70,8 @@ public class DoctorViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<PatientAndBed>> getAllPatientAndBeds() {return allPatientAndBeds;}
+
+    public LiveData<List<VisitAndRecord>> getAllVisitAndRecords() { return allVisitAndRecords; }
 
     public void insertVisit(Visit visit) { visitRepository.insertVisit(visit); }
 
