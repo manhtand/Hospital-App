@@ -11,8 +11,10 @@ import androidx.room.Update;
 
 import com.example.krankenhaus.srccode.HospitalDatabase;
 import com.example.krankenhaus.srccode.dao.RecordDao;
+import com.example.krankenhaus.srccode.entities.Patient;
 import com.example.krankenhaus.srccode.entities.Record;
 import com.example.krankenhaus.srccode.entities.relations.RecordAndBloodTestAndMRI;
+import com.example.krankenhaus.srccode.entities.relations.RecordAndPatient;
 import com.example.krankenhaus.srccode.entities.relations.RecordAndVisitAndPatient;
 import com.example.krankenhaus.srccode.entities.relations.RecordWithAll;
 
@@ -68,6 +70,10 @@ public class RecordRepository {
 
     public LiveData<RecordAndBloodTestAndMRI> getAllRecordAndBloodTestAndMRIByInsuranceNumber(String insuranceNumber){
         return recordDao.getAllRecordAndBloodTestAndMRIByInsuranceNumber(insuranceNumber);
+    }
+
+    public LiveData<RecordAndPatient> getRecordAndPatientByRecordID(int recordID) {
+        return recordDao.getRecordAndPatientByRecordID(recordID);
     }
 
     private static class InsertRecordAsyncTask extends AsyncTask<Record,Void,Void> {
