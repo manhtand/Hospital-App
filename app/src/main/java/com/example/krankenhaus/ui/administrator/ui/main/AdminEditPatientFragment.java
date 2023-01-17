@@ -92,9 +92,19 @@ public class AdminEditPatientFragment extends Fragment {
         year = patient.getDateOfBirth().getYear();
         month = patient.getDateOfBirth().getMonthValue();
         day = patient.getDateOfBirth().getDayOfMonth();
-        binding.adminEditPatientInfoYear.setValue(patient.getDateOfBirth().getYear());
-        binding.adminEditPatientInfoMonth.setValue(patient.getDateOfBirth().getMonthValue());
-        binding.adminEditPatientInfoDay.setValue(patient.getDateOfBirth().getDayOfMonth());
+
+        binding.adminEditPatientInfoYear.setMaxValue(LocalDate.now().getYear());
+        binding.adminEditPatientInfoYear.setMinValue(LocalDate.now().getYear() - 150);
+        binding.adminEditPatientInfoYear.setValue(year);
+
+        binding.adminEditPatientInfoMonth.setMaxValue(12);
+        binding.adminEditPatientInfoMonth.setMinValue(1);
+        binding.adminEditPatientInfoMonth.setValue(month);
+
+        binding.adminEditPatientInfoDay.setMaxValue(31);
+        binding.adminEditPatientInfoDay.setMinValue(1);
+        binding.adminEditPatientInfoDay.setValue(day);
+
         binding.adminEditPatientInfoAddress.setText(patient.getAddress());
         binding.adminEditPatientInfoZipcode.setText(patient.getZipCode());
         binding.adminEditPatientInfoPlaceofresidence.setText(patient.getPlaceOfResidence());
