@@ -29,9 +29,9 @@ public class AdminAddPatientFragment extends Fragment {
     private FragmentAddPatientBinding binding;
 
     Bed freeBed;
-    int year;
-    int month;
-    int day;
+    private int year;
+    private int month;
+    private int day;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
