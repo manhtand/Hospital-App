@@ -19,21 +19,35 @@
         android:text="name"
         android:background="#E3AA"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.025"
-        android:id="@+id/patient_info_record_id"
-        android:gravity="center"
-        android:text="record id"
-        android:background="#00BCD4"/>
-
     <TableLayout
         android:id="@+id/patient_info_table"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.6"
-        android:weightSum="7.5">
+        android:weightSum="7.525">
+
+        <TableRow
+            android:layout_weight="0.025"
+            android:weightSum="5">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Record ID"
+                android:background="#00BCD4"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:id="@+id/patient_info_record_id"
+                android:gravity="center"
+                android:text="record id"
+                android:background="#00BCD4"/>
+        </TableRow>
 
         <TableRow
             android:layout_weight="1"

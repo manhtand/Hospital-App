@@ -12,6 +12,7 @@ import com.example.krankenhaus.srccode.entities.Record;
 import com.example.krankenhaus.srccode.entities.Visit;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndRecord;
+import com.example.krankenhaus.srccode.entities.relations.RecordAndPatient;
 import com.example.krankenhaus.srccode.entities.relations.RecordAndVisitAndPatient;
 import com.example.krankenhaus.srccode.entities.relations.RecordWithAll;
 import com.example.krankenhaus.srccode.entities.relations.VisitAndRecord;
@@ -32,6 +33,7 @@ public class DoctorViewModel extends AndroidViewModel {
     private LiveData<List<VisitAndRecord>> allVisitAndRecords;
 
     public MutableLiveData<PatientAndRecord> patientAndRecord = new MutableLiveData<>();
+    public MutableLiveData<RecordAndPatient> recordAndPatient = new MutableLiveData<>();
 
     public DoctorViewModel(@NonNull Application application) {
         super(application);
@@ -82,4 +84,6 @@ public class DoctorViewModel extends AndroidViewModel {
     public LiveData<RecordAndVisitAndPatient> getRecordAndVisitAndPatientByInsuranceNumber(String insuranceNumber) { return recordRepository.getRecordAndPatientAndVisitByInsuranceNumber(insuranceNumber); }
 
     public LiveData<List<RecordWithAll>> getRecordWithAllByRecordId(int recordId) { return recordRepository.getRecordWithAllByRecordId(recordId); }
+
+    public LiveData<RecordAndPatient> getRecordAndPatientByRecordID(int recordID) { return recordRepository.getRecordAndPatientByRecordID(recordID); }
 }

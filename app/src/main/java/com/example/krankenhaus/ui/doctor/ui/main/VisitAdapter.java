@@ -1,11 +1,15 @@
 package com.example.krankenhaus.ui.doctor.ui.main;
 
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.krankenhaus.R;
@@ -22,11 +26,14 @@ import java.util.List;
 
 public class VisitAdapter extends RecyclerView.Adapter<VisitAdapter.VisitHolder> {
     private List<VisitAndRecord> visitAndRecordList;
-    PatientDao patientDao;
-    RecordRepository recordRepository;
+    RecordAndPatient recordAndPatient;
+    LifecycleOwner lifecycleOwner;
+    DoctorViewModel doctorViewModel;
 
-    VisitAdapter() {
+    VisitAdapter(LifecycleOwner lifecycleOwner, DoctorViewModel doctorViewModel) {
         this.visitAndRecordList = new ArrayList<>();
+        this.lifecycleOwner = lifecycleOwner;
+        this.doctorViewModel = doctorViewModel;
     }
 
     @NonNull
@@ -42,12 +49,19 @@ public class VisitAdapter extends RecyclerView.Adapter<VisitAdapter.VisitHolder>
         if (visitAndRecordList.size() == 0) {
             return;
         }
-        VisitAndRecord visitAndRecord = visitAndRecordList.get(position);
-        RecordAndPatient recordAndPatient = recordRepository.getRecordAndPatientByRecordID(visitAndRecord.record.getRecordId()).getValue();
 
-        holder.textViewBedNumber.setText(recordAndPatient.patient.getBedNumber());
-        holder.textViewName.setText(recordAndPatient.patient.getName());
-        holder.textViewInsuranceNumber.setText(recordAndPatient.patient.getInsuranceNumber());
+        VisitAndRecord visitAndRecord = visitAndRecordList.get(position);
+        doctorViewModel.getRecordAndPatientByRecordID(visitAndRecord.record.getRecordId()).observe(lifecycleOwner, new Observer<RecordAndPatient>() {
+            @Override
+            public void onChanged(RecordAndPatient input) {
+                recordAndPatient = input;
+
+                holder.textViewBedNumber.setText(Integer.toString(recordAndPatient.patient.getBedNumber()));
+                holder.textViewName.setText(recordAndPatient.patient.getName());
+                holder.textViewInsuranceNumber.setText(recordAndPatient.patient.getInsuranceNumber());
+            }
+        });
+
     }
 
     @Override

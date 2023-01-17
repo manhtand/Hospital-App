@@ -14,6 +14,7 @@ import java.util.List;
 import com.example.krankenhaus.srccode.entities.Patient;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndRecord;
+import com.example.krankenhaus.srccode.entities.relations.RecordAndVisitAndPatient;
 
 @Dao
 public interface PatientDao {

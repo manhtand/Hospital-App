@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import com.example.krankenhaus.R;
 import com.example.krankenhaus.databinding.FragmentVisitListBinding;
 import com.example.krankenhaus.srccode.entities.Visit;
+import com.example.krankenhaus.srccode.entities.relations.RecordAndPatient;
 import com.example.krankenhaus.srccode.entities.relations.RecordAndVisitAndPatient;
 import com.example.krankenhaus.srccode.entities.relations.VisitAndRecord;
 
@@ -33,6 +34,7 @@ public class VisitListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        doctorViewModel = new ViewModelProvider(requireActivity()).get(DoctorViewModel.class);
     }
 
     @Override
@@ -42,14 +44,13 @@ public class VisitListFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Visit List");
 
         binding = FragmentVisitListBinding.inflate(inflater, container, false);
-        doctorViewModel = new ViewModelProvider(requireActivity()).get(DoctorViewModel.class);
         View root = binding.getRoot();
 
         recyclerView = binding.visitList;
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
 
-        visitAdapter = new VisitAdapter();
+        visitAdapter = new VisitAdapter(getViewLifecycleOwner(), doctorViewModel);
         recyclerView.setAdapter(visitAdapter);
 
         doctorViewModel.getAllVisitAndRecords().observe(getViewLifecycleOwner(), new Observer<List<VisitAndRecord>>() {

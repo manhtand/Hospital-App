@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.MenuItem;
 
 import com.example.krankenhaus.R;
@@ -72,11 +73,7 @@ public class DoctorActivity extends AppCompatActivity {
         DoctorViewModel doctorViewModel = new ViewModelProvider(activity).get(DoctorViewModel.class);
         doctorViewModel.setRepository(patientRepository, visitRepository, recordRepository);
 
-        patientRepository.insertPatient(new Patient("123", 2, "Doan", LocalDate.of(2001, 10, 02), "Hanoi", "Hanoi", "123", "Compny"));
-        Record record = new Record("123");
-        recordRepository.insertRecord(record);
-
-        visitRepository.insertVisit(new Visit(record.getRecordId(), "good"));
+        visitRepository.insertVisit(new Visit(1000, "good"));
 
         return doctorViewModel;
     }

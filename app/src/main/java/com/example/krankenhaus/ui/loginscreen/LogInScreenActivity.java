@@ -92,6 +92,11 @@ public class LogInScreenActivity extends AppCompatActivity {
             }
         });
 
+        patientRepository.insertPatient(new Patient("123", 2, "Doan", LocalDate.of(2001, 10, 02), "Hanoi", "Hanoi", "123", "Compny"));
+        Record record = new Record("123");
+        recordRepository.insertRecord(record);
+        record.setRecordId(1000);
+
         /*
         //Doctor Test
         VisitRepository visitRepository = VisitRepository.getInstance(this.getApplication());

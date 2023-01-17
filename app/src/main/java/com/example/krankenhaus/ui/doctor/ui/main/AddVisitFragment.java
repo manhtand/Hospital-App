@@ -54,11 +54,11 @@ public class AddVisitFragment extends Fragment {
                     @Override
                     public void onChanged(RecordAndVisitAndPatient input) {
                         recordAndVisitAndPatient = input;
+
+                        checkInsuranceNumber();
+                        returnToVisitList();
                     }
                 });
-
-                checkInsuranceNumber();
-                returnToVisitList();
             }
         });
 
