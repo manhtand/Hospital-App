@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -13,6 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.krankenhaus.databinding.FragmentMriListBinding;
+import com.example.krankenhaus.srccode.entities.relations.MRIAndRecord;
+import com.example.krankenhaus.ui.service.labor.LaborActivity;
+
+import java.util.List;
 
 public class MriListFragment extends Fragment {
     RecyclerView recyclerView;
@@ -32,6 +37,7 @@ public class MriListFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("MRT List");
 
         binding = FragmentMriListBinding.inflate(inflater, container, false);
+        laborViewModel = LaborActivity.obtainViewModel(getActivity());
         View root = binding.getRoot();
 
         recyclerView = binding.laborMrtList;
@@ -39,6 +45,12 @@ public class MriListFragment extends Fragment {
         mriAdapter = new MriAdapter();
         recyclerView.setAdapter(mriAdapter);
 
+        laborViewModel.getAllNewMRIAndRecord().observe(getViewLifecycleOwner(), new Observer<List<MRIAndRecord>>() {
+            @Override
+            public void onChanged(List<MRIAndRecord> mriAndRecords) {
+                mriAdapter.setMRIAndRecordList(mriAndRecords);
+            }
+        });
         return root;
     }
 

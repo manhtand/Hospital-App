@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.krankenhaus.R;
 import com.example.krankenhaus.srccode.converter.LocalDataTimeConverter;
-import com.example.krankenhaus.srccode.entities.BloodTest;
 import com.example.krankenhaus.srccode.entities.relations.BloodTestAndRecord;
 
 import java.util.ArrayList;
