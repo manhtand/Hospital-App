@@ -47,6 +47,10 @@ public class BloodTestAdapter extends RecyclerView.Adapter<BloodTestAdapter.Bloo
         return allNewBloodTestAndRecord.size();
     }
 
+    public void setBloodTestAndRecordList(List<BloodTestAndRecord> bloodTestAndRecordList){
+        this.allNewBloodTestAndRecord = bloodTestAndRecordList;
+        notifyDataSetChanged();
+    }
     class BloodTestAndRecordHolder extends RecyclerView.ViewHolder{
         private TextView textViewInsuranceNumber;
         private TextView textViewCreationDate;

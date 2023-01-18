@@ -8,9 +8,12 @@ import android.view.MenuItem;
 import com.example.krankenhaus.databinding.ActivityLaborBinding;
 import com.example.krankenhaus.R;
 
+import com.example.krankenhaus.ui.service.labor.ui.main.LaborViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -38,10 +41,16 @@ public class LaborActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+        obtainViewModel(this);
     }
 
     public void setActionBarTitle(String title) {
         getSupportActionBar().setTitle(title);
+    }
+
+    public static LaborViewModel obtainViewModel(FragmentActivity activity){
+        return new ViewModelProvider(activity).get(LaborViewModel.class);
     }
 
     @Override

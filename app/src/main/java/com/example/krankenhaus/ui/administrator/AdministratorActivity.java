@@ -134,13 +134,7 @@ public class AdministratorActivity extends AppCompatActivity {
     }
 
     public static AdminViewModel obtainViewModel(FragmentActivity activity) {
-        BedRepository bedRepository = BedRepository.getInstance(activity.getApplication());
-        PatientRepository patientRepository = PatientRepository.getInstance(activity.getApplication());
-        AdminViewModel administratorViewModel = new ViewModelProvider(activity).get(AdminViewModel.class);
-        administratorViewModel.setRepository(patientRepository, bedRepository);
-
-
-        return administratorViewModel;
+        return new ViewModelProvider(activity).get(AdminViewModel.class);
     }
 
     @Override

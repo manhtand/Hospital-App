@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -14,6 +15,10 @@ import android.view.ViewGroup;
 
 import com.example.krankenhaus.R;
 import com.example.krankenhaus.databinding.FragmentBloodTestListBinding;
+import com.example.krankenhaus.srccode.entities.relations.BloodTestAndRecord;
+import com.example.krankenhaus.ui.service.labor.LaborActivity;
+
+import java.util.List;
 
 public class BloodTestListFragment extends Fragment {
     RecyclerView recyclerView;
@@ -33,6 +38,7 @@ public class BloodTestListFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Blood Test List");
 
         binding = FragmentBloodTestListBinding.inflate(inflater, container, false);
+        laborViewModel = LaborActivity.obtainViewModel(getActivity());
         View root = binding.getRoot();
 
         recyclerView = binding.laborBloodTestList;
@@ -40,7 +46,12 @@ public class BloodTestListFragment extends Fragment {
         bloodTestAdapter = new BloodTestAdapter();
         recyclerView.setAdapter(bloodTestAdapter);
 
-        //laborViewModel.getAllNewBloodTestAndRecord()
+        laborViewModel.getAllNewBloodTestAndRecord().observe(getViewLifecycleOwner(), new Observer<List<BloodTestAndRecord>>() {
+            @Override
+            public void onChanged(List<BloodTestAndRecord> bloodTestAndRecords) {
+                bloodTestAdapter.setBloodTestAndRecordList(bloodTestAndRecords);
+            }
+        });
 
         return root;
     }

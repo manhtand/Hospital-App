@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,9 @@ import android.view.ViewGroup;
 import com.example.krankenhaus.R;
 import com.example.krankenhaus.databinding.FragmentBedListBinding;
 import com.example.krankenhaus.srccode.entities.relations.BedAndPatient;
+import com.example.krankenhaus.srccode.entities.relations.PatientAndRecord;
+import com.example.krankenhaus.srccode.entities.relations.RecordAndBloodTestAndMRI;
+import com.example.krankenhaus.srccode.entities.relations.RecordAndVisitAndPatient;
 import com.example.krankenhaus.ui.administrator.AdministratorActivity;
 
 import java.util.List;
@@ -58,14 +62,36 @@ public class AdminBedListFragment extends Fragment {
         bedAdapter.setOnItemClickListener(new AdminBedAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BedAndPatient bedAndPatient) {
+                administratorViewModel.setPatient(bedAndPatient.patient);
+                administratorViewModel.getPatientAndRecordByInsuranceNumber(bedAndPatient.patient.getInsuranceNumber()).observe(getViewLifecycleOwner(), new Observer<PatientAndRecord>() {
+                    @Override
+                    public void onChanged(PatientAndRecord patientAndRecord) {
+                        administratorViewModel.setPatientAndRecord(patientAndRecord);
+                    }
+                });
+
+                administratorViewModel.getRecordAndBloodTestAndMRIByInsuranceNumber(bedAndPatient.patient.getInsuranceNumber()).observe(getViewLifecycleOwner(), new Observer<RecordAndBloodTestAndMRI>() {
+                    @Override
+                    public void onChanged(RecordAndBloodTestAndMRI recordAndBloodTestAndMRIS) {
+                        administratorViewModel.setRecordAndBloodTestAndMRI(recordAndBloodTestAndMRIS);
+                    }
+                });
+
+                administratorViewModel.getRecordAndVisitAndPatientByInsuranceNumber(bedAndPatient.patient.getInsuranceNumber()).observe(getViewLifecycleOwner(), new Observer<RecordAndVisitAndPatient>() {
+                    @Override
+                    public void onChanged(RecordAndVisitAndPatient recordAndVisitAndPatient) {
+                        administratorViewModel.setRecordAndVisitAndPatient(recordAndVisitAndPatient);
+                    }
+                });
+
+                SystemClock.sleep(50);
+
                 AdminPatientInfoFragment adminPatientInfoFragment = new AdminPatientInfoFragment();
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.setReorderingAllowed(true);
                 ft.addToBackStack(null);
                 ft.replace(R.id.nav_host_fragment_activity_administrator, adminPatientInfoFragment);
                 ft.commit();
-
-                administratorViewModel.setPatient(bedAndPatient.patient);
             }
         });
         return root;
