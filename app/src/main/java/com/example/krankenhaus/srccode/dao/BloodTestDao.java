@@ -9,6 +9,9 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.krankenhaus.srccode.entities.BloodTest;
+import com.example.krankenhaus.srccode.entities.relations.BloodTestAndRecord;
+
+import java.util.List;
 
 @Dao
 public interface BloodTestDao {
@@ -17,6 +20,9 @@ public interface BloodTestDao {
 
     @Delete
     void deleteBloodTest(BloodTest bloodTest);
+
+    @Query("SELECT * FROM blood_test_table WHERE blood_test_table.processing_state = 0 ORDER BY blood_test_table.creation_date ASC")
+    LiveData<List<BloodTestAndRecord>> getAllNewBloodTest();
 
     @Query("SELECT * FROM blood_test_table WHERE blood_test_table.record_id = :recordid ORDER BY blood_test_table.id ASC")
     LiveData<BloodTest> getAllBloodTestByRecordID(int recordid);

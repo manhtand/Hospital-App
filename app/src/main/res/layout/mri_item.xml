@@ -27,10 +27,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/visitlist_bed_number"
+                android:id="@+id/mri_item_insurance_number"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textStyle="bold"
-                android:text="A12345"
+                android:text="12345"
                 android:layout_marginStart="10dp"/>
 
         </LinearLayout>
@@ -48,16 +48,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Patient Name: ">
+                    android:text="Creation Time: ">
 
                 </TextView>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/visit_patient_name"
-                    android:layout_marginStart="6dp"
-                    android:text="Le">
+                    android:id="@+id/mri_item_creation_time"
+                    android:layout_marginStart="6dp">
 
                 </TextView>
 

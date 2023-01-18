@@ -8,14 +8,19 @@ import androidx.lifecycle.LiveData;
 import com.example.krankenhaus.srccode.HospitalDatabase;
 import com.example.krankenhaus.srccode.dao.MRIDao;
 import com.example.krankenhaus.srccode.entities.MRI;
+import com.example.krankenhaus.srccode.entities.relations.MRIAndRecord;
+
+import java.util.List;
 
 public class MRIRepository {
     private volatile static MRIRepository INSTANCE = null;
     private final MRIDao mriDao;
+    private LiveData<List<MRIAndRecord>> allNewMRI;
 
     public MRIRepository(Application application) {
         HospitalDatabase hospitalDatabase = HospitalDatabase.getInstance(application);
         mriDao = hospitalDatabase.mriDao();
+        allNewMRI = mriDao.getAllNewMRI();
     }
 
     public static synchronized MRIRepository getInstance(Application application) {
@@ -31,6 +36,10 @@ public class MRIRepository {
 
     public void deleteMRI(MRI mri) {
         new DeleteMRIAsyncTask(mriDao).execute(mri);
+    }
+
+    public LiveData<List<MRIAndRecord>> getAllNewMRI(){
+        return allNewMRI;
     }
 
     public LiveData<MRI> getAllMRIByRecordID(int recordID){

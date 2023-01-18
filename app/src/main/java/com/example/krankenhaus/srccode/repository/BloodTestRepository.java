@@ -9,16 +9,21 @@ import androidx.room.Delete;
 import com.example.krankenhaus.srccode.HospitalDatabase;
 import com.example.krankenhaus.srccode.dao.BloodTestDao;
 import com.example.krankenhaus.srccode.entities.BloodTest;
+import com.example.krankenhaus.srccode.entities.relations.BloodTestAndRecord;
+
+import java.util.List;
 
 import io.reactivex.Completable;
 
 public class BloodTestRepository {
     private volatile static BloodTestRepository INSTANCE = null;
     private final BloodTestDao bloodTestDao;
+    private LiveData<List<BloodTestAndRecord>> allNewBloodTest;
 
     private BloodTestRepository(Application application) {
         HospitalDatabase hospitalDatabase = HospitalDatabase.getInstance(application);
         bloodTestDao = hospitalDatabase.bloodTestDao();
+        allNewBloodTest = bloodTestDao.getAllNewBloodTest();
     }
 
     public static synchronized BloodTestRepository getInstance(Application application) {
@@ -34,6 +39,10 @@ public class BloodTestRepository {
 
     public void deleteBloodTest(BloodTest bloodTest){
         new DeleteBloodTestAsyncTask(bloodTestDao).execute(bloodTest);
+    }
+
+    public LiveData<List<BloodTestAndRecord>> getAllNewBloodTest(){
+        return allNewBloodTest;
     }
 
     public LiveData<BloodTest> getAllBloodTestByRecordID(int recordID){
