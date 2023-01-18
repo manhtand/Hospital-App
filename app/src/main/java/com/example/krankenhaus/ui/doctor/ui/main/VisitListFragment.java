@@ -78,9 +78,8 @@ public class VisitListFragment extends Fragment {
             public void onClick(View view) {
                 AddVisitFragment addVisitFragment = new AddVisitFragment();
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.setReorderingAllowed(true);
-                ft.addToBackStack(null);
                 ft.replace(R.id.nav_host_fragment_activity_doctor, addVisitFragment);
+                ft.addToBackStack(null);
                 ft.commit();
             }
         });

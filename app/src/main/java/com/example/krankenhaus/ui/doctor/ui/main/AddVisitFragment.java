@@ -89,9 +89,8 @@ public class AddVisitFragment extends Fragment {
     }
 
     private void returnToVisitList() {
-        VisitListFragment visitListFragment = new VisitListFragment();
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.nav_host_fragment_activity_doctor, visitListFragment);
-        ft.commit();
+        if (getFragmentManager().getBackStackEntryCount() != 0) {
+            getFragmentManager().popBackStack();
+        }
     }
 }
