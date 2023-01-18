@@ -6,13 +6,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.krankenhaus.R;
 import com.example.krankenhaus.databinding.FragmentMriListBinding;
 import com.example.krankenhaus.srccode.entities.relations.MRIAndRecord;
 import com.example.krankenhaus.ui.service.labor.LaborActivity;
@@ -44,11 +48,29 @@ public class MriListFragment extends Fragment {
 
         mriAdapter = new MriAdapter();
         recyclerView.setAdapter(mriAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setHasFixedSize(true);
 
         laborViewModel.getAllNewMRIAndRecord().observe(getViewLifecycleOwner(), new Observer<List<MRIAndRecord>>() {
             @Override
             public void onChanged(List<MRIAndRecord> mriAndRecords) {
                 mriAdapter.setMRIAndRecordList(mriAndRecords);
+            }
+        });
+
+        mriAdapter.setOnItemClickListener(new MriAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(MRIAndRecord mriAndRecord) {
+                laborViewModel.setMriAndRecord(mriAndRecord);
+
+                SystemClock.sleep(50);
+
+                LaborResultMRIFragment laborResultMRIFragment = new LaborResultMRIFragment();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.setReorderingAllowed(true);
+                ft.addToBackStack(null);
+                ft.replace(R.id.nav_host_fragment_activity_labor, laborResultMRIFragment);
+                ft.commit();
             }
         });
         return root;

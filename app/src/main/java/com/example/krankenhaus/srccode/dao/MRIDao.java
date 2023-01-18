@@ -7,6 +7,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
+import androidx.room.Update;
 
 import com.example.krankenhaus.srccode.entities.MRI;
 import com.example.krankenhaus.srccode.entities.relations.MRIAndRecord;
@@ -16,7 +17,10 @@ import java.util.List;
 @Dao
 public interface MRIDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertMRT(MRI mri);
+    void insertMRI(MRI mri);
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    void updateMRI(MRI mri);
 
     @Delete
     void deleteMRI(MRI mri);

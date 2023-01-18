@@ -43,7 +43,7 @@ public class MriAdapter extends RecyclerView.Adapter<MriAdapter.MRIAndRecordHold
 
     @Override
     public int getItemCount() {
-        return 0;
+        return allNewMRIAndRecord.size();
     }
 
     public void setMRIAndRecordList(List<MRIAndRecord> mriAndRecordList){

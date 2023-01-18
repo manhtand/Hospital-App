@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.krankenhaus.srccode.entities.BloodTest;
@@ -24,6 +25,9 @@ public class LaborViewModel extends AndroidViewModel {
     private LiveData<List<BloodTestAndRecord>> allNewBloodTest;
     private LiveData<List<MRIAndRecord>> allNewMRI;
 
+    public MutableLiveData<BloodTestAndRecord> bloodTestAndRecord = new MutableLiveData<>();
+    public MutableLiveData<MRIAndRecord> mriAndRecord = new MutableLiveData<>();
+
     public LaborViewModel(@NonNull Application application) {
         super(application);
         bloodTestRepository = BloodTestRepository.getInstance(application);
@@ -35,11 +39,35 @@ public class LaborViewModel extends AndroidViewModel {
         recordRepository = RecordRepository.getInstance(application);
     }
 
+    public void setBloodTestAndRecord(BloodTestAndRecord input) {
+        bloodTestAndRecord.setValue(input);
+    }
+
+    public void setMriAndRecord(MRIAndRecord input) {
+        mriAndRecord.setValue(input);
+    }
+
     public LiveData<List<BloodTestAndRecord>> getAllNewBloodTestAndRecord(){
         return allNewBloodTest;
     }
 
     public LiveData<List<MRIAndRecord>> getAllNewMRIAndRecord(){
         return allNewMRI;
+    }
+
+    public LiveData<BloodTestAndRecord> getBloodTestAndRecord() {
+        return bloodTestAndRecord;
+    }
+
+    public LiveData<MRIAndRecord> getMriAndRecord() {
+        return mriAndRecord;
+    }
+
+    public void updateMRI(MRI mri){
+        mriRepository.updateMRI(mri);
+    }
+
+    public void updateBloodTest(BloodTest bloodTest){
+        bloodTestRepository.updateBloodTest(bloodTest);
     }
 }
