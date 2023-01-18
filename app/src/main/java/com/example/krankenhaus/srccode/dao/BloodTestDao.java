@@ -19,6 +19,9 @@ public interface BloodTestDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertBloodTest(BloodTest bloodTest);
 
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    void updateBloodTest(BloodTest bloodTest);
+
     @Delete
     void deleteBloodTest(BloodTest bloodTest);
 

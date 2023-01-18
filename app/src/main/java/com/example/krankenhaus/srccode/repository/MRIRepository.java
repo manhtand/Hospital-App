@@ -34,6 +34,10 @@ public class MRIRepository {
         new InsertMRIAsyncTask(mriDao).execute(mri);
     }
 
+    public void updateMRI(MRI mri){
+        new UpdateMRIAsyncTask(mriDao).execute(mri);
+    }
+
     public void deleteMRI(MRI mri) {
         new DeleteMRIAsyncTask(mriDao).execute(mri);
     }
@@ -55,7 +59,21 @@ public class MRIRepository {
 
         @Override
         protected Void doInBackground(MRI... mris) {
-            mriDao.insertMRT(mris[0]);
+            mriDao.insertMRI(mris[0]);
+            return null;
+        }
+    }
+
+    private static class UpdateMRIAsyncTask extends AsyncTask<MRI,Void,Void> {
+        private MRIDao mriDao;
+
+        private UpdateMRIAsyncTask(MRIDao mriDao){
+            this.mriDao = mriDao;
+        }
+
+        @Override
+        protected Void doInBackground(MRI... mris) {
+            mriDao.updateMRI(mris[0]);
             return null;
         }
     }

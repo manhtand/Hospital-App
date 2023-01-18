@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -45,6 +46,8 @@ public class BloodTestListFragment extends Fragment {
 
         bloodTestAdapter = new BloodTestAdapter();
         recyclerView.setAdapter(bloodTestAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setHasFixedSize(true);
 
         laborViewModel.getAllNewBloodTestAndRecord().observe(getViewLifecycleOwner(), new Observer<List<BloodTestAndRecord>>() {
             @Override
@@ -52,6 +55,13 @@ public class BloodTestListFragment extends Fragment {
                 bloodTestAdapter.setBloodTestAndRecordList(bloodTestAndRecords);
             }
         });
+
+        /*bloodTestAdapter.setOnItemClickListener(new BloodTestAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BloodTestAndRecord bloodTestAndRecord) {
+
+            }
+        });*/
 
         return root;
     }

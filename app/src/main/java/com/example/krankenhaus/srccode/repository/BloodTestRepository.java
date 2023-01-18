@@ -37,6 +37,10 @@ public class BloodTestRepository {
         new InsertBloodTestAsyncTask(bloodTestDao).execute(bloodTest);
     }
 
+    public void updateBloodTest(BloodTest bloodTest){
+
+    }
+
     public void deleteBloodTest(BloodTest bloodTest){
         new DeleteBloodTestAsyncTask(bloodTestDao).execute(bloodTest);
     }
@@ -59,6 +63,20 @@ public class BloodTestRepository {
         @Override
         protected Void doInBackground(BloodTest... bloodTests) {
             bloodTestDao.insertBloodTest(bloodTests[0]);
+            return null;
+        }
+    }
+
+    private static class UpdateBloodTestAsyncTask extends AsyncTask<BloodTest,Void,Void> {
+        private BloodTestDao bloodTestDao;
+
+        private UpdateBloodTestAsyncTask(BloodTestDao bloodTestDao){
+            this.bloodTestDao = bloodTestDao;
+        }
+
+        @Override
+        protected Void doInBackground(BloodTest... bloodTests) {
+            bloodTestDao.updateBloodTest(bloodTests[0]);
             return null;
         }
     }
