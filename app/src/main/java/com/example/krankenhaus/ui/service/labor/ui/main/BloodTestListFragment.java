@@ -40,6 +40,8 @@ public class BloodTestListFragment extends Fragment {
         bloodTestAdapter = new BloodTestAdapter();
         recyclerView.setAdapter(bloodTestAdapter);
 
+        //laborViewModel.getAllNewBloodTestAndRecord()
+
         return root;
     }
 

@@ -27,19 +27,19 @@ public class LaborViewModel extends AndroidViewModel {
     public LaborViewModel(@NonNull Application application) {
         super(application);
         bloodTestRepository = BloodTestRepository.getInstance(application);
-        allNewBloodTest = bloodTestRepository.getAllNewBloodTest();
+        allNewBloodTest = bloodTestRepository.getAllNewBloodTestAndRecord();
 
         mriRepository = MRIRepository.getInstance(application);
-        allNewMRI = mriRepository.getAllNewMRI();
+        allNewMRI = mriRepository.getAllNewMRIAndRecord();
 
         recordRepository = RecordRepository.getInstance(application);
     }
 
-    public LiveData<List<BloodTestAndRecord>> getAllNewBloodTest(){
+    public LiveData<List<BloodTestAndRecord>> getAllNewBloodTestAndRecord(){
         return allNewBloodTest;
     }
 
-    public LiveData<List<MRIAndRecord>> getAllNewMRI(){
+    public LiveData<List<MRIAndRecord>> getAllNewMRIAndRecord(){
         return allNewMRI;
     }
 }

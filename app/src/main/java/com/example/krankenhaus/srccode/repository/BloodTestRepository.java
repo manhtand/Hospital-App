@@ -18,12 +18,12 @@ import io.reactivex.Completable;
 public class BloodTestRepository {
     private volatile static BloodTestRepository INSTANCE = null;
     private final BloodTestDao bloodTestDao;
-    private LiveData<List<BloodTestAndRecord>> allNewBloodTest;
+    private LiveData<List<BloodTestAndRecord>> allNewBloodTestAndRecord;
 
     private BloodTestRepository(Application application) {
         HospitalDatabase hospitalDatabase = HospitalDatabase.getInstance(application);
         bloodTestDao = hospitalDatabase.bloodTestDao();
-        allNewBloodTest = bloodTestDao.getAllNewBloodTest();
+        allNewBloodTestAndRecord = bloodTestDao.getAllNewBloodTestAndRecord();
     }
 
     public static synchronized BloodTestRepository getInstance(Application application) {
@@ -41,8 +41,8 @@ public class BloodTestRepository {
         new DeleteBloodTestAsyncTask(bloodTestDao).execute(bloodTest);
     }
 
-    public LiveData<List<BloodTestAndRecord>> getAllNewBloodTest(){
-        return allNewBloodTest;
+    public LiveData<List<BloodTestAndRecord>> getAllNewBloodTestAndRecord(){
+        return allNewBloodTestAndRecord;
     }
 
     public LiveData<BloodTest> getAllBloodTestByRecordID(int recordID){

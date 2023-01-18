@@ -15,12 +15,12 @@ import java.util.List;
 public class MRIRepository {
     private volatile static MRIRepository INSTANCE = null;
     private final MRIDao mriDao;
-    private LiveData<List<MRIAndRecord>> allNewMRI;
+    private LiveData<List<MRIAndRecord>> allNewMRIAndRecord;
 
     public MRIRepository(Application application) {
         HospitalDatabase hospitalDatabase = HospitalDatabase.getInstance(application);
         mriDao = hospitalDatabase.mriDao();
-        allNewMRI = mriDao.getAllNewMRI();
+        allNewMRIAndRecord = mriDao.getAllNewMRIAndRecord();
     }
 
     public static synchronized MRIRepository getInstance(Application application) {
@@ -38,8 +38,8 @@ public class MRIRepository {
         new DeleteMRIAsyncTask(mriDao).execute(mri);
     }
 
-    public LiveData<List<MRIAndRecord>> getAllNewMRI(){
-        return allNewMRI;
+    public LiveData<List<MRIAndRecord>> getAllNewMRIAndRecord(){
+        return allNewMRIAndRecord;
     }
 
     public LiveData<MRI> getAllMRIByRecordID(int recordID){
