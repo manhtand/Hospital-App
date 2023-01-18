@@ -6,6 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Transaction;
 
 import com.example.krankenhaus.srccode.entities.MRI;
 import com.example.krankenhaus.srccode.entities.relations.MRIAndRecord;
@@ -20,6 +21,7 @@ public interface MRIDao {
     @Delete
     void deleteMRI(MRI mri);
 
+    @Transaction
     @Query("SELECT * FROM mri_table WHERE mri_table.processing_state = 0 ORDER BY mri_table.creation_date ASC" )
     LiveData<List<MRIAndRecord>> getAllNewMRIAndRecord();
 

@@ -6,6 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.example.krankenhaus.srccode.entities.BloodTest;
@@ -21,6 +22,7 @@ public interface BloodTestDao {
     @Delete
     void deleteBloodTest(BloodTest bloodTest);
 
+    @Transaction
     @Query("SELECT * FROM blood_test_table WHERE blood_test_table.processing_state = 0 ORDER BY blood_test_table.creation_date ASC")
     LiveData<List<BloodTestAndRecord>> getAllNewBloodTestAndRecord();
 
