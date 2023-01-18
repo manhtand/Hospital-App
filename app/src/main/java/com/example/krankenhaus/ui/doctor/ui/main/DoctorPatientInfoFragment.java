@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.krankenhaus.databinding.DoctorFragmentPatientInfoBinding;
+import com.example.krankenhaus.srccode.entities.BloodTest;
+import com.example.krankenhaus.srccode.entities.MRI;
 import com.example.krankenhaus.srccode.entities.Patient;
 import com.example.krankenhaus.srccode.entities.Record;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
@@ -57,6 +59,13 @@ public class DoctorPatientInfoFragment extends Fragment {
                 changeViewSwitcher();
                 patientAndRecord.record.setMedication(binding.medicationEdittext.getText().toString());
                 binding.medicationTextview.setText(patientAndRecord.record.getMedication());
+            }
+        });
+
+        binding.assignmentRequestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                doctorViewModel.insertExamination(new MRI(patientAndRecord.record.getRecordId(), new byte[0]), new BloodTest(patientAndRecord.record.getRecordId(), -1, -1, -1));
             }
         });
 

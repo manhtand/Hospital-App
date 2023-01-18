@@ -33,7 +33,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class LogInScreenActivity extends AppCompatActivity {
-
     private ActivityLogInScreenBinding binding;
     private int tmpsize;
     private Record record;
