@@ -16,6 +16,7 @@ import com.example.krankenhaus.srccode.repository.BloodTestRepository;
 import com.example.krankenhaus.srccode.repository.MRIRepository;
 import com.example.krankenhaus.srccode.repository.RecordRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LaborViewModel extends AndroidViewModel {
@@ -27,6 +28,8 @@ public class LaborViewModel extends AndroidViewModel {
 
     public MutableLiveData<BloodTestAndRecord> bloodTestAndRecord = new MutableLiveData<>();
     public MutableLiveData<MRIAndRecord> mriAndRecord = new MutableLiveData<>();
+
+    List<BloodTest> bloodTestSource;
 
     public LaborViewModel(@NonNull Application application) {
         super(application);
@@ -70,4 +73,8 @@ public class LaborViewModel extends AndroidViewModel {
     public void updateBloodTest(BloodTest bloodTest){
         bloodTestRepository.updateBloodTest(bloodTest);
     }
+
+    public void setBloodTestSource(List<BloodTest> input) { this.bloodTestSource = input; }
+
+    public List<BloodTest> getBloodTestSource() { return bloodTestSource; }
 }

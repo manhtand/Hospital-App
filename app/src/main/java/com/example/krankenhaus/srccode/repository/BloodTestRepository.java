@@ -38,7 +38,7 @@ public class BloodTestRepository {
     }
 
     public void updateBloodTest(BloodTest bloodTest){
-
+        new UpdateBloodTestAsyncTask(bloodTestDao).execute(bloodTest);
     }
 
     public void deleteBloodTest(BloodTest bloodTest){

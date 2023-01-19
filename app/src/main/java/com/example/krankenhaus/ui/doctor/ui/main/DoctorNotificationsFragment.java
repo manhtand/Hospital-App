@@ -23,6 +23,7 @@ import com.example.krankenhaus.R;
 import com.example.krankenhaus.databinding.FragmentDoctorNotificationsBinding;
 import com.example.krankenhaus.srccode.entities.relations.BloodTestAndRecord;
 import com.example.krankenhaus.srccode.entities.relations.MRIAndRecord;
+import com.example.krankenhaus.srccode.entities.relations.PatientAndRecord;
 import com.example.krankenhaus.srccode.entities.relations.RecordAndPatient;
 import com.example.krankenhaus.ui.doctor.DoctorActivity;
 

@@ -18,18 +18,18 @@ import com.example.krankenhaus.srccode.entities.BloodTest;
 import com.example.krankenhaus.srccode.entities.MRI;
 import com.example.krankenhaus.srccode.entities.Patient;
 import com.example.krankenhaus.srccode.entities.Record;
-import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndRecord;
-import com.example.krankenhaus.srccode.entities.relations.RecordAndVisitAndPatient;
-import com.example.krankenhaus.srccode.repository.RecordRepository;
+import com.example.krankenhaus.srccode.entities.relations.RecordAndPatient;
 
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 public class DoctorPatientInfoFragment extends Fragment {
     private PatientAndRecord patientAndRecord;
+    private RecordAndPatient recordAndPatient;
     private DoctorFragmentPatientInfoBinding binding;
     private DoctorViewModel doctorViewModel;
+    private Patient patient;
+    private Record record;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,6 +43,13 @@ public class DoctorPatientInfoFragment extends Fragment {
             @Override
             public void onChanged(PatientAndRecord input) {
                 patientAndRecord = input;
+            }
+        });
+
+        doctorViewModel.getRecordAndPatient().observe(getActivity(), new Observer<RecordAndPatient>() {
+            @Override
+            public void onChanged(RecordAndPatient input) {
+                recordAndPatient = input;
             }
         });
     }
@@ -69,7 +76,8 @@ public class DoctorPatientInfoFragment extends Fragment {
             }
         });
 
-        setPatientData(patientAndRecord.patient);
+        setPatientAndRecord();
+        setPatientData(patient);
         setDischarged();
 
         return root;
@@ -93,7 +101,7 @@ public class DoctorPatientInfoFragment extends Fragment {
 
     public void setPatientData(Patient patient) {
         binding.patientInfoName.setText(patient.getName());
-        binding.patientInfoRecordId.setText(Integer.toString(patientAndRecord.record.getRecordId()));
+        binding.patientInfoRecordId.setText(Integer.toString(record.getRecordId()));
         binding.dateOfBirth.setText(DateTimeFormatter.ofPattern("dd/MM/yyyy").format(patient.getDateOfBirth()));
         binding.address.setText(patient.getAddress());
         binding.zipCode.setText(patient.getZipCode());
@@ -125,5 +133,19 @@ public class DoctorPatientInfoFragment extends Fragment {
                 patientAndRecord.patient.setDischarged(false);
             }
         });
+    }
+
+    private void setPatientAndRecord() {
+        if (recordAndPatient != null && patientAndRecord == null) {
+            patient = recordAndPatient.patient;
+            record = recordAndPatient.record;
+        }
+        else if (recordAndPatient == null && patientAndRecord != null) {
+            patient = patientAndRecord.patient;
+            record = patientAndRecord.record;
+        }
+        else {
+            patient = null;
+        }
     }
 }

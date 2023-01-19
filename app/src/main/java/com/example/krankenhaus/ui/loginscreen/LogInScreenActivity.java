@@ -99,12 +99,12 @@ public class LogInScreenActivity extends AppCompatActivity {
         record.setRecordId(1000);
 
         MRIRepository mriRepository = MRIRepository.getInstance(this.getApplication());
-        recordRepository.getAllRecords().observe(this, new Observer<List<Record>>() {
+        /*recordRepository.getAllRecords().observe(this, new Observer<List<Record>>() {
             @Override
             public void onChanged(List<Record> records) {
                 mriRepository.insertMRI(new MRI(records.get(0).getRecordId(),null));
             }
-        });
+        });*/
 
         /*
         //Doctor Test

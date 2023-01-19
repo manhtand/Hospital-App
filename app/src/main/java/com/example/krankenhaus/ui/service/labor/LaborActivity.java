@@ -2,8 +2,12 @@ package com.example.krankenhaus.ui.service.labor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.krankenhaus.databinding.ActivityLaborBinding;
 import com.example.krankenhaus.R;
@@ -11,12 +15,12 @@ import com.example.krankenhaus.R;
 import com.example.krankenhaus.srccode.entities.BloodTest;
 import com.example.krankenhaus.srccode.entities.MRI;
 import com.example.krankenhaus.srccode.entities.Record;
-import com.example.krankenhaus.srccode.entities.relations.MRIAndRecord;
 import com.example.krankenhaus.srccode.repository.BloodTestRepository;
 import com.example.krankenhaus.srccode.repository.MRIRepository;
 import com.example.krankenhaus.srccode.repository.RecordRepository;
 import com.example.krankenhaus.ui.service.labor.ui.main.LaborViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.opencsv.CSVReader;
 
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -27,11 +31,21 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class LaborActivity extends AppCompatActivity {
-
+    LaborViewModel laborViewModel;
     private ActivityLaborBinding binding;
+    private List<BloodTest> bloodTestSource = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +70,7 @@ public class LaborActivity extends AppCompatActivity {
 
         // Test
 
-        /*MRIRepository mriRepository = MRIRepository.getInstance(this.getApplication());
+        MRIRepository mriRepository = MRIRepository.getInstance(this.getApplication());
         RecordRepository recordRepository = RecordRepository.getInstance(this.getApplication());
 
         recordRepository.getAllRecords().observe(this, new Observer<List<Record>>() {
@@ -64,7 +78,11 @@ public class LaborActivity extends AppCompatActivity {
             public void onChanged(List<Record> records) {
                 mriRepository.insertMRI(new MRI(records.get(0).getRecordId(),null));
             }
-        });*/
+        });
+
+        readBloodTestCSV();
+        laborViewModel = new ViewModelProvider(this).get(LaborViewModel.class);
+        laborViewModel.setBloodTestSource(bloodTestSource);
     }
 
     public void setActionBarTitle(String title) {
@@ -91,6 +109,36 @@ public class LaborActivity extends AppCompatActivity {
         }
         else {
             super.onBackPressed();
+        }
+    }
+
+    private void readBloodTestCSV() {
+        BufferedReader reader = null;
+        try {
+            String line;
+            reader = new BufferedReader(new FileReader("raw/bloodtest.csv"));
+
+            while ((line = reader.readLine()) != null) {
+                if (line != null) {
+                    String[] splitData = line.split(",");
+
+                    BloodTest bloodTest = new BloodTest(-1, -1, -1, -1);
+                    bloodTest.setLeukocytesPerNanoLiter(Double.parseDouble(splitData[0]));
+                    bloodTest.setLymphocytesLeukocytesRatio(Double.parseDouble(splitData[1]));
+                    bloodTest.setLymphocytesInHundredPerNanoLiter(Double.parseDouble(splitData[2]));
+                    bloodTestSource.add(bloodTest);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();;
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
