@@ -19,11 +19,13 @@ public class BloodTestRepository {
     private volatile static BloodTestRepository INSTANCE = null;
     private final BloodTestDao bloodTestDao;
     private LiveData<List<BloodTestAndRecord>> allNewBloodTestAndRecord;
+    private LiveData<List<BloodTestAndRecord>> allDoneBloodTestAndRecord;
 
     private BloodTestRepository(Application application) {
         HospitalDatabase hospitalDatabase = HospitalDatabase.getInstance(application);
         bloodTestDao = hospitalDatabase.bloodTestDao();
         allNewBloodTestAndRecord = bloodTestDao.getAllNewBloodTestAndRecord();
+        allDoneBloodTestAndRecord = bloodTestDao.getAllDoneBloodTestAndRecord();
     }
 
     public static synchronized BloodTestRepository getInstance(Application application) {
@@ -48,6 +50,8 @@ public class BloodTestRepository {
     public LiveData<List<BloodTestAndRecord>> getAllNewBloodTestAndRecord(){
         return allNewBloodTestAndRecord;
     }
+
+    public LiveData<List<BloodTestAndRecord>> getAllDoneBloodTestAndRecord() { return allDoneBloodTestAndRecord; }
 
     public LiveData<BloodTest> getAllBloodTestByRecordID(int recordID){
         return bloodTestDao.getAllBloodTestByRecordID(recordID);

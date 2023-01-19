@@ -1,18 +1,15 @@
 package com.example.krankenhaus.ui.doctor.ui.main;
 
 import android.app.Application;
-import android.util.Pair;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.krankenhaus.srccode.entities.BloodTest;
 import com.example.krankenhaus.srccode.entities.MRI;
 import com.example.krankenhaus.srccode.entities.Patient;
-import com.example.krankenhaus.srccode.entities.Record;
 import com.example.krankenhaus.srccode.entities.Visit;
 import com.example.krankenhaus.srccode.entities.relations.BloodTestAndRecord;
 import com.example.krankenhaus.srccode.entities.relations.MRIAndRecord;
@@ -28,10 +25,7 @@ import com.example.krankenhaus.srccode.repository.PatientRepository;
 import com.example.krankenhaus.srccode.repository.RecordRepository;
 import com.example.krankenhaus.srccode.repository.VisitRepository;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class DoctorViewModel extends AndroidViewModel {
     private PatientRepository patientRepository;
@@ -46,9 +40,8 @@ public class DoctorViewModel extends AndroidViewModel {
     private LiveData<List<Visit>> allVisits;
     private LiveData<List<VisitAndRecord>> allVisitAndRecords;
 
-    private LiveData<List<Object>> allExaminations;
-    private LiveData<List<MRIAndRecord>> allMriAndRecords;
-    private LiveData<List<BloodTestAndRecord>> allBloodTestAndRecords;
+    private LiveData<List<MRIAndRecord>> allDoneMriAndRecords;
+    private LiveData<List<BloodTestAndRecord>> allDoneBloodTestAndRecords;
 
     public MutableLiveData<PatientAndRecord> patientAndRecord = new MutableLiveData<>();
     public MutableLiveData<RecordAndPatient> recordAndPatient = new MutableLiveData<>();
@@ -62,8 +55,8 @@ public class DoctorViewModel extends AndroidViewModel {
 
         mriRepository = MRIRepository.getInstance(application);
         bloodTestRepository = BloodTestRepository.getInstance(application);
-        allMriAndRecords = mriRepository.getAllNewMRIAndRecord();
-        allBloodTestAndRecords = bloodTestRepository.getAllNewBloodTestAndRecord();
+        allDoneMriAndRecords = mriRepository.getAllDoneMRIAndRecord();
+        allDoneBloodTestAndRecords = bloodTestRepository.getAllDoneBloodTestAndRecord();
 
         visitRepository = VisitRepository.getInstance(application);
         allVisits = visitRepository.getAllVisits();
@@ -102,11 +95,9 @@ public class DoctorViewModel extends AndroidViewModel {
 
     public LiveData<List<VisitAndRecord>> getAllVisitAndRecords() { return allVisitAndRecords; }
 
-    public LiveData<List<Object>> getAllExaminations() { return allExaminations; }
+    public LiveData<List<MRIAndRecord>> getAllDoneMriAndRecords() { return allDoneMriAndRecords; }
 
-    public LiveData<List<MRIAndRecord>> getAllMriAndRecords() { return allMriAndRecords; }
-
-    public LiveData<List<BloodTestAndRecord>> getAllBloodTestAndRecords() { return allBloodTestAndRecords; }
+    public LiveData<List<BloodTestAndRecord>> getAllDoneBloodTestAndRecords() { return allDoneBloodTestAndRecords; }
 
     public void insertVisit(Visit visit) { visitRepository.insertVisit(visit); }
 

@@ -16,11 +16,13 @@ public class MRIRepository {
     private volatile static MRIRepository INSTANCE = null;
     private final MRIDao mriDao;
     private LiveData<List<MRIAndRecord>> allNewMRIAndRecord;
+    private LiveData<List<MRIAndRecord>> allDoneMRIAndRecord;
 
     public MRIRepository(Application application) {
         HospitalDatabase hospitalDatabase = HospitalDatabase.getInstance(application);
         mriDao = hospitalDatabase.mriDao();
         allNewMRIAndRecord = mriDao.getAllNewMRIAndRecord();
+        allDoneMRIAndRecord = mriDao.getAllDoneMRIAndRecord();
     }
 
     public static synchronized MRIRepository getInstance(Application application) {
@@ -45,6 +47,8 @@ public class MRIRepository {
     public LiveData<List<MRIAndRecord>> getAllNewMRIAndRecord(){
         return allNewMRIAndRecord;
     }
+
+    public LiveData<List<MRIAndRecord>> getAllDoneMRIAndRecord() { return allDoneMRIAndRecord; }
 
     public LiveData<MRI> getAllMRIByRecordID(int recordID){
         return mriDao.getAllMRIByRecordID(recordID);

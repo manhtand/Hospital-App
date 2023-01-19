@@ -36,9 +36,6 @@ public class DoctorPatientInfoFragment extends Fragment {
         super.onCreate(savedInstanceState);
         doctorViewModel = new ViewModelProvider(requireActivity()).get(DoctorViewModel.class);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Patient Information");
-
         doctorViewModel.getPatientAndRecord().observe(getActivity(), new Observer<PatientAndRecord>() {
             @Override
             public void onChanged(PatientAndRecord input) {
@@ -57,6 +54,9 @@ public class DoctorPatientInfoFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Patient Information");
+
         binding = DoctorFragmentPatientInfoBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -124,13 +124,13 @@ public class DoctorPatientInfoFragment extends Fragment {
         binding.yesRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                patientAndRecord.patient.setDischarged(true);
+                patient.setDischarged(true);
             }
         });
         binding.noRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                patientAndRecord.patient.setDischarged(false);
+                patient.setDischarged(false);
             }
         });
     }

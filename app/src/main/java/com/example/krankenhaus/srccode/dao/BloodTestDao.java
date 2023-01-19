@@ -29,6 +29,10 @@ public interface BloodTestDao {
     @Query("SELECT * FROM blood_test_table WHERE blood_test_table.processing_state = 0 ORDER BY blood_test_table.creation_date ASC")
     LiveData<List<BloodTestAndRecord>> getAllNewBloodTestAndRecord();
 
+    @Transaction
+    @Query("SELECT * FROM blood_test_table WHERE blood_test_table.processing_state = 1 ORDER BY blood_test_table.creation_date ASC")
+    LiveData<List<BloodTestAndRecord>> getAllDoneBloodTestAndRecord();
+
     @Query("SELECT * FROM blood_test_table WHERE blood_test_table.record_id = :recordid ORDER BY blood_test_table.id ASC")
     LiveData<BloodTest> getAllBloodTestByRecordID(int recordid);
 }

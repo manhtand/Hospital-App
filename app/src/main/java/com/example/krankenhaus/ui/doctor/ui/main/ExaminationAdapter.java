@@ -3,12 +3,8 @@ package com.example.krankenhaus.ui.doctor.ui.main;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,9 +13,6 @@ import com.example.krankenhaus.R;
 import com.example.krankenhaus.srccode.entities.relations.BloodTestAndRecord;
 import com.example.krankenhaus.srccode.entities.relations.MRIAndRecord;
 import com.example.krankenhaus.srccode.entities.relations.RecordAndPatient;
-import com.example.krankenhaus.ui.administrator.ui.main.AdminBedAdapter;
-
-import org.w3c.dom.Text;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -41,14 +34,14 @@ public class ExaminationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.doctorViewModel = doctorViewModel;
         this.lifecycleOwner = lifecycleOwner;
 
-        doctorViewModel.getAllMriAndRecords().observe(lifecycleOwner, new Observer<List<MRIAndRecord>>() {
+        doctorViewModel.getAllDoneMriAndRecords().observe(lifecycleOwner, new Observer<List<MRIAndRecord>>() {
             @Override
             public void onChanged(List<MRIAndRecord> mriAndRecords) {
                 examinationList.addAll(mriAndRecords);
             }
         });
 
-        doctorViewModel.getAllBloodTestAndRecords().observe(lifecycleOwner, new Observer<List<BloodTestAndRecord>>() {
+        doctorViewModel.getAllDoneBloodTestAndRecords().observe(lifecycleOwner, new Observer<List<BloodTestAndRecord>>() {
             @Override
             public void onChanged(List<BloodTestAndRecord> bloodTestAndRecords) {
                 examinationList.addAll(bloodTestAndRecords);
