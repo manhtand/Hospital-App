@@ -137,7 +137,7 @@ public class AdminEditPatientFragment extends Fragment {
             Toast.makeText(getActivity(), "Please insert all informations", Toast.LENGTH_SHORT).show();
             return;
         }
-        adminViewModel.updatePatient(new Patient(insuranceNumber, Integer.parseInt(bedNumber), name, dob, address, placeOfResidence, zipcode, insuranceCompany));
+        adminViewModel.updatePatient(new Patient(insuranceNumber, Integer.parseInt(bedNumber), name, dob, address, placeOfResidence, zipcode, insuranceCompany, false));
 
         Toast.makeText(getContext(), "Patient Edited", Toast.LENGTH_LONG).show();
     }

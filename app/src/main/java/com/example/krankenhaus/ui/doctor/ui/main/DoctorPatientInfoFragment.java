@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -20,6 +21,8 @@ import com.example.krankenhaus.srccode.entities.Patient;
 import com.example.krankenhaus.srccode.entities.Record;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndRecord;
 import com.example.krankenhaus.srccode.entities.relations.RecordAndPatient;
+import com.example.krankenhaus.srccode.repository.BloodTestRepository;
+import com.example.krankenhaus.R;
 
 import java.time.format.DateTimeFormatter;
 
@@ -30,6 +33,8 @@ public class DoctorPatientInfoFragment extends Fragment {
     private DoctorViewModel doctorViewModel;
     private Patient patient;
     private Record record;
+    private MRI mri;
+    private BloodTest bloodTest;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,16 +74,34 @@ public class DoctorPatientInfoFragment extends Fragment {
             }
         });
 
-        binding.assignmentRequestButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                doctorViewModel.insertExamination(new MRI(patientAndRecord.record.getRecordId(), new byte[0]), new BloodTest(patientAndRecord.record.getRecordId(), -1, -1, -1));
-            }
-        });
-
         setPatientAndRecord();
+        setExamination();
         setPatientData(patient);
         setDischarged();
+
+        if (mri == null || bloodTest == null) {
+            binding.assignmentRequestButton.setText("Request");
+            binding.assignmentRequestButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    doctorViewModel.insertExamination(new MRI(patientAndRecord.record.getRecordId(), new byte[0]), new BloodTest(patientAndRecord.record.getRecordId(), -1, -1, -1));
+                }
+            });
+        }
+        else {
+            binding.assignmentRequestButton.setText("Show");
+            binding.assignmentRequestButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ExaminationShowFragment examinationShowFragment = new ExaminationShowFragment();
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.setReorderingAllowed(true);
+                    ft.addToBackStack(null);
+                    ft.replace(R.id.nav_host_fragment_activity_doctor, examinationShowFragment);
+                    ft.commit();
+                }
+            });
+        }
 
         return root;
     }
@@ -125,12 +148,14 @@ public class DoctorPatientInfoFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 patient.setDischarged(true);
+                doctorViewModel.updatePatient(patient);
             }
         });
         binding.noRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 patient.setDischarged(false);
+                doctorViewModel.updatePatient(patient);
             }
         });
     }
@@ -147,5 +172,21 @@ public class DoctorPatientInfoFragment extends Fragment {
         else {
             patient = null;
         }
+    }
+
+    private void setExamination() {
+        doctorViewModel.getAllMRIByRecordID(record.getRecordId()).observe(getViewLifecycleOwner(), new Observer<MRI>() {
+            @Override
+            public void onChanged(MRI input) {
+                mri = input;
+            }
+        });
+
+        doctorViewModel.getAllBloodTestByRecordID(record.getRecordId()).observe(getViewLifecycleOwner(), new Observer<BloodTest>() {
+            @Override
+            public void onChanged(BloodTest input) {
+                bloodTest = input;
+            }
+        });
     }
 }
