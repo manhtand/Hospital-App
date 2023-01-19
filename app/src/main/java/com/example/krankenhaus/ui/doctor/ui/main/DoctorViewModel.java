@@ -84,6 +84,8 @@ public class DoctorViewModel extends AndroidViewModel {
 
     public MutableLiveData<PatientAndRecord> getPatientAndRecord() { return patientAndRecord; }
 
+    public MutableLiveData<RecordAndPatient> getRecordAndPatient() { return recordAndPatient; }
+
     public void insertPatient(Patient patient) {
         patientRepository.insertPatient(patient);
     }
