@@ -73,7 +73,7 @@ public class DoctorActivity extends AppCompatActivity {
         DoctorViewModel doctorViewModel = new ViewModelProvider(activity).get(DoctorViewModel.class);
         doctorViewModel.setRepository(patientRepository, visitRepository, recordRepository);
 
-        visitRepository.insertVisit(new Visit(1000, "good"));
+        //visitRepository.insertVisit(new Visit(1000, "good"));
 
         return doctorViewModel;
     }

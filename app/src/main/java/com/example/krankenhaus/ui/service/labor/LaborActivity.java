@@ -14,9 +14,11 @@ import com.example.krankenhaus.R;
 
 import com.example.krankenhaus.srccode.entities.BloodTest;
 import com.example.krankenhaus.srccode.entities.MRI;
+import com.example.krankenhaus.srccode.entities.Patient;
 import com.example.krankenhaus.srccode.entities.Record;
 import com.example.krankenhaus.srccode.repository.BloodTestRepository;
 import com.example.krankenhaus.srccode.repository.MRIRepository;
+import com.example.krankenhaus.srccode.repository.PatientRepository;
 import com.example.krankenhaus.srccode.repository.RecordRepository;
 import com.example.krankenhaus.ui.service.labor.ui.main.LaborViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -81,6 +83,13 @@ public class LaborActivity extends AppCompatActivity {
             }
         });*/
 
+        PatientRepository patientRepository = PatientRepository.getInstance(this.getApplication());
+        patientRepository.getAllPatients().observe(this, new Observer<List<Patient>>() {
+            @Override
+            public void onChanged(List<Patient> patients) {
+                patients.size();
+            }
+        });
         readBloodTestCSV();
         laborViewModel = new ViewModelProvider(this).get(LaborViewModel.class);
         laborViewModel.setBloodTestSource(bloodTestSource);
