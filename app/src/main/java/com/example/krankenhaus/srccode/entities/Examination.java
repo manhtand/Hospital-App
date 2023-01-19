@@ -26,11 +26,18 @@ public class Examination {
     @TypeConverters(LocalDataTimeConverter.class)
     private LocalDateTime executionTimestamp;
 
-    public Examination(int recordId) {
+    /*public Examination(int recordId) {
         this.recordId = recordId;
         this.processingState = false;
         this.creationTimestamp = LocalDateTime.now();
         this.executionTimestamp = LocalDateTime.of(0001,01,1,0,0);
+    }*/
+
+    public Examination(int recordId, boolean processingState, LocalDateTime executionTimestamp) {
+        this.recordId = recordId;
+        this.processingState = processingState;
+        this.creationTimestamp = LocalDateTime.now();
+        this.executionTimestamp = executionTimestamp;
     }
 
     public int getId() {

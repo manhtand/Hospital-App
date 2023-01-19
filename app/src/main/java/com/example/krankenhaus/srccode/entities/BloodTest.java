@@ -3,6 +3,9 @@ package com.example.krankenhaus.srccode.entities;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
+
+import java.time.LocalDateTime;
 
 @Entity(
         tableName = "blood_test_table",
@@ -26,8 +29,16 @@ public class BloodTest extends Examination{
     @ColumnInfo(name = "lymphocytes_leukocytes_ratio")
     private double lymphocytesLeukocytesRatio;
 
-    public BloodTest( int recordId, double leukocytesPerNanoLiter, double lymphocytesInHundredPerNanoLiter, double lymphocytesLeukocytesRatio) {
+    /*public BloodTest( int recordId, double leukocytesPerNanoLiter, double lymphocytesInHundredPerNanoLiter, double lymphocytesLeukocytesRatio) {
         super(recordId);
+        this.leukocytesPerNanoLiter = leukocytesPerNanoLiter;
+        this.lymphocytesInHundredPerNanoLiter = lymphocytesInHundredPerNanoLiter;
+        this.lymphocytesLeukocytesRatio = lymphocytesLeukocytesRatio;
+    }
+
+    @Ignore*/
+    public BloodTest(int recordId, boolean processingState, LocalDateTime executionTimestamp, double leukocytesPerNanoLiter, double lymphocytesInHundredPerNanoLiter, double lymphocytesLeukocytesRatio) {
+        super(recordId, processingState, executionTimestamp);
         this.leukocytesPerNanoLiter = leukocytesPerNanoLiter;
         this.lymphocytesInHundredPerNanoLiter = lymphocytesInHundredPerNanoLiter;
         this.lymphocytesLeukocytesRatio = lymphocytesLeukocytesRatio;

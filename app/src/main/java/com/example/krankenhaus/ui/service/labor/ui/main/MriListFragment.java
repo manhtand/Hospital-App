@@ -58,6 +58,13 @@ public class MriListFragment extends Fragment {
             }
         });
 
+        laborViewModel.getAllDoneMRIAndRecord().observe(getViewLifecycleOwner(), new Observer<List<MRIAndRecord>>() {
+            @Override
+            public void onChanged(List<MRIAndRecord> mriAndRecords) {
+                mriAndRecords.size();
+            }
+        });
+
         mriAdapter.setOnItemClickListener(new MriAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(MRIAndRecord mriAndRecord) {

@@ -26,6 +26,8 @@ public class LaborViewModel extends AndroidViewModel {
     private LiveData<List<BloodTestAndRecord>> allNewBloodTest;
     private LiveData<List<MRIAndRecord>> allNewMRI;
 
+    private LiveData<List<MRIAndRecord>> allDoneMRI;
+
     public MutableLiveData<BloodTestAndRecord> bloodTestAndRecord = new MutableLiveData<>();
     public MutableLiveData<MRIAndRecord> mriAndRecord = new MutableLiveData<>();
 
@@ -39,6 +41,8 @@ public class LaborViewModel extends AndroidViewModel {
         mriRepository = MRIRepository.getInstance(application);
         allNewMRI = mriRepository.getAllNewMRIAndRecord();
 
+        allDoneMRI=mriRepository.getAllDoneMRIAndRecord();
+
         recordRepository = RecordRepository.getInstance(application);
     }
 
@@ -50,12 +54,16 @@ public class LaborViewModel extends AndroidViewModel {
         mriAndRecord.setValue(input);
     }
 
-    public LiveData<List<BloodTestAndRecord>> getAllNewBloodTestAndRecord(){
+    public LiveData<List<BloodTestAndRecord>> getAllNewBloodTestAndRecord() {
         return allNewBloodTest;
     }
 
     public LiveData<List<MRIAndRecord>> getAllNewMRIAndRecord(){
         return allNewMRI;
+    }
+
+    public LiveData<List<MRIAndRecord>> getAllDoneMRIAndRecord(){
+        return allDoneMRI;
     }
 
     public LiveData<BloodTestAndRecord> getBloodTestAndRecord() {

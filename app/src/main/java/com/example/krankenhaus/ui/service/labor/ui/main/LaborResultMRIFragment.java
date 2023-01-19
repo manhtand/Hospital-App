@@ -36,6 +36,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDateTime;
 
 public class LaborResultMRIFragment extends Fragment {
     private LaborViewModel laborViewModel;
@@ -142,8 +143,8 @@ public class LaborResultMRIFragment extends Fragment {
             i.printStackTrace();
         }
         mriAndRecord.mri.setImage(inputData);
-        MRI tmp = new MRI(mriAndRecord.record.getRecordId(), inputData);
-        laborViewModel.updateMRI(tmp);
+        MRI tmp = new MRI(mriAndRecord.record.getRecordId(),true, LocalDateTime.now(), inputData);
+        laborViewModel.updateMRI(new MRI(mriAndRecord.record.getRecordId(),true, LocalDateTime.now(), inputData));
         Toast.makeText(getContext(), "MRI Image Added", Toast.LENGTH_LONG).show();
         SystemClock.sleep(1000);
     }

@@ -24,6 +24,7 @@ import com.example.krankenhaus.srccode.entities.relations.RecordAndPatient;
 import com.example.krankenhaus.srccode.repository.BloodTestRepository;
 import com.example.krankenhaus.R;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DoctorPatientInfoFragment extends Fragment {
@@ -84,7 +85,7 @@ public class DoctorPatientInfoFragment extends Fragment {
             binding.assignmentRequestButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    doctorViewModel.insertExamination(new MRI(patientAndRecord.record.getRecordId(), new byte[0]), new BloodTest(patientAndRecord.record.getRecordId(), -1, -1, -1));
+                    doctorViewModel.insertExamination(new MRI(patientAndRecord.record.getRecordId(), false, LocalDateTime.of(0001,01,1,0,0), new byte[0]), new BloodTest(patientAndRecord.record.getRecordId(), false, LocalDateTime.of(0001,01,1,0,0), -1, -1, -1));
                 }
             });
         }

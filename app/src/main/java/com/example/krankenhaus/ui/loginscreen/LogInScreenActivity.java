@@ -32,6 +32,7 @@ import com.example.krankenhaus.databinding.ActivityLogInScreenBinding;
 import com.example.krankenhaus.ui.service.ServiceActivity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class LogInScreenActivity extends AppCompatActivity {
@@ -99,12 +100,12 @@ public class LogInScreenActivity extends AppCompatActivity {
         record.setRecordId(1000);
 
         MRIRepository mriRepository = MRIRepository.getInstance(this.getApplication());
-        /*recordRepository.getAllRecords().observe(this, new Observer<List<Record>>() {
+        recordRepository.getAllRecords().observe(this, new Observer<List<Record>>() {
             @Override
             public void onChanged(List<Record> records) {
-                mriRepository.insertMRI(new MRI(records.get(0).getRecordId(),null));
+                mriRepository.insertMRI(new MRI(records.get(0).getRecordId(), false, LocalDateTime.of(0001,01,1,0,0),null));
             }
-        });*/
+        });
 
         /*
         //Doctor Test

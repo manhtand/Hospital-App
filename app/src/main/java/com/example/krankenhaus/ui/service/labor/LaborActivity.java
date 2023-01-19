@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -68,7 +69,7 @@ public class LaborActivity extends AppCompatActivity {
 
         obtainViewModel(this);
 
-        // Test
+        /* Test
 
         MRIRepository mriRepository = MRIRepository.getInstance(this.getApplication());
         RecordRepository recordRepository = RecordRepository.getInstance(this.getApplication());
@@ -76,9 +77,9 @@ public class LaborActivity extends AppCompatActivity {
         recordRepository.getAllRecords().observe(this, new Observer<List<Record>>() {
             @Override
             public void onChanged(List<Record> records) {
-                mriRepository.insertMRI(new MRI(records.get(0).getRecordId(),null));
+                mriRepository.insertMRI(new MRI(records.get(0).getRecordId(),false,null));
             }
-        });
+        });*/
 
         readBloodTestCSV();
         laborViewModel = new ViewModelProvider(this).get(LaborViewModel.class);
@@ -122,7 +123,7 @@ public class LaborActivity extends AppCompatActivity {
                 if (line != null) {
                     String[] splitData = line.split(",");
 
-                    BloodTest bloodTest = new BloodTest(-1, -1, -1, -1);
+                    BloodTest bloodTest = new BloodTest(-1, false, LocalDateTime.of(0001,01,1,0,0), -1, -1, -1);
                     bloodTest.setLeukocytesPerNanoLiter(Double.parseDouble(splitData[0]));
                     bloodTest.setLymphocytesLeukocytesRatio(Double.parseDouble(splitData[1]));
                     bloodTest.setLymphocytesInHundredPerNanoLiter(Double.parseDouble(splitData[2]));
