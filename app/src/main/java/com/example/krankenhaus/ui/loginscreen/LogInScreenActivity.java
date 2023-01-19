@@ -74,7 +74,7 @@ public class LogInScreenActivity extends AppCompatActivity {
         VisitRepository visitRepository = VisitRepository.getInstance(this.getApplication());
         RecordRepository recordRepository = RecordRepository.getInstance(this.getApplication());
 
-        Patient testPatient = new Patient("100", 1, "Le", LocalDate.of(2001, 10, 02), "Hanoi", "Hanoi", "123", "Company");
+        Patient testPatient = new Patient("100", 1, "Le", LocalDate.of(2001, 10, 02), "Hanoi", "Hanoi", "123", "Company", false);
         patientRepository.insertPatient(testPatient);
 
         patientRepository.getAllPatients().observe(this, new Observer<List<Patient>>() {
@@ -93,7 +93,7 @@ public class LogInScreenActivity extends AppCompatActivity {
             }
         });
 
-        patientRepository.insertPatient(new Patient("123", 2, "Doan", LocalDate.of(2001, 10, 02), "Hanoi", "Hanoi", "123", "Compny"));
+        patientRepository.insertPatient(new Patient("123", 2, "Doan", LocalDate.of(2001, 10, 02), "Hanoi", "Hanoi", "123", "Compny", false));
         Record record = new Record("123");
         recordRepository.insertRecord(record);
         record.setRecordId(1000);

@@ -93,7 +93,7 @@ public class AdminAddPatientFragment extends Fragment {
             Toast.makeText(getActivity(), "Please insert all informations", Toast.LENGTH_SHORT).show();
             return;
         }
-        adminViewModel.insertPatient(new Patient(insuranceNumber, bedNumber, name, dob, address, placeOfResidence, zipcode, insuranceCompany));
+        adminViewModel.insertPatient(new Patient(insuranceNumber, bedNumber, name, dob, address, placeOfResidence, zipcode, insuranceCompany, false));
         adminViewModel.insertRecord(new Record(insuranceNumber));
 
         Toast.makeText(getContext(), "Patient Added", Toast.LENGTH_LONG).show();

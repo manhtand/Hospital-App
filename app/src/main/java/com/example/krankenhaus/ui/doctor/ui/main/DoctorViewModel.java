@@ -115,4 +115,8 @@ public class DoctorViewModel extends AndroidViewModel {
         mriRepository.insertMRI(mri);
         bloodTestRepository.insertBloodTest(bloodTest);
     }
+
+    public LiveData<MRI> getAllMRIByRecordID(int recordID) { return mriRepository.getAllMRIByRecordID(recordID); }
+
+    public LiveData<BloodTest> getAllBloodTestByRecordID(int recordID) { return bloodTestRepository.getAllBloodTestByRecordID(recordID); }
 }
