@@ -81,7 +81,7 @@ public class LaborActivity extends AppCompatActivity {
             public void onChanged(List<Record> records) {
                 mriRepository.insertMRI(new MRI(records.get(0).getRecordId(),false,null));
             }
-        });*/
+        });
 
         PatientRepository patientRepository = PatientRepository.getInstance(this.getApplication());
         patientRepository.getAllPatients().observe(this, new Observer<List<Patient>>() {
@@ -89,7 +89,7 @@ public class LaborActivity extends AppCompatActivity {
             public void onChanged(List<Patient> patients) {
                 patients.size();
             }
-        });
+        });*/
         readBloodTestCSV();
         laborViewModel = new ViewModelProvider(this).get(LaborViewModel.class);
         laborViewModel.setBloodTestSource(bloodTestSource);

@@ -1,4 +1,4 @@
-package com.example.krankenhaus.ui.doctor.ui.main;
+package com.example.krankenhaus.ui.service.labor.ui.main;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,33 +18,35 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExaminationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class LaborExaminationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Object> examinationList;
     private List<MRIAndRecord> mriAndRecordList;
     private List<BloodTestAndRecord> bloodTestAndRecordList;
 
-    DoctorViewModel doctorViewModel;
+    LaborViewModel laborViewModel;
     RecordAndPatient recordAndPatient;
     LifecycleOwner lifecycleOwner;
 
     private OnItemClickListener listener;
 
-    public ExaminationAdapter(DoctorViewModel doctorViewModel, LifecycleOwner lifecycleOwner) {
+    public LaborExaminationAdapter(LaborViewModel laborViewModel, LifecycleOwner lifecycleOwner) {
         this.examinationList = new ArrayList<>();
-        this.doctorViewModel = doctorViewModel;
+        this.laborViewModel = laborViewModel;
         this.lifecycleOwner = lifecycleOwner;
 
-        doctorViewModel.getAllDoneMriAndRecords().observe(lifecycleOwner, new Observer<List<MRIAndRecord>>() {
+        laborViewModel.getAllNewMRIAndRecord().observe(lifecycleOwner, new Observer<List<MRIAndRecord>>() {
             @Override
             public void onChanged(List<MRIAndRecord> mriAndRecords) {
                 examinationList.addAll(mriAndRecords);
+                notifyDataSetChanged();
             }
         });
 
-        doctorViewModel.getAllDoneBloodTestAndRecords().observe(lifecycleOwner, new Observer<List<BloodTestAndRecord>>() {
+        laborViewModel.getAllNewBloodTestAndRecord().observe(lifecycleOwner, new Observer<List<BloodTestAndRecord>>() {
             @Override
             public void onChanged(List<BloodTestAndRecord> bloodTestAndRecords) {
                 examinationList.addAll(bloodTestAndRecords);
+                notifyDataSetChanged();
             }
         });
     }
@@ -130,12 +132,12 @@ public class ExaminationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 MriAndRecordHolder mriAndRecordHolder = (MriAndRecordHolder) holder;
                 MRIAndRecord mriAndRecord = (MRIAndRecord) examinationList.get(position);
 
-                doctorViewModel.getRecordAndPatientByRecordID(mriAndRecord.record.getRecordId()).observe(lifecycleOwner, new Observer<RecordAndPatient>() {
+                laborViewModel.getRecordAndPatientByRecordID(mriAndRecord.record.getRecordId()).observe(lifecycleOwner, new Observer<RecordAndPatient>() {
                     @Override
                     public void onChanged(RecordAndPatient input) {
                         recordAndPatient = input;
                         mriAndRecordHolder.textViewName.setText("MRI");
-                        mriAndRecordHolder.textViewDate.setText(DateTimeFormatter.ofPattern("dd/MM/yyyy").format(mriAndRecord.mri.getExecutionTimestamp()));
+                        mriAndRecordHolder.textViewDate.setText(DateTimeFormatter.ofPattern("dd/MM/yyyy").format(mriAndRecord.mri.getCreationTimestamp()));
                         mriAndRecordHolder.textViewPatientName.setText(recordAndPatient.patient.getName());
                         mriAndRecordHolder.textViewBedNumber.setText(Integer.toString(recordAndPatient.patient.getBedNumber()));
                     }
@@ -146,12 +148,12 @@ public class ExaminationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 BloodTestAndRecordHolder bloodTestAndRecordHolder = (BloodTestAndRecordHolder) holder;
                 BloodTestAndRecord bloodTestAndRecord = (BloodTestAndRecord) examinationList.get(position);
 
-                doctorViewModel.getRecordAndPatientByRecordID(bloodTestAndRecord.record.getRecordId()).observe(lifecycleOwner, new Observer<RecordAndPatient>() {
+                laborViewModel.getRecordAndPatientByRecordID(bloodTestAndRecord.record.getRecordId()).observe(lifecycleOwner, new Observer<RecordAndPatient>() {
                     @Override
                     public void onChanged(RecordAndPatient input) {
                         recordAndPatient = input;
                         bloodTestAndRecordHolder.textViewName.setText("Blood Test");
-                        bloodTestAndRecordHolder.textViewDate.setText(DateTimeFormatter.ofPattern("dd/MM/yyyy").format(bloodTestAndRecord.bloodTest.getExecutionTimestamp()));
+                        bloodTestAndRecordHolder.textViewDate.setText(DateTimeFormatter.ofPattern("dd/MM/yyyy").format(bloodTestAndRecord.bloodTest.getCreationTimestamp()));
                         bloodTestAndRecordHolder.textViewPatientName.setText(recordAndPatient.patient.getName());
                         bloodTestAndRecordHolder.textViewBedNumber.setText(Integer.toString(recordAndPatient.patient.getBedNumber()));
                     }

@@ -8,6 +8,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import com.example.krankenhaus.srccode.entities.Bed;
+import com.example.krankenhaus.srccode.entities.BloodTest;
 import com.example.krankenhaus.srccode.entities.MRI;
 import com.example.krankenhaus.srccode.entities.Patient;
 import com.example.krankenhaus.srccode.entities.Record;
@@ -15,6 +16,7 @@ import com.example.krankenhaus.srccode.entities.Visit;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
 import com.example.krankenhaus.srccode.entities.relations.VisitAndRecord;
 import com.example.krankenhaus.srccode.repository.BedRepository;
+import com.example.krankenhaus.srccode.repository.BloodTestRepository;
 import com.example.krankenhaus.srccode.repository.MRIRepository;
 import com.example.krankenhaus.srccode.repository.PatientRepository;
 import com.example.krankenhaus.srccode.repository.RecordRepository;
@@ -24,6 +26,7 @@ import com.example.krankenhaus.ui.doctor.DoctorActivity;
 import com.example.krankenhaus.ui.doctor.ui.main.DoctorViewModel;
 import com.example.krankenhaus.ui.menubar.MainActivity;
 
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 
@@ -71,7 +74,7 @@ public class LogInScreenActivity extends AppCompatActivity {
             bedRepository.insertBed(new Bed(i));
         }
         // TEST
-        /*PatientRepository patientRepository = PatientRepository.getInstance(this.getApplication());
+        PatientRepository patientRepository = PatientRepository.getInstance(this.getApplication());
         VisitRepository visitRepository = VisitRepository.getInstance(this.getApplication());
         RecordRepository recordRepository = RecordRepository.getInstance(this.getApplication());
 
@@ -97,9 +100,10 @@ public class LogInScreenActivity extends AppCompatActivity {
         patientRepository.insertPatient(new Patient("123", 2, "Doan", LocalDate.of(2001, 10, 02), "Hanoi", "Hanoi", "123", "Compny", false));
         Record record = new Record("123");
         recordRepository.insertRecord(record);
-        record.setRecordId(1000);
+        //record.setRecordId(1000);
 
         MRIRepository mriRepository = MRIRepository.getInstance(this.getApplication());
+        BloodTestRepository bloodTestRepository = BloodTestRepository.getInstance(this.getApplication());
         recordRepository.getAllRecords().observe(this, new Observer<List<Record>>() {
             @Override
             public void onChanged(List<Record> records) {
@@ -107,7 +111,17 @@ public class LogInScreenActivity extends AppCompatActivity {
                     mriRepository.insertMRI(new MRI(records.get(0).getRecordId(), false, LocalDateTime.of(0001, 01, 1, 0, 0), null));
                 }
             }
-        });*/
+        });
+
+        recordRepository.getAllRecords().observe(this, new Observer<List<Record>>() {
+            @Override
+            public void onChanged(List<Record> records) {
+                if (records.size() != 0) {
+                    bloodTestRepository.insertBloodTest(new BloodTest(records.get(0).getRecordId(),false, LocalDateTime.of(0001,01,1,0,0), -1,-1,-1));
+                }
+            }
+        });
+        SystemClock.sleep(50);
 
         /*
         //Doctor Test

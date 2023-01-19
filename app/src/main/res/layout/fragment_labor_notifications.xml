@@ -5,9 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".ui.service.labor.ui.main.LaborNotificationsFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/labor_examination_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/message_labor_notifications" />
+        tools:listitem="@layout/doctor_examination_item"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

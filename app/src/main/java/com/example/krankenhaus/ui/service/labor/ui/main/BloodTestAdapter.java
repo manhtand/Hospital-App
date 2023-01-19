@@ -37,6 +37,7 @@ public class BloodTestAdapter extends RecyclerView.Adapter<BloodTestAdapter.Bloo
             return;
         }
         BloodTestAndRecord bloodTestAndRecord = allNewBloodTestAndRecord.get(position);
+        holder.textViewID.setText(Integer.toString(bloodTestAndRecord.bloodTest.getId()));
         holder.textViewInsuranceNumber.setText(bloodTestAndRecord.record.getPatientInsuranceNumber());
         holder.textViewCreationDate.setText(LocalDataTimeConverter.fromLocalDateTime(bloodTestAndRecord.bloodTest.getCreationTimestamp()));
     }
@@ -51,11 +52,13 @@ public class BloodTestAdapter extends RecyclerView.Adapter<BloodTestAdapter.Bloo
         notifyDataSetChanged();
     }
     class BloodTestAndRecordHolder extends RecyclerView.ViewHolder{
+        private TextView textViewID;
         private TextView textViewInsuranceNumber;
         private TextView textViewCreationDate;
 
         public BloodTestAndRecordHolder(@NonNull View view){
             super(view);
+            textViewID = view.findViewById(R.id.blood_test_item_blood_test_id);
             textViewInsuranceNumber = view.findViewById(R.id.blood_test_item_insurance_number);
             textViewCreationDate = view.findViewById(R.id.blood_test_item_creation_time);
 

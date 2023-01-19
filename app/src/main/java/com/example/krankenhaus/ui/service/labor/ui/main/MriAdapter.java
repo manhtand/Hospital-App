@@ -37,6 +37,7 @@ public class MriAdapter extends RecyclerView.Adapter<MriAdapter.MRIAndRecordHold
             return;
         }
         MRIAndRecord mriAndRecord = allNewMRIAndRecord.get(position);
+        holder.textViewID.setText(Integer.toString(mriAndRecord.mri.getId()));
         holder.textViewInsuranceNumber.setText(mriAndRecord.record.getPatientInsuranceNumber());
         holder.textViewCreationDate.setText(LocalDataTimeConverter.fromLocalDateTime(mriAndRecord.mri.getCreationTimestamp()));
     }
@@ -52,13 +53,16 @@ public class MriAdapter extends RecyclerView.Adapter<MriAdapter.MRIAndRecordHold
     }
 
     class MRIAndRecordHolder extends RecyclerView.ViewHolder{
+        private TextView textViewID;
         private TextView textViewInsuranceNumber;
         private TextView textViewCreationDate;
 
         public MRIAndRecordHolder(@NonNull View view){
             super(view);
+            textViewID = view.findViewById(R.id.mri_item_mri_id);
             textViewInsuranceNumber = view.findViewById(R.id.mri_item_insurance_number);
             textViewCreationDate = view.findViewById(R.id.mri_item_creation_time);
+
 
             itemView.setOnClickListener(new View.OnClickListener(){
                 @Override
