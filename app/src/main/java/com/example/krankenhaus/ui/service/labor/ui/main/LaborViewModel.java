@@ -12,6 +12,7 @@ import com.example.krankenhaus.srccode.entities.BloodTest;
 import com.example.krankenhaus.srccode.entities.MRI;
 import com.example.krankenhaus.srccode.entities.relations.BloodTestAndRecord;
 import com.example.krankenhaus.srccode.entities.relations.MRIAndRecord;
+import com.example.krankenhaus.srccode.entities.relations.RecordAndPatient;
 import com.example.krankenhaus.srccode.repository.BloodTestRepository;
 import com.example.krankenhaus.srccode.repository.MRIRepository;
 import com.example.krankenhaus.srccode.repository.RecordRepository;
@@ -70,6 +71,10 @@ public class LaborViewModel extends AndroidViewModel {
         return bloodTestAndRecord;
     }
 
+    public LiveData<RecordAndPatient> getRecordAndPatientByRecordID(int recordID) {
+        return recordRepository.getRecordAndPatientByRecordID(recordID);
+    }
+
     public LiveData<MRIAndRecord> getMriAndRecord() {
         return mriAndRecord;
     }
@@ -78,7 +83,7 @@ public class LaborViewModel extends AndroidViewModel {
         mriRepository.updateMRI(mri);
     }
 
-    public void updateBloodTest(BloodTest bloodTest){
+    public void updateBloodTest(BloodTest bloodTest) {
         bloodTestRepository.updateBloodTest(bloodTest);
     }
 
