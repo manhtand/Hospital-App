@@ -100,6 +100,10 @@ public class AdminAddPatientFragment extends Fragment {
     }
 
     public void returnToPatientList() {
+        if (getFragmentManager().getBackStackEntryCount() != 0) {
+            getFragmentManager().popBackStack();
+            getFragmentManager().popBackStack();
+        }
         AdminPatientListFragment adminPatientListFragment = new AdminPatientListFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.nav_host_fragment_activity_administrator, adminPatientListFragment);
