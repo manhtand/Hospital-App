@@ -131,7 +131,7 @@ public class LaborActivity extends AppCompatActivity {
         String line = "";
         while (true) {
             try {
-                if (!((line = reader.readLine()) != null)) {
+                if (((line = reader.readLine()) != null)) {
                     String[] tokens = line.split(";");
 
                     BloodTest bloodTest = new BloodTest(-1, false, LocalDateTime.of(0001,01,1,0,0), -1, -1, -1);
