@@ -123,32 +123,28 @@ public class LaborActivity extends AppCompatActivity {
     }
 
     private void readBloodTestCSV() {
-        BufferedReader reader = null;
-        try {
-            String line;
-            reader = new BufferedReader(new FileReader("raw/bloodtest.csv"));
+        InputStream is = getResources().openRawResource(R.raw.bloodtest);
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(is, Charset.forName("UTF-8"))
+        );
 
-            while ((line = reader.readLine()) != null) {
-                if (line != null) {
-                    String[] splitData = line.split(",");
+        String line = "";
+        while (true) {
+            try {
+                if (!((line = reader.readLine()) != null)) {
+                    String[] tokens = line.split(";");
 
                     BloodTest bloodTest = new BloodTest(-1, false, LocalDateTime.of(0001,01,1,0,0), -1, -1, -1);
-                    bloodTest.setLeukocytesPerNanoLiter(Double.parseDouble(splitData[0]));
-                    bloodTest.setLymphocytesLeukocytesRatio(Double.parseDouble(splitData[1]));
-                    bloodTest.setLymphocytesInHundredPerNanoLiter(Double.parseDouble(splitData[2]));
+                    bloodTest.setLeukocytesPerNanoLiter(Double.parseDouble(tokens[0]));
+                    bloodTest.setLymphocytesLeukocytesRatio(Double.parseDouble(tokens[1]));
+                    bloodTest.setLymphocytesInHundredPerNanoLiter(Double.parseDouble(tokens[2]));
                     bloodTestSource.add(bloodTest);
                 }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();;
-        } finally {
-            try {
-                if (reader != null) {
-                    reader.close();
-                }
             } catch (IOException e) {
+                Log.e(getAttributionTag(), "Error read line");
                 e.printStackTrace();
             }
+
         }
     }
 }

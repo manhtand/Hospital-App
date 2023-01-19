@@ -26,7 +26,7 @@ public class LaborResultBloodTestFragment extends Fragment {
     private LaborViewModel laborViewModel;
     private BloodTestAndRecord bloodTestAndRecord;
     private FragmentLaborResultBloodTestBinding binding;
-    private BloodTest newBloodTest;
+    private BloodTest bloodTest;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,6 +38,7 @@ public class LaborResultBloodTestFragment extends Fragment {
             @Override
             public void onChanged(BloodTestAndRecord input) {
                 bloodTestAndRecord = input;
+                bloodTest = bloodTestAndRecord.bloodTest;
             }
         });
     }
@@ -68,20 +69,20 @@ public class LaborResultBloodTestFragment extends Fragment {
     }
 
     private void insertBloodTest() {
+        laborViewModel.getBloodTestSource().size();
         Random random = new Random();
         int index = random.nextInt(laborViewModel.getBloodTestSource().size());
-        newBloodTest = laborViewModel.getBloodTestSource().get(index);
-        newBloodTest.setExecutionTimestamp(LocalDateTime.now());
+        bloodTest = laborViewModel.getBloodTestSource().get(index);
+        bloodTest.setExecutionTimestamp(LocalDateTime.now());
 
-        binding.leukocytesPerNanoliter.setText("Leukocytes Per NanoLiter: " + Double.toString(newBloodTest.getLeukocytesPerNanoLiter()));
-        binding.lymphocytesLeukocytesRatio.setText("Lymphocytes / Leukocytes: " + Double.toString(newBloodTest.getLymphocytesLeukocytesRatio()));
-        binding.lymphocytesInHundredPerNanoLiter.setText("Lymphocytes In Hundred Per Nanoliter: " + Double.toString(newBloodTest.getLymphocytesInHundredPerNanoLiter()));
+        binding.leukocytesPerNanoliter.setText("Leukocytes Per NanoLiter: " + Double.toString(bloodTest.getLeukocytesPerNanoLiter()));
+        binding.lymphocytesLeukocytesRatio.setText("Lymphocytes / Leukocytes: " + Double.toString(bloodTest.getLymphocytesLeukocytesRatio()));
+        binding.lymphocytesInHundredPerNanoLiter.setText("Lymphocytes In Hundred Per Nanoliter: " + Double.toString(bloodTest.getLymphocytesInHundredPerNanoLiter()));
     }
 
     private void saveBloodTest() {
-        BloodTest bloodTest = bloodTestAndRecord.bloodTest;
-        newBloodTest.setId(bloodTest.getId());
-        newBloodTest.setCreationTimestamp(bloodTest.getCreationTimestamp());
-        laborViewModel.updateBloodTest(newBloodTest);
+        bloodTest.setId(bloodTest.getId());
+        bloodTest.setCreationTimestamp(bloodTest.getCreationTimestamp());
+        laborViewModel.updateBloodTest(bloodTest);
     }
 }
