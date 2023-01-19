@@ -6,10 +6,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,12 +58,20 @@ public class BloodTestListFragment extends Fragment {
             }
         });
 
-        /*bloodTestAdapter.setOnItemClickListener(new BloodTestAdapter.OnItemClickListener() {
+        bloodTestAdapter.setOnItemClickListener(new BloodTestAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BloodTestAndRecord bloodTestAndRecord) {
+                laborViewModel.setBloodTestAndRecord(bloodTestAndRecord);
 
+                SystemClock.sleep(50);
+                LaborResultBloodTestFragment laborResultBloodTestFragment = new LaborResultBloodTestFragment();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.setReorderingAllowed(true);
+                ft.addToBackStack(null);
+                ft.replace(R.id.nav_host_fragment_activity_labor, laborResultBloodTestFragment);
+                ft.commit();
             }
-        });*/
+        });
 
         return root;
     }
