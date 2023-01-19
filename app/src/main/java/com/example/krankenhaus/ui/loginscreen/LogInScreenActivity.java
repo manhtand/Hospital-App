@@ -103,7 +103,9 @@ public class LogInScreenActivity extends AppCompatActivity {
         recordRepository.getAllRecords().observe(this, new Observer<List<Record>>() {
             @Override
             public void onChanged(List<Record> records) {
-                mriRepository.insertMRI(new MRI(records.get(0).getRecordId(), false, LocalDateTime.of(0001,01,1,0,0),null));
+                if (records.size() != 0) {
+                    mriRepository.insertMRI(new MRI(records.get(0).getRecordId(), false, LocalDateTime.of(0001, 01, 1, 0, 0), null));
+                }
             }
         });
 

@@ -143,8 +143,9 @@ public class LaborResultMRIFragment extends Fragment {
             i.printStackTrace();
         }
         mriAndRecord.mri.setImage(inputData);
-        MRI tmp = new MRI(mriAndRecord.record.getRecordId(),true, LocalDateTime.now(), inputData);
-        laborViewModel.updateMRI(new MRI(mriAndRecord.record.getRecordId(),true, LocalDateTime.now(), inputData));
+        mriAndRecord.mri.setProcessingState(true);
+        mriAndRecord.mri.setExecutionTimestamp(LocalDateTime.now());
+        laborViewModel.updateMRI(mriAndRecord.mri);
         Toast.makeText(getContext(), "MRI Image Added", Toast.LENGTH_LONG).show();
         SystemClock.sleep(1000);
     }
