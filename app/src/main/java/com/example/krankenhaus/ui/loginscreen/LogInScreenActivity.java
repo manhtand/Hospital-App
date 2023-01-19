@@ -8,12 +8,14 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import com.example.krankenhaus.srccode.entities.Bed;
+import com.example.krankenhaus.srccode.entities.MRI;
 import com.example.krankenhaus.srccode.entities.Patient;
 import com.example.krankenhaus.srccode.entities.Record;
 import com.example.krankenhaus.srccode.entities.Visit;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
 import com.example.krankenhaus.srccode.entities.relations.VisitAndRecord;
 import com.example.krankenhaus.srccode.repository.BedRepository;
+import com.example.krankenhaus.srccode.repository.MRIRepository;
 import com.example.krankenhaus.srccode.repository.PatientRepository;
 import com.example.krankenhaus.srccode.repository.RecordRepository;
 import com.example.krankenhaus.srccode.repository.VisitRepository;
@@ -96,6 +98,14 @@ public class LogInScreenActivity extends AppCompatActivity {
         Record record = new Record("123");
         recordRepository.insertRecord(record);
         record.setRecordId(1000);
+
+        MRIRepository mriRepository = MRIRepository.getInstance(this.getApplication());
+        recordRepository.getAllRecords().observe(this, new Observer<List<Record>>() {
+            @Override
+            public void onChanged(List<Record> records) {
+                mriRepository.insertMRI(new MRI(records.get(0).getRecordId(),null));
+            }
+        });
 
         /*
         //Doctor Test

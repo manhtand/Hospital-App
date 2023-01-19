@@ -11,6 +11,7 @@ import com.example.krankenhaus.R;
 import com.example.krankenhaus.srccode.entities.BloodTest;
 import com.example.krankenhaus.srccode.entities.MRI;
 import com.example.krankenhaus.srccode.entities.Record;
+import com.example.krankenhaus.srccode.entities.relations.MRIAndRecord;
 import com.example.krankenhaus.srccode.repository.BloodTestRepository;
 import com.example.krankenhaus.srccode.repository.MRIRepository;
 import com.example.krankenhaus.srccode.repository.RecordRepository;
@@ -55,7 +56,7 @@ public class LaborActivity extends AppCompatActivity {
 
         // Test
 
-        MRIRepository mriRepository = MRIRepository.getInstance(this.getApplication());
+        /*MRIRepository mriRepository = MRIRepository.getInstance(this.getApplication());
         RecordRepository recordRepository = RecordRepository.getInstance(this.getApplication());
 
         recordRepository.getAllRecords().observe(this, new Observer<List<Record>>() {
@@ -63,7 +64,7 @@ public class LaborActivity extends AppCompatActivity {
             public void onChanged(List<Record> records) {
                 mriRepository.insertMRI(new MRI(records.get(0).getRecordId(),null));
             }
-        });
+        });*/
     }
 
     public void setActionBarTitle(String title) {

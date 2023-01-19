@@ -35,9 +35,9 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:id="@+id/labor_result_mri_image"
+        android:layout_width="400dp"
+        android:layout_height="200dp"
         tools:src="@tools:sample/avatars" />
 
 </LinearLayout>

@@ -64,7 +64,6 @@ public class MriListFragment extends Fragment {
                 laborViewModel.setMriAndRecord(mriAndRecord);
 
                 SystemClock.sleep(50);
-
                 LaborResultMRIFragment laborResultMRIFragment = new LaborResultMRIFragment();
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.setReorderingAllowed(true);
