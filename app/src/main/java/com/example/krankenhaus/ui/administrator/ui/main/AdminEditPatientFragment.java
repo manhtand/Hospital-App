@@ -145,6 +145,8 @@ public class AdminEditPatientFragment extends Fragment {
     public void returnToAdminPatientList() {
         if (getFragmentManager().getBackStackEntryCount() != 0) {
             getFragmentManager().popBackStack();
+            getFragmentManager().popBackStack();
+            getFragmentManager().popBackStack();
         }
         AdminPatientListFragment adminPatientListFragment = new AdminPatientListFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
