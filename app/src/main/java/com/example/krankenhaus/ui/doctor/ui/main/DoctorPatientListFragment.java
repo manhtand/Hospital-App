@@ -20,6 +20,7 @@ import com.example.krankenhaus.R;
 import com.example.krankenhaus.databinding.DoctorFragmentPatientListBinding;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndBed;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndRecord;
+import com.example.krankenhaus.srccode.entities.relations.RecordWithAll;
 
 import java.util.List;
 
@@ -60,10 +61,10 @@ public class DoctorPatientListFragment extends Fragment {
         patientAdapter.setOnItemClickListener(new PatientAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(PatientAndBed patientAndBed) {
-                doctorViewModel.getPatientAndRecordByInsuranceNumber(patientAndBed.patient.getInsuranceNumber()).observe(getViewLifecycleOwner(), new Observer<PatientAndRecord>() {
+                doctorViewModel.getRecordWithAllByInsuranceNumber(patientAndBed.patient.getInsuranceNumber()).observe(getViewLifecycleOwner(), new Observer<RecordWithAll>() {
                     @Override
-                    public void onChanged(PatientAndRecord patientAndRecord) {
-                        doctorViewModel.setPatientAndRecord(patientAndRecord);
+                    public void onChanged(RecordWithAll recordWithAll) {
+                        doctorViewModel.setRecordWithAllByInsuranceNumber(recordWithAll);
                     }
                 });
 

@@ -37,6 +37,10 @@ public interface RecordDao {
 
     @Transaction
     @Query("SELECT * FROM record_table WHERE record_table.patient_insurance_number = :insuranceNumber")
+    LiveData<RecordWithAll> getRecordWithAllByInsuranceNumber(String insuranceNumber);
+
+    @Transaction
+    @Query("SELECT * FROM record_table WHERE record_table.patient_insurance_number = :insuranceNumber")
     LiveData<RecordAndVisitAndPatient> getRecordAndPatientAndVisitByInsuranceNumber(String insuranceNumber);
 
     @Transaction

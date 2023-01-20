@@ -10,6 +10,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -18,9 +19,10 @@ import android.view.ViewGroup;
 
 import com.example.krankenhaus.databinding.FragmentExaminationShowBinding;
 
-import com.example.krankenhaus.R;
 import com.example.krankenhaus.srccode.entities.BloodTest;
 import com.example.krankenhaus.srccode.entities.MRI;
+import com.example.krankenhaus.srccode.entities.relations.BloodTestAndRecord;
+import com.example.krankenhaus.srccode.entities.relations.MRIAndRecord;
 
 public class ExaminationShowFragment extends Fragment {
     private DoctorViewModel doctorViewModel;
@@ -32,6 +34,18 @@ public class ExaminationShowFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         doctorViewModel = new ViewModelProvider(requireActivity()).get(DoctorViewModel.class);
+        doctorViewModel.getBloodTestResult().observe(getActivity(), new Observer<BloodTest>() {
+            @Override
+            public void onChanged(BloodTest input) {
+                bloodTest = input;
+            }
+        });
+        doctorViewModel.getMRIAndRecordResult().observe(getActivity(), new Observer<MRI>() {
+            @Override
+            public void onChanged(MRI input) {
+                mri = input;
+            }
+        });
     }
 
     @Override

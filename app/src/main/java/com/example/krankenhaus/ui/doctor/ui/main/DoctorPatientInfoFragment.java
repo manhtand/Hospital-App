@@ -10,49 +10,52 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.krankenhaus.databinding.DoctorFragmentPatientInfoBinding;
 import com.example.krankenhaus.srccode.entities.BloodTest;
 import com.example.krankenhaus.srccode.entities.MRI;
 import com.example.krankenhaus.srccode.entities.Patient;
 import com.example.krankenhaus.srccode.entities.Record;
+import com.example.krankenhaus.srccode.entities.relations.BloodTestAndRecord;
+import com.example.krankenhaus.srccode.entities.relations.MRIAndRecord;
 import com.example.krankenhaus.srccode.entities.relations.PatientAndRecord;
 import com.example.krankenhaus.srccode.entities.relations.RecordAndPatient;
+import com.example.krankenhaus.srccode.entities.relations.RecordWithAll;
 import com.example.krankenhaus.srccode.repository.BloodTestRepository;
 import com.example.krankenhaus.R;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class DoctorPatientInfoFragment extends Fragment {
-    private PatientAndRecord patientAndRecord;
-    private RecordAndPatient recordAndPatient;
+    private RecordWithAll recordWithAll;
     private DoctorFragmentPatientInfoBinding binding;
     private DoctorViewModel doctorViewModel;
     private Patient patient;
     private Record record;
     private MRI mri;
     private BloodTest bloodTest;
+    private List<MRI> mriDoneList = new ArrayList<>();
+    private List<BloodTest> bloodTestDoneList = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         doctorViewModel = new ViewModelProvider(requireActivity()).get(DoctorViewModel.class);
 
-        doctorViewModel.getPatientAndRecord().observe(getActivity(), new Observer<PatientAndRecord>() {
+        doctorViewModel.getRecordWithAllByInsuranceNumber().observe(getActivity(), new Observer<RecordWithAll>() {
             @Override
-            public void onChanged(PatientAndRecord input) {
-                patientAndRecord = input;
-            }
-        });
-
-        doctorViewModel.getRecordAndPatient().observe(getActivity(), new Observer<RecordAndPatient>() {
-            @Override
-            public void onChanged(RecordAndPatient input) {
-                recordAndPatient = input;
+            public void onChanged(RecordWithAll input) {
+                recordWithAll = input;
             }
         });
     }
@@ -70,8 +73,8 @@ public class DoctorPatientInfoFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 changeViewSwitcher();
-                patientAndRecord.record.setMedication(binding.medicationEdittext.getText().toString());
-                binding.medicationTextview.setText(patientAndRecord.record.getMedication());
+                recordWithAll.record.setMedication(binding.medicationEdittext.getText().toString());
+                binding.medicationTextview.setText(recordWithAll.record.getMedication());
             }
         });
 
@@ -80,12 +83,19 @@ public class DoctorPatientInfoFragment extends Fragment {
         setPatientData(patient);
         setDischarged();
 
+        setUpButton();
+
+        return root;
+    }
+
+    private void setUpButton(){
         if (mri == null || bloodTest == null) {
             binding.assignmentRequestButton.setText("Request");
             binding.assignmentRequestButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    doctorViewModel.insertExamination(new MRI(patientAndRecord.record.getRecordId(), false, LocalDateTime.of(0001,01,1,0,0), new byte[0]), new BloodTest(patientAndRecord.record.getRecordId(), false, LocalDateTime.of(0001,01,1,0,0), -1, -1, -1));
+                    doctorViewModel.insertExamination(new MRI(recordWithAll.record.getRecordId(), false, LocalDateTime.of(0001,01,1,0,0), new byte[0]), new BloodTest(recordWithAll.record.getRecordId(), false, LocalDateTime.of(0001,01,1,0,0), -1, -1, -1));
+                    showNoti();
                 }
             });
         }
@@ -103,8 +113,10 @@ public class DoctorPatientInfoFragment extends Fragment {
                 }
             });
         }
+    }
 
-        return root;
+    private void showNoti(){
+        Toast.makeText(getContext(), "Tests requested", Toast.LENGTH_LONG).show();
     }
 
     private void changeViewSwitcher() {
@@ -162,32 +174,52 @@ public class DoctorPatientInfoFragment extends Fragment {
     }
 
     private void setPatientAndRecord() {
-        if (recordAndPatient != null && patientAndRecord == null) {
-            patient = recordAndPatient.patient;
-            record = recordAndPatient.record;
-        }
-        else if (recordAndPatient == null && patientAndRecord != null) {
-            patient = patientAndRecord.patient;
-            record = patientAndRecord.record;
-        }
-        else {
-            patient = null;
-        }
+        patient = recordWithAll.patient;
+        record = recordWithAll.record;
     }
 
     private void setExamination() {
-        doctorViewModel.getAllMRIByRecordID(record.getRecordId()).observe(getViewLifecycleOwner(), new Observer<MRI>() {
-            @Override
-            public void onChanged(MRI input) {
-                mri = input;
-            }
-        });
+        setMRI();
+        setBloodTest();
+    }
 
-        doctorViewModel.getAllBloodTestByRecordID(record.getRecordId()).observe(getViewLifecycleOwner(), new Observer<BloodTest>() {
-            @Override
-            public void onChanged(BloodTest input) {
-                bloodTest = input;
+    private void setMRI(){
+        if(recordWithAll.mri==null){
+            return;
+        }
+        Comparator<MRI> comparatorDesc = (mri1, mri2) -> mri2.getExecutionTimestamp()
+                .compareTo(mri1.getExecutionTimestamp());
+
+        for(MRI tmp : recordWithAll.mri){
+            if(tmp.getProcessingState()){
+                mriDoneList.add(tmp);
             }
-        });
+        }
+        Collections.sort(mriDoneList, comparatorDesc);
+        if(mriDoneList.size()==0){
+            return;
+        }
+        mri = mriDoneList.get(0);
+        doctorViewModel.setMRIResult(mri);
+    }
+
+    private void setBloodTest(){
+        if(recordWithAll.bloodTest==null){
+            return;
+        }
+        Comparator<BloodTest> comparatorDesc = (bl1, bl2) -> bl2.getExecutionTimestamp()
+                .compareTo(bl1.getExecutionTimestamp());
+
+        for(BloodTest tmp : recordWithAll.bloodTest){
+            if(tmp.getProcessingState()){
+                bloodTestDoneList.add(tmp);
+            }
+        }
+        Collections.sort(bloodTestDoneList, comparatorDesc);
+        if(bloodTestDoneList.size()==0){
+            return;
+        }
+        bloodTest = bloodTestDoneList.get(0);
+        doctorViewModel.setBloodTestResult(bloodTest);
     }
 }

@@ -27,14 +27,14 @@ public class RecordWithAll {
             parentColumn = "id",
             entityColumn = "record_id"
     )
-    public BloodTest bloodTest;
+    public List<BloodTest> bloodTest;
 
     @Relation(
             entity = MRI.class,
             parentColumn = "id",
             entityColumn = "record_id"
     )
-    public MRI mri;
+    public List<MRI> mri;
 
     @Relation(
             entity = Patient.class,

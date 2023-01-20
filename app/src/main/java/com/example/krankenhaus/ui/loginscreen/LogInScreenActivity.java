@@ -74,7 +74,7 @@ public class LogInScreenActivity extends AppCompatActivity {
             bedRepository.insertBed(new Bed(i));
         }
         // TEST
-        PatientRepository patientRepository = PatientRepository.getInstance(this.getApplication());
+        /*PatientRepository patientRepository = PatientRepository.getInstance(this.getApplication());
         VisitRepository visitRepository = VisitRepository.getInstance(this.getApplication());
         RecordRepository recordRepository = RecordRepository.getInstance(this.getApplication());
 
@@ -121,7 +121,7 @@ public class LogInScreenActivity extends AppCompatActivity {
                 }
             }
         });
-        SystemClock.sleep(50);
+        SystemClock.sleep(50);*/
 
         /*
         //Doctor Test

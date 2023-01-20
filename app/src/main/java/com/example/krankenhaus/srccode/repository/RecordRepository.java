@@ -76,6 +76,10 @@ public class RecordRepository {
         return recordDao.getRecordAndPatientByRecordID(recordID);
     }
 
+    public LiveData<RecordWithAll> getRecordWithAllByInsuranceNumber(String insuranceNumber) {
+        return recordDao.getRecordWithAllByInsuranceNumber(insuranceNumber);
+    }
+
     private static class InsertRecordAsyncTask extends AsyncTask<Record,Void,Void> {
         private RecordDao recordDao;
 

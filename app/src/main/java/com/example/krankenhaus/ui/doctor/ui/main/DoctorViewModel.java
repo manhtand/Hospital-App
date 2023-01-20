@@ -46,6 +46,10 @@ public class DoctorViewModel extends AndroidViewModel {
     public MutableLiveData<PatientAndRecord> patientAndRecord = new MutableLiveData<>();
     public MutableLiveData<RecordAndPatient> recordAndPatient = new MutableLiveData<>();
 
+    public MutableLiveData<BloodTest> bloodTestResult = new MutableLiveData<>();
+    public MutableLiveData<MRI> MRIResult = new MutableLiveData<>();
+
+    public MutableLiveData<RecordWithAll> recordWithAllByInsuranceNumber = new MutableLiveData<>();
     public DoctorViewModel(@NonNull Application application) {
         super(application);
 
@@ -74,6 +78,14 @@ public class DoctorViewModel extends AndroidViewModel {
     public void setPatientAndRecord(PatientAndRecord input) { patientAndRecord.setValue(input); }
 
     public void setRecordAndPatient(RecordAndPatient input) { recordAndPatient.setValue(input); }
+
+    public void setBloodTestResult(BloodTest input) {
+        bloodTestResult.setValue(input);
+    }
+
+    public void setMRIResult(MRI input) {
+        MRIResult.setValue(input);
+    }
 
     public MutableLiveData<PatientAndRecord> getPatientAndRecord() { return patientAndRecord; }
 
@@ -119,4 +131,24 @@ public class DoctorViewModel extends AndroidViewModel {
     public LiveData<MRI> getAllMRIByRecordID(int recordID) { return mriRepository.getAllMRIByRecordID(recordID); }
 
     public LiveData<BloodTest> getAllBloodTestByRecordID(int recordID) { return bloodTestRepository.getAllBloodTestByRecordID(recordID); }
+
+    public LiveData<BloodTest> getBloodTestResult() {
+        return bloodTestResult;
+    }
+
+    public LiveData<MRI> getMRIAndRecordResult() {
+        return MRIResult;
+    }
+
+    public LiveData<RecordWithAll> getRecordWithAllByInsuranceNumber(String insuranceNumber){
+        return recordRepository.getRecordWithAllByInsuranceNumber(insuranceNumber);
+    }
+
+    public void setRecordWithAllByInsuranceNumber(RecordWithAll input){
+        recordWithAllByInsuranceNumber.setValue(input);
+    }
+
+    public LiveData<RecordWithAll> getRecordWithAllByInsuranceNumber() {
+        return recordWithAllByInsuranceNumber;
+    }
 }
