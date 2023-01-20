@@ -2,6 +2,7 @@ package com.example.krankenhaus.ui.service.labor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.pm.ActivityInfo;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.Environment;
@@ -53,6 +54,7 @@ public class LaborActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 
         binding = ActivityLaborBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

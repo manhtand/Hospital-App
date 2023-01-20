@@ -37,9 +37,6 @@ public class AdminPatientInfoFragment extends Fragment {
         super.onCreate(savedInstanceState);
         adminViewModel = new ViewModelProvider(requireActivity()).get(AdminViewModel.class);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Patient Information");
-
         adminViewModel.getPatient().observe(getActivity(), new Observer<Patient>() {
             @Override
             public void onChanged(Patient p) {
@@ -70,6 +67,9 @@ public class AdminPatientInfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Patient Information");
+
         binding = FragmentAdminPatientInfoBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
