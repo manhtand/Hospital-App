@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.krankenhaus.R;
 import com.example.krankenhaus.databinding.FragmentLaborResultBloodTestBinding;
 import com.example.krankenhaus.srccode.entities.BloodTest;
 import com.example.krankenhaus.srccode.entities.relations.BloodTestAndRecord;
@@ -27,6 +29,7 @@ public class LaborResultBloodTestFragment extends Fragment {
     private BloodTestAndRecord bloodTestAndRecord;
     private FragmentLaborResultBloodTestBinding binding;
     private BloodTest bloodTest;
+    private BloodTest randomBloodTest;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,17 +75,31 @@ public class LaborResultBloodTestFragment extends Fragment {
         laborViewModel.getBloodTestSource().size();
         Random random = new Random();
         int index = random.nextInt(laborViewModel.getBloodTestSource().size());
-        bloodTest = laborViewModel.getBloodTestSource().get(index);
-        bloodTest.setExecutionTimestamp(LocalDateTime.now());
+        randomBloodTest = laborViewModel.getBloodTestSource().get(index);
 
-        binding.leukocytesPerNanoliter.setText("Leukocytes Per NanoLiter: " + Double.toString(bloodTest.getLeukocytesPerNanoLiter()));
-        binding.lymphocytesLeukocytesRatio.setText("Lymphocytes / Leukocytes: " + Double.toString(bloodTest.getLymphocytesLeukocytesRatio()));
-        binding.lymphocytesInHundredPerNanoLiter.setText("Lymphocytes In Hundred Per Nanoliter: " + Double.toString(bloodTest.getLymphocytesInHundredPerNanoLiter()));
+        binding.leukocytesPerNanoliter.setText("Leukocytes Per NanoLiter: " + Double.toString(randomBloodTest.getLeukocytesPerNanoLiter()));
+        binding.lymphocytesLeukocytesRatio.setText("Lymphocytes / Leukocytes: " + Double.toString(randomBloodTest.getLymphocytesLeukocytesRatio()));
+        binding.lymphocytesInHundredPerNanoLiter.setText("Lymphocytes In Hundred Per Nanoliter: " + Double.toString(randomBloodTest.getLymphocytesInHundredPerNanoLiter()));
     }
 
     private void saveBloodTest() {
-        bloodTest.setId(bloodTest.getId());
-        bloodTest.setCreationTimestamp(bloodTest.getCreationTimestamp());
+        bloodTest.setExecutionTimestamp(LocalDateTime.now());
+        bloodTest.setLeukocytesPerNanoLiter(randomBloodTest.getLeukocytesPerNanoLiter());
+        bloodTest.setLymphocytesLeukocytesRatio(randomBloodTest.getLymphocytesLeukocytesRatio());
+        bloodTest.setLymphocytesInHundredPerNanoLiter(randomBloodTest.getLymphocytesInHundredPerNanoLiter());
+        bloodTest.setProcessingState(true);
         laborViewModel.updateBloodTest(bloodTest);
+        returnToBloodTestList();
+    }
+
+    private void returnToBloodTestList() {
+        if (getFragmentManager().getBackStackEntryCount() != 0) {
+            getFragmentManager().popBackStack();
+            getFragmentManager().popBackStack();
+        }
+        BloodTestListFragment bloodTestListFragment = new BloodTestListFragment();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.nav_host_fragment_activity_labor, bloodTestListFragment);
+        ft.commit();
     }
 }

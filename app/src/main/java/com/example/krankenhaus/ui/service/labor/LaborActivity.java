@@ -125,16 +125,15 @@ public class LaborActivity extends AppCompatActivity {
     private void readBloodTestCSV() {
         InputStream is = getResources().openRawResource(R.raw.bloodtest);
         BufferedReader reader = new BufferedReader(
-                new InputStreamReader(is, Charset.forName("UTF-8"))
+                new InputStreamReader(is)
         );
 
-        String line = "";
+        /*String line = "";
         while (true) {
             try {
                 if (((line = reader.readLine()) != null)) {
                     String[] tokens = line.split(";");
-
-                    BloodTest bloodTest = new BloodTest(-1, false, LocalDateTime.of(0001,01,1,0,0), -1, -1, -1);
+                    BloodTest bloodTest = new BloodTest(-1, false, LocalDateTime.of(1,1,1,1,1), -1, -1, -1);
                     bloodTest.setLeukocytesPerNanoLiter(Double.parseDouble(tokens[0]));
                     bloodTest.setLymphocytesLeukocytesRatio(Double.parseDouble(tokens[1]));
                     bloodTest.setLymphocytesInHundredPerNanoLiter(Double.parseDouble(tokens[2]));
@@ -144,7 +143,19 @@ public class LaborActivity extends AppCompatActivity {
                 Log.e(getAttributionTag(), "Error read line");
                 e.printStackTrace();
             }
-
+        }*/
+        try {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split(";");
+                BloodTest bloodTest = new BloodTest(-1, false, LocalDateTime.of(1,1,1,1,1), -1, -1, -1);
+                bloodTest.setLeukocytesPerNanoLiter(Double.parseDouble(tokens[0]));
+                bloodTest.setLymphocytesLeukocytesRatio(Double.parseDouble(tokens[1]));
+                bloodTest.setLymphocytesInHundredPerNanoLiter(Double.parseDouble(tokens[2]));
+                bloodTestSource.add(bloodTest);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
